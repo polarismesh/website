@@ -1,0 +1,14 @@
+<svg   width="128px"   height="128px"  viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>接入方便-48px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="接入方便-48px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="48" height="48"></rect>
+        <g id="Group" transform="translate(0.000000, 3.000000)">
+            <path d="M29,36 L29,34 L46,34 L46,2 L2,2 L2,34 L19,34 L19,36 L0,36 L0,0 L48,0 L48,36 L29,36 Z" id="Combined-Shape" fill="#334966" fill-rule="nonzero"></path>
+            <rect id="Rectangle-17-Copy" fill="#334966" x="12" y="40" width="24" height="2"></rect>
+            <path d="M17,27 C13.1340068,27 10,23.8659932 10,20 C10,16.1340068 13.1340068,13 17,13 C17.0965182,13 17.1925801,13.0019534 17.2881485,13.0058229 C18.1468327,10.1113422 20.8268511,8 24,8 C27.8659932,8 31,11.1340068 31,15 C31,15.0277177 30.9998389,15.0553978 30.9995176,15.0830394 C31.3248781,15.0284269 31.6591193,15 32,15 C35.3137085,15 38,17.6862915 38,21 C38,24.3137085 35.3137085,27 32,27 C31.6592878,27 31.3252085,26.9716012 31,26.9170416 L31,27 L17,27 Z" id="Combined-Shape-Copy" fill="#00A4FF"></path>
+            <path d="M23,19.2666667 L19.5,23 L18,21.4 L24,15 L30,21.4 L28.5,23 L25,19.2666667 L25,42 L23,42 L23,19.2666667 Z" id="Combined-Shape" fill="#334966"></path>
+        </g>
+    </g>
+</svg>
