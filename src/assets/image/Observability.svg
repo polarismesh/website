@@ -1,0 +1,17 @@
+<svg   width="128px"   height="128px"  viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>统一监控-48px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="统一监控-48px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="48" height="48"></rect>
+        <g id="Group" transform="translate(0.000000, 3.000000)">
+            <path d="M2,2 L2,34 L46,34 L46,2 L2,2 Z M0,0 L48,0 L48,36 L0,36 L0,0 Z" id="Rectangle-16" fill="#334966" fill-rule="nonzero"></path>
+            <rect id="Rectangle-17" fill="#334966" x="12" y="40" width="24" height="2"></rect>
+            <rect id="Rectangle-73" fill="#334966" x="20" y="34" width="2" height="8"></rect>
+            <rect id="Rectangle-73-Copy" fill="#334966" x="26" y="34" width="2" height="8"></rect>
+            <rect id="Rectangle-74" fill="#00A4FF" x="2" y="11" width="44" height="4"></rect>
+            <rect id="Rectangle-74-Copy" fill="#00A4FF" x="2" y="23" width="44" height="4"></rect>
+            <polygon id="Path-5" fill="#334966" fill-rule="nonzero" points="15.1965332 11.2012494 11.677033 20 1 20 1 18 10.322967 18 14.8034668 6.79875063 24.9704797 23.0659713 31.8549954 11.2639445 37.4683749 18 47 18 47 20 36.5316251 20 32.1450046 14.7360555 25.0295203 26.9340287"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<svg   width="128px"   height="128px"  viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>高并发支持-48px</title>
+    <desc>Created with Sketch.</desc>
+    <g id="高并发支持-48px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle-Copy" fill="#444444" opacity="0" x="0" y="0" width="48" height="48"></rect>
+        <g id="Group">
+            <path d="M24,46 C36.1502645,46 46,36.1502645 46,24 C46,11.8497355 36.1502645,2 24,2 C11.8497355,2 2,11.8497355 2,24 C2,36.1502645 11.8497355,46 24,46 Z M24,48 C10.745166,48 0,37.254834 0,24 C0,10.745166 10.745166,0 24,0 C37.254834,0 48,10.745166 48,24 C48,37.254834 37.254834,48 24,48 Z" id="Oval-7" fill="#334966" fill-rule="nonzero"></path>
+            <path d="M12,30 L24,24 L36,30 L24,36 L12,30 Z M24,33.763932 L31.527864,30 L24,26.236068 L16.472136,30 L24,33.763932 Z" id="Rectangle-40-Copy-2" fill="#334966" fill-rule="nonzero"></path>
+            <polygon id="Rectangle-40-Copy" fill="#00A4FF" points="12 24 24 18 36 24 24 30"></polygon>
+            <path d="M12,18 L24,12 L36,18 L24,24 L12,18 Z M24,21.763932 L31.527864,18 L24,14.236068 L16.472136,18 L24,21.763932 Z" id="Rectangle-40" fill="#334966" fill-rule="nonzero"></path>
+        </g>
+    </g>
+</svg>
