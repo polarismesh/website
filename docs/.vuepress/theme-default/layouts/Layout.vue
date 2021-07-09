@@ -5,10 +5,14 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
-    <div style="width: 70vw; min-width: 1000px; margin: auto; z-index: 30;padding:0 15vw">
+    <div class="wrap-container navbar-skeleton">
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
-      <DocMainLayout v-if="showLayoutType === 'doc'"></DocMainLayout>
-      <NewsMainLayout v-else-if="showLayoutType === 'news'"></NewsMainLayout>
+    </div>
+    <div class="wrap-container">
+      <div style="margin: auto; z-index: 30">
+        <DocMainLayout v-if="showLayoutType === 'doc'"></DocMainLayout>
+        <NewsMainLayout v-else-if="showLayoutType === 'news'"></NewsMainLayout>
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +40,7 @@ export default {
   data() {
     return {
       isSidebarOpen: false,
-      showLayoutType:''
+      showLayoutType: "",
     };
   },
 
@@ -55,7 +59,6 @@ export default {
         this.$themeLocaleConfig.nav
       );
     },
-
 
     shouldShowSidebar() {
       const { frontmatter } = this.$page;
@@ -92,13 +95,15 @@ export default {
     this.$router.afterEach(() => {
       this.isSidebarOpen = false;
     });
-    this.showLayoutType = window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
+    this.showLayoutType =
+      window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
   },
 
-  watch:{
-    $route(to,from){
-      this.showLayoutType = window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
-    }
+  watch: {
+    $route(to, from) {
+      this.showLayoutType =
+        window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
+    },
   },
 
   methods: {
@@ -137,5 +142,14 @@ export default {
   font-size: 40px;
   color: #fff;
   height: 11.5vw;
+}
+.wrap-container {
+  width: 100vw;
+  padding: 0 15vw;
+}
+@media screen and (max-width: 1000px) {
+  .wrap-container {
+    padding: 0 2.5vw;
+  }
 }
 </style>

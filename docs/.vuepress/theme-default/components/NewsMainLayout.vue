@@ -1,11 +1,8 @@
 <template>
   <div>
-    <HomeSkeleton banner-src="/vuepress-image/news.png"></HomeSkeleton>
-
-    <div class="doc-img-text">文档</div>
     <div class="news-container">
       <b-row>
-        <b-col cols="7">
+        <b-col xl="7" lg="7" md="12" cols="12">
           <b-carousel
             id="news-carousel"
             v-model="carouselSlide"
@@ -18,16 +15,21 @@
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
           >
-            <b-carousel-slide img-src="/vuepress-image/new-example.png"></b-carousel-slide>
+            <b-carousel-slide
+              img-src="/vuepress-image/new-example.png"
+            ></b-carousel-slide>
           </b-carousel>
         </b-col>
-        <b-col cols="5">
+        <b-col xl="5" lg="5" md="12" cols="12">
           <div class="news-topic">
             <div class="news-topic-decoration-a"></div>
             <div class="news-topic-decoration-b"></div>
-            <span style="margin-left:6px;">精选</span>
+            <span class="news-topic-text">精选</span>
           </div>
-          <NewsSidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar"></NewsSidebar>
+          <NewsSidebar
+            :items="sidebarItems"
+            @toggle-sidebar="toggleSidebar"
+          ></NewsSidebar>
         </b-col>
 
         <Page :sidebar-items="sidebarItems"></Page>
@@ -126,7 +128,7 @@ export default {
   },
 };
 </script>
-<style lang="stylus">
+<style>
 .news-topic {
   width: 100%;
 }
@@ -135,7 +137,8 @@ export default {
   margin-top: 40px;
 }
 
-.news-topic-decoration-a, .news-topic-decoration-b {
+.news-topic-decoration-a,
+.news-topic-decoration-b {
   width: 15px;
   height: 15px;
   transform: rotate(-45deg);
@@ -144,11 +147,30 @@ export default {
 }
 
 .news-topic-decoration-a {
-  background-color: #014FDB;
+  background-color: #014fdb;
 }
 
 .news-topic-decoration-b {
   background-color: rgba(150, 197, 255, 0.5);
   margin-left: -10px;
+}
+.news-topic-text {
+  margin-left: 6px;
+}
+@media screen and (max-width: 1000px) {
+  .news-topic-decoration-a {
+    display: none;
+  }
+
+  .news-topic-decoration-b {
+    display: none;
+  }
+  .news-topic-text {
+    display: block;
+    font-size: 36px;
+    width: 100%;
+    padding-left: 1.5rem;
+    font-weight: 600;
+  }
 }
 </style>

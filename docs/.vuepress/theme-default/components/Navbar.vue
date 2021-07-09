@@ -8,13 +8,30 @@
         style="width: 121px"
       />
     </b-navbar-brand>
+    <b-navbar-toggle
+      target="nav-collapse"
+      class="navbar-toggle-btn"
+    ></b-navbar-toggle>
+
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item href="/" class="navlink">首页</b-nav-item>
-        <b-nav-item to="/doc/" :class="showLayoutType === 'doc' ? 'navlink active':'navlink'">文档</b-nav-item>
-        <b-nav-item to="/news/" :class="showLayoutType === 'news' ? 'navlink active':'navlink'">新闻</b-nav-item>
-        <b-nav-item href="https://github.com/PolarisMesh" class="navlink">Github</b-nav-item>
-        <b-nav-item href="http://159.75.195.18/" class="navlink">体验版</b-nav-item>
+        <b-nav-item
+          to="/doc/"
+          :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
+          >文档</b-nav-item
+        >
+        <b-nav-item
+          to="/news/"
+          :class="showLayoutType === 'news' ? 'navlink active' : 'navlink'"
+          >新闻</b-nav-item
+        >
+        <b-nav-item href="https://github.com/PolarisMesh" class="navlink"
+          >Github</b-nav-item
+        >
+        <b-nav-item href="http://159.75.195.18/" class="navlink"
+          >体验版</b-nav-item
+        >
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -40,13 +57,14 @@ export default {
   data() {
     return {
       linksWrapMaxWidth: null,
-      showLayoutType: ''
+      showLayoutType: "",
     };
   },
-  watch:{
-    $route(to,from){
-      this.showLayoutType = window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
-    }
+  watch: {
+    $route(to, from) {
+      this.showLayoutType =
+        window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
+    },
   },
   mounted() {
     const MOBILE_DESKTOP_BREAKPOINT = 719; // refer to config.styl
@@ -65,7 +83,8 @@ export default {
     };
     handleLinksWrapWidth();
     window.addEventListener("resize", handleLinksWrapWidth, false);
-    this.showLayoutType = window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
+    this.showLayoutType =
+      window.location.pathname.indexOf("/doc/") >= 0 ? "doc" : "news";
   },
 };
 

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <HomeSkeleton banner-src="/vuepress-image/doc.png"></HomeSkeleton>
-    <div class="doc-img-text">文档</div>
     <b-row>
       <b-col cols="3">
         <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
