@@ -155,7 +155,7 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">一站式服务治理平台</h5>
+                  <h5 class="mt-0">一站式服务治理中心</h5>
                   <p>
                     集服务注册中心、服务治理控制面于一体，具备服务注册发现、流量控制、服务熔断、服务限流、访问鉴权和服务调用监控等一系列功能
                   </p>
@@ -177,7 +177,7 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>一站式服务治理平台</span>
+                  <span>一站式服务治理中心</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
@@ -210,9 +210,9 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">支持多开发语言</h5>
+                  <h5 class="mt-0">支持多种开发语言</h5>
                   <p>
-                    提供Java、Go、C++和NodeJS等多语言的轻量级的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理
+                    提供Java、Go和C++等多种语言的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理
                   </p>
                 </b-media>
               </b-col>
@@ -232,11 +232,11 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>支持多开发语言</span>
+                  <span> 支持多种开发语言</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >提供Java、Go、C++和NodeJS等多语言的轻量级的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理</span
+                    >提供Java、Go和C++等多种语言的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理</span
                   >
                 </b-col>
               </b-row>
@@ -267,10 +267,10 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">支持多开发框架</h5>
+                  <h5 class="mt-0">兼容主流开发框架</h5>
                   <p>
-                    北极星服务治理SDK可以轻松地集成到主流的开发框架，例如：grpc-go、grpc-java和spring
-                    cloud等，为不同的开发框架提供完善的服务治理功能
+                    北极星的服务治理SDK可以集成到gRPC和Spring
+                    Cloud等主流框架，为不同的框架提供完善的服务治理功能，用户不感知，接入成本低
                   </p>
                 </b-media>
               </b-col>
@@ -290,12 +290,12 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>支持多开发框架</span>
+                  <span>兼容主流开发框架</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span>
-                    北极星服务治理SDK可以轻松地集成到主流的开发框架，例如：grpc-go、grpc-java和spring
-                    cloud等，为不同的开发框架提供完善的服务治理功能
+                    北极星的服务治理SDK可以集成到gRPC和Spring
+                    Cloud等主流框架，为不同的框架提供完善的服务治理功能，用户不感知，接入成本低
                   </span>
                 </b-col>
               </b-row>
@@ -383,9 +383,9 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">服务网格</h5>
+                  <h5 class="mt-0">支持服务网格</h5>
                   <p>
-                    北极星也是一种服务网格解决方案，兼容xds协议和envoy接入，支持跨k8s集群的服务网格的统一管理，支持基于框架和网格开发的服务互相访问
+                    北极星的服务网格兼容xds协议和envoy接入，支持跨k8s集群的服务网格节点的统一管理，支持采用SDK和服务网格开发的服务互相访问
                   </p>
                 </b-media>
               </b-col>
@@ -405,11 +405,11 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>服务网格</span>
+                  <span>支持服务网格</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >北极星也是一种服务网格解决方案，兼容xds协议和envoy接入，支持跨k8s集群的服务网格的统一管理，支持基于框架和网格开发的服务互相访问</span
+                    >北极星的服务网格兼容xds协议和envoy接入，支持跨k8s集群的服务网格节点的统一管理，支持采用SDK和服务网格开发的服务互相访问</span
                   >
                 </b-col>
               </b-row>
@@ -440,7 +440,7 @@
 
                   <h5 class="mt-0">大规模生产应用</h5>
                   <p>
-                    腾讯内部服务治理平台的开源版本，积累腾讯10年分布式服务治理经验。服务端计算存储分离，轻松支持百万级服务治理。支持多地多中心部署，保障现网业务稳定运行
+                    腾讯服务治理平台的开源版本，为腾讯数百万服务提供标准化的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验
                   </p>
                 </b-media>
               </b-col>
@@ -464,7 +464,7 @@
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >腾讯内部服务治理平台的开源版本，积累腾讯10年分布式服务治理经验。服务端计算存储分离，轻松支持百万级服务治理。支持多地多中心部署，保障现网业务稳定运行</span
+                    >腾讯服务治理平台的开源版本，为腾讯数百万服务提供标准化的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验</span
                   >
                 </b-col>
               </b-row>

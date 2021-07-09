@@ -1,3 +1,7 @@
 /.DS_Store
 /mainsite
 /node_modules
+/.vuepress/dist
+/.vuepress/vuepress
+/dist
+/vuepress
