@@ -22,7 +22,7 @@ export default {
   height: 11.5vw;
 }
 .navbar-skeleton {
-  height: 60px;
+  height: 56px;
   background-color: #030213;
 }
 </style>

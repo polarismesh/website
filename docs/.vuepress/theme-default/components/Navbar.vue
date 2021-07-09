@@ -17,14 +17,14 @@
       <b-navbar-nav class="ml-auto">
         <b-nav-item href="/" class="navlink">首页</b-nav-item>
         <b-nav-item
-          to="/doc/"
-          :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
-          >文档</b-nav-item
-        >
-        <b-nav-item
           to="/news/"
           :class="showLayoutType === 'news' ? 'navlink active' : 'navlink'"
           >新闻</b-nav-item
+        >
+        <b-nav-item
+          to="/doc/"
+          :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
+          >文档</b-nav-item
         >
         <b-nav-item href="https://github.com/PolarisMesh" class="navlink"
           >Github</b-nav-item
@@ -100,7 +100,9 @@ function css(el, property) {
 .navlink {
   margin: 0px 1vw;
 }
-
+.navbar{
+  height 56px
+}
 .router-link-active.nav-link {
   color: #0d6efd !important;
 }
