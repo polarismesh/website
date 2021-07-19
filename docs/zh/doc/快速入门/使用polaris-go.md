@@ -19,6 +19,7 @@ Polaris-go是以源码的方式提供集成，需要配置go mod环境进行依�
 
 可以在polaris-go的[release note]()上获取到Polaris的所有版本以及相关介绍。推荐使用最新的稳定版本。
 在应用go.mod文件中，引入polaris.go依赖。
+
 ```
 github.com/polarismesh/polaris-go $version
 ```
@@ -36,13 +37,15 @@ global:
 ### 服务注册与心跳上报
 
 1. 创建ProviderAPI
-	ProviderAPI的所有方法都是线程安全的，所以一个进程创建一个ProviderAPI来使用就足够了
+	ProviderAPI的所有方法都是线程安全的，所以一个进程创建一个ProviderAPI来使用就足够了，最后进程退出前要调用一下Destroy()方法
 	
 	```go
 	provider, err := api.NewProviderAPI()
 	if nil != err {
 		log.Fatal(err)
 	}
+	//before process exits
+	provider.Destroy()
 	```
 2. 执行服务注册
 	```go
@@ -79,9 +82,15 @@ global:
 ### 服务发现
 
 1. 创建ConsumerAPI
-	ConsumerAPI的所有方法都是线程安全的，所以一个进程创建一个ConsumerAPI来使用就足够了
+	ConsumerAPI的所有方法都是线程安全的，所以一个进程创建一个ConsumerAPI来使用就足够了，最后进程退出前要调用一下Destroy()方法
+	
 	```go
 	consumer, err := api.NewConsumerAPI()
+	if nil != err {
+		log.Fatal(err)
+	}
+	//before process exits
+	consumer.Destroy()
 	```
 2. 拉取所有的服务实例
 	```go
@@ -135,12 +144,13 @@ global:
 
 3. 添加路由规则
 	路由规则中声明，带有灰度标签(grey=true)的请求，路由到version 2.0的实例分组，否则路由到version 1.0的实例分组，规则文本如下：
+	
 	```json
 	[
 		{
 			"service":"dummyGrey",
 			"namespace":"Test",
-			"inbounds":[
+   		"inbounds":[
               {
                 "sources": [
                   {
@@ -190,7 +200,7 @@ global:
                   }
                 ]
               }
-            ],
+	         ],
 			"outbounds":[]
 		}
 	]
@@ -344,11 +354,15 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
 
 2. 创建RateLimitAPI
 
+   RateLimitAPI的所有方法都是线程安全的，所以一个进程创建一个RateLimitAPI来使用就足够了，最后进程退出前要调用一下Destroy()方法
+
    ```go
    limitAPI, err := api.NewLimitAPI()
    if nil != err {
    	log.Fatal(err)
    }
+   //before process exits
+   limitAPI.Destroy()
    ```
 
 3. 针对/path1获取配额
