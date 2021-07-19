@@ -32,7 +32,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.tencent.nameservice</groupId>
+                <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <!--版本号需修改成实际依赖的版本号-->
                 <version>${version}</version>
