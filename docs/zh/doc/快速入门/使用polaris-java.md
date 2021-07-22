@@ -46,7 +46,38 @@ global:
     - 127.0.0.1:8091
 ```
 
-### 服务注册与心跳上报
+### 依赖管理
+
+#### 使用全量功能
+   ```xml
+   <dependency>
+       <groupId>com.tencent.nameservice</groupId>
+       <artifactId>polaris-factory</artifactId>
+   </dependency>
+   ```
+#### 仅服务注册服务发现
+   ```xml
+   <dependency>
+       <groupId>com.tencent.nameservice</groupId>
+       <artifactId>polaris-discovery-factory</artifactId>
+   </dependency>
+   ```
+#### 仅使用服务熔断
+   ```xml
+   <dependency>
+       <groupId>com.tencent.nameservice</groupId>
+       <artifactId>polaris-circuitbreaker-factory</artifactId>
+   </dependency>
+   ```
+#### 仅使用服务限流
+   ```xml
+   <dependency>
+       <groupId>com.tencent.nameservice</groupId>
+       <artifactId>polaris-ratelimit-factory</artifactId>
+   </dependency>
+   ```   
+
+#### 服务注册与心跳上报
 
 1. 添加依赖
 
