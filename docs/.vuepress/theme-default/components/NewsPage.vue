@@ -1,9 +1,6 @@
 <template>
-  <main class="page">
+  <main class="page news-page">
     <Content class="theme-default-content" />
-    <PageEdit />
-
-    <PageNav v-bind="{ sidebarItems }" />
   </main>
 </template>
 
@@ -23,5 +20,17 @@ export default {
 .page {
   padding-bottom: 2rem;
   display: block;
+}
+
+.news-page {
+  .theme-default-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+.news-back {
+  background: url('/vuepress-image/news.png');
+  height: 12vw;
+  background-size: cover;
 }
 </style>

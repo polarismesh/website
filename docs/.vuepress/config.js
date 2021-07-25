@@ -3,6 +3,15 @@ const sidebar = {
   "/zh/doc/": [
     "",
     {
+      title: "北极星是什么",
+      collapsable: false,
+      children: [
+        "北极星是什么/简介",
+        "北极星是什么/概念",
+        "北极星是什么/对比其他组件",
+      ],
+    },
+    {
       title: "快速入门",
       collapsable: false,
       children: [
@@ -15,15 +24,7 @@ const sidebar = {
         "快速入门/使用spring cloud",
       ],
     },
-    {
-      title: "北极星是什么",
-      collapsable: false,
-      children: [
-        "北极星是什么/简介",
-        "北极星是什么/概念",
-        "北极星是什么/对比其他组件",
-      ],
-    },
+
     {
       title: "接口文档",
       collapsable: false,
@@ -126,6 +127,14 @@ module.exports = {
         integrity:
           "sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm",
         crossorigin: "anonymous",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/vuepress-image/favicon.ico",
       },
     ],
   ],

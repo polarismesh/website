@@ -1,6 +1,7 @@
 <template>
   <div>
     <TopNavbar></TopNavbar>
+    <img style="display: none" src="../assets/image/favicon.png" />
     <div class="navbar-bone"></div>
     <div class="wrap-container banner-background">
       <b-row align-v="center" style="padding: 5vw 0">

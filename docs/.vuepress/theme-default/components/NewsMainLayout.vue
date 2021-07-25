@@ -2,37 +2,9 @@
   <div>
     <div class="news-container">
       <b-row>
-        <b-col xl="7" lg="7" md="12" cols="12">
-          <b-carousel
-            id="news-carousel"
-            v-model="carouselSlide"
-            :interval="4000"
-            indicators
-            background="#ababab"
-            img-width="38vw"
-            img-height="19vw"
-            style="text-shadow: 1px 1px 2px #333"
-            @sliding-start="onSlideStart"
-            @sliding-end="onSlideEnd"
-          >
-            <b-carousel-slide
-              img-src="/vuepress-image/new-example.png"
-            ></b-carousel-slide>
-          </b-carousel>
+        <b-col cols="12" align-self="center">
+          <Page :sidebar-items="sidebarItems"></Page>
         </b-col>
-        <b-col xl="5" lg="5" md="12" cols="12">
-          <div class="news-topic">
-            <div class="news-topic-decoration-a"></div>
-            <div class="news-topic-decoration-b"></div>
-            <span class="news-topic-text">精选</span>
-          </div>
-          <NewsSidebar
-            :items="sidebarItems"
-            @toggle-sidebar="toggleSidebar"
-          ></NewsSidebar>
-        </b-col>
-
-        <Page :sidebar-items="sidebarItems"></Page>
       </b-row>
     </div>
   </div>

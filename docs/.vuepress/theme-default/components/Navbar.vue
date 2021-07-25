@@ -5,13 +5,10 @@
         src="/vuepress-image/logo-polaris.png"
         class="d-inline-block align-top"
         alt="Polaris"
-        style="width: 121px"
+        style="height: 30px"
       />
     </b-navbar-brand>
-    <b-navbar-toggle
-      target="nav-collapse"
-      class="navbar-toggle-btn"
-    ></b-navbar-toggle>
+    <b-navbar-toggle target="nav-collapse" class="navbar-toggle-btn"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
@@ -19,19 +16,13 @@
         <b-nav-item
           :to="`/${language}/news/`"
           :class="showLayoutType === 'news' ? 'navlink active' : 'navlink'"
-          >新闻</b-nav-item
-        >
+        >新闻</b-nav-item>
         <b-nav-item
           :to="`/${language}/doc/`"
           :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
-          >文档</b-nav-item
-        >
-        <b-nav-item href="https://github.com/PolarisMesh" class="navlink"
-          >Github</b-nav-item
-        >
-        <b-nav-item href="http://159.75.195.18/" class="navlink"
-          >体验版</b-nav-item
-        >
+        >文档</b-nav-item>
+        <b-nav-item href="https://github.com/PolarisMesh" target="_blank" class="navlink">Github</b-nav-item>
+        <b-nav-item href="http://159.75.195.18/" target="_blank" class="navlink">体验版</b-nav-item>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

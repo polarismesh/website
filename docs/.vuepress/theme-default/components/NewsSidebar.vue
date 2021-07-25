@@ -1,9 +1,15 @@
 <template>
-  <div class="news-sidebar-wrapper">
+  <div class="sidebar-wrapper">
+    <div class>
+      <SearchBox aria-placeholder="请输入关键词" />
+    </div>
     <aside class="sidebar">
       <NavLinks />
 
-      <SidebarLinks :depth="0" :items="constraintItem" />
+      <slot name="top" />
+
+      <SidebarLinks :depth="0" :items="items" />
+      <slot name="bottom" />
     </aside>
   </div>
 </template>
