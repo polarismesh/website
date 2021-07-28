@@ -62,7 +62,7 @@ g++ -I./polaris_cpp_sdk/include main.cpp -L./polaris_cpp_sdk/dlib -lpolaris_api 
 
 ### 配置服务端地址
 
-在应用当前运行目录下，添加polaris.yml文件，配置服务端地址信息
+在应用当前运行目录下，添加polaris.yaml文件，配置服务端地址信息
 ```yml
 global:
   serverConnector:
