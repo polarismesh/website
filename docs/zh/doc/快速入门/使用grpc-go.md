@@ -10,7 +10,6 @@
 * **服务路由与负载均衡**：基于 grpc balancer 和 polaris 提供场景更丰富的动态路由以及负载均衡的能力
 * **故障节点熔断**：提供故障节点的熔断剔除以及主/被动探测恢复的能力，保证分布式服务的可靠性
 * **服务限流**：基于 grpc interceptor 支持被调用服务的限流功能，保证后台微服务稳定性
-
 ## 环境准备
 
 ### 准备polaris后台环境
@@ -258,10 +257,8 @@ Polaris提供了服务路由配置和元数据配置。其中服务路由配置�
 ```
 xxx is rejected by polaris rate limiter, please retry later.
 ```
-
 ## 相关链接
 
 [Polaris](https://github.com/polarismesh)
 
 [Polaris Go](https://github.com/polarismesh/polaris-go)
-
