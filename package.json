@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "markdown-it-disable-url-encode": "^1.0.1",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^9.1.2",

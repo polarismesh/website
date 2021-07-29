@@ -1,13 +1,12 @@
 const path = require("path");
 const sidebar = {
   "/zh/doc/": [
-    "",
     {
       title: "北极星是什么",
       collapsable: false,
       children: [
         "北极星是什么/简介",
-        "北极星是什么/概念",
+        "北极星是什么/架构原理",
         "北极星是什么/对比其他组件",
       ],
     },
@@ -16,28 +15,23 @@ const sidebar = {
       collapsable: false,
       children: [
         "快速入门/安装服务端",
+        "快速入门/使用polaris-java",
+        "快速入门/使用polaris-go",
+        "快速入门/使用polaris-cpp",
+        "快速入门/使用spring cloud",
         "快速入门/使用grpc-go",
         "快速入门/使用k8s和服务网格",
-        "快速入门/使用polaris-cpp",
-        "快速入门/使用polaris-go",
-        "快速入门/使用polaris-java",
-        "快速入门/使用spring cloud",
       ],
     },
-
     {
       title: "接口文档",
       collapsable: false,
-      children: ["接口文档/服务端接口", "接口文档/客户端接口"],
+      children: ["接口文档/客户端接口"],
     },
     {
       title: "使用指南",
       collapsable: false,
-      children: [
-        "使用指南/服务熔断",
-        "使用指南/服务限流",
-        "使用指南/路由和负载均衡",
-      ],
+      children: ["使用指南/动态路由"],
     },
     {
       title: "用户案例",
@@ -143,6 +137,11 @@ module.exports = {
       alias: {
         "@assets": "../../src/assets",
       },
+    },
+  },
+  markdown: {
+    extendMarkdown: (md) => {
+      md.use(require("markdown-it-disable-url-encode"));
     },
   },
 };
