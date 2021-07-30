@@ -2,7 +2,7 @@
 
 ## k8s service
 
-![北极星和k8s](./图片/北极星和k8s/北极星和k8s.png)
+![k8s-service](./图片/北极星和k8s/k8s-service.png)
 
 k8s 通过 service 提供服务发现和负载均衡功能：
 
@@ -18,6 +18,8 @@ k8s service 当前的实现存在不足之处：
 - 不兼容 spring cloud 等微服务框架的服务注册和发现方式，无法打通
 
 ## 在k8s上使用北极星
+
+![k8s-polaris](./图片/北极星和k8s/k8s-polaris.png)
 
 使用北极星补充 k8s 的服务发现和治理功能：
 
