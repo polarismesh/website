@@ -1,8 +1,4 @@
-# 使用 Spring Cloud
-
-[toc]
-
---
+# 使用Spring Cloud
 
 本文主要面向Spring Cloud微服务架构项目的开发者，介绍如何使用```spring-cloud-tencent```以帮助开发者在其软件工程项目中快速接入Polaris，以使用其功能，包括服务注册与发现、服务路由与负载均衡、故障节点熔断和服务限流。其中，每个功能对应的子模块可以独立使用。
 
