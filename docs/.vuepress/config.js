@@ -7,6 +7,7 @@ const sidebar = {
       children: [
         "北极星是什么/简介",
         "北极星是什么/架构原理",
+        "北极星是什么/北极星和k8s",
         "北极星是什么/对比其他组件",
       ],
     },
@@ -139,6 +140,7 @@ module.exports = {
       },
     },
   },
+  title: "文档",
   markdown: {
     extendMarkdown: (md) => {
       md.use(require("markdown-it-disable-url-encode"));

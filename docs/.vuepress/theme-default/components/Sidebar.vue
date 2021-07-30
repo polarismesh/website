@@ -38,8 +38,7 @@ export default {
       border-radius: 0;
     }
   }
-  position: sticky;
-  top: 70px;
+
   margin: 70px 0px;
 }
 
