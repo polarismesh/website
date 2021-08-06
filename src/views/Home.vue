@@ -12,9 +12,11 @@
             lead
             style="background-color: transparent; color: #fff"
           >
-            <p>一个支持多种开发语言和常用开发框架的服务发现和治理中心</p>
+            <p style="margin-bottom: 0px">
+              一个支持多语言、多框架的云原生服务发现和治理中心
+            </p>
             <p>提供高性能SDK和无侵入Sidecar两种接入方式</p>
-            <div class="banner-button-group">
+            <div class="banner-button-group" style="margin-top: 2rem">
               <b-button
                 variant="primary"
                 href="zh/doc/北极星是什么/简介.html#简介"

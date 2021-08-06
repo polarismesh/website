@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import PageEdit from '@theme/components/PageEdit.vue'
-import PageNav from '@theme/components/PageNav.vue'
+import PageEdit from "@theme/components/PageEdit.vue";
+import PageNav from "@theme/components/PageNav.vue";
 
 export default {
   components: { PageEdit, PageNav },
-  props: ['sidebarItems']
-}
+  props: ["sidebarItems"],
+};
 </script>
 
 <style lang="stylus">
@@ -25,7 +25,11 @@ export default {
 .news-page {
   .theme-default-content {
     padding: 2rem 1.5rem;
+    h1 {
+      padding-top: 1rem;
+    }
   }
+
 }
 
 .news-back {
