@@ -1,6 +1,7 @@
 <template>
   <div>
     <TopNavbar></TopNavbar>
+    <img style="display: none" src="../assets/image/favicon.png" />
     <div class="navbar-bone"></div>
     <div class="wrap-container banner-background">
       <b-row align-v="center" style="padding: 5vw 0">
@@ -11,17 +12,14 @@
             lead
             style="background-color: transparent; color: #fff"
           >
-            <p>一个支持多种开发语言、兼容主流开发框架的服务治理中心</p>
-            <p>
-              提供嵌入式和非嵌入式两种使用方式，嵌入式使用服务治理SDK，非嵌入式使用流量代理Sidecar
+            <p style="margin-bottom: 0px">
+              一个支持多语言、多框架的云原生服务发现和治理中心
             </p>
-            <div class="banner-button-group">
-              <b-button variant="primary" href="#" class="banner-button"
-                >快速入门</b-button
-              >
+            <p>提供高性能SDK和无侵入Sidecar两种接入方式</p>
+            <div class="banner-button-group" style="margin-top: 2rem">
               <b-button
-                variant="outline-primary"
-                href="/doc"
+                variant="primary"
+                href="zh/doc/北极星是什么/简介.html#简介"
                 class="banner-button"
                 >文档</b-button
               >
@@ -29,6 +27,7 @@
                 variant="outline-primary"
                 href="https://github.com/PolarisMesh"
                 class="banner-button"
+                target="_blank"
                 >Github</b-button
               >
             </div>
@@ -74,7 +73,7 @@
             </b-col>
             <b-col cols="12" class="function-text-desc">
               <span
-                >根据请求标签、实例标签和标签匹配规则，对线上流量进行动态调度，可以用于测试环境路由、金丝雀发布、A/B测试等多种场景</span
+                >根据请求标签、实例标签和标签匹配规则，对线上流量进行动态调度，可以应用于按地域就近、单元化隔离和金丝雀发布等多种场景</span
               >
             </b-col>
           </b-row>
@@ -88,7 +87,7 @@
               />
             </b-col>
             <b-col cols="12" class="function-text-title">
-              <span>服务熔断和限流</span>
+              <span>熔断降级和限流</span>
             </b-col>
             <b-col cols="12" class="function-text-desc">
               <span
@@ -157,7 +156,7 @@
 
                   <h5 class="mt-0">一站式服务治理中心</h5>
                   <p>
-                    集服务注册中心、服务治理控制面于一体，具备服务注册发现、流量控制、服务熔断、服务限流、访问鉴权和服务调用监控等一系列功能
+                    集服务注册中心和服务治理控制面于一体，帮助业务解决分布式或者微服务架构面临的注册发现、故障容错、流量控制和安全问题
                   </p>
                 </b-media>
               </b-col>
@@ -181,7 +180,7 @@
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >集服务注册中心、服务治理控制面于一体，具备服务注册发现、流量控制、服务熔断、服务限流、访问鉴权和服务调用监控等一系列功能</span
+                    >集服务注册中心和服务治理控制面于一体，帮助业务解决分布式或者微服务架构面临的注册发现、故障容错、流量控制和安全问题</span
                   >
                 </b-col>
               </b-row>
@@ -212,7 +211,7 @@
 
                   <h5 class="mt-0">支持多种开发语言</h5>
                   <p>
-                    提供Java、Go和C++等多种语言的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理
+                    提供Java、Go和C++等多种高性能、功能语义相同的SDK，可以轻松集成到不同的技术栈，帮助企业实现统一的服务发现和治理
                   </p>
                 </b-media>
               </b-col>
@@ -232,11 +231,11 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span> 支持多种开发语言</span>
+                  <span>支持多种开发语言</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >提供Java、Go和C++等多种语言的SDK，可以轻松地集成到不同的技术栈，实现语义相同的服务治理功能，帮助企业实现统一的服务治理</span
+                    >提供Java、Go和C++等多种高性能、功能语义相同的SDK，可以轻松集成到不同的技术栈，帮助企业实现统一的服务发现和治理</span
                   >
                 </b-col>
               </b-row>
@@ -267,10 +266,10 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">兼容主流开发框架</h5>
+                  <h5 class="mt-0">支持常用开发框架</h5>
                   <p>
-                    北极星的服务治理SDK可以集成到gRPC和Spring
-                    Cloud等主流框架，为不同的框架提供完善的服务治理功能，用户不感知，接入成本低
+                    北极星服务治理SDK可以集成到gRPC和Spring
+                    Cloud等开发框架中，帮助框架完善服务治理功能。框架用户不感知，接入成本低
                   </p>
                 </b-media>
               </b-col>
@@ -290,12 +289,12 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>兼容主流开发框架</span>
+                  <span>支持常用开发框架</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span>
-                    北极星的服务治理SDK可以集成到gRPC和Spring
-                    Cloud等主流框架，为不同的框架提供完善的服务治理功能，用户不感知，接入成本低
+                    北极星服务治理SDK可以集成到gRPC和Spring
+                    Cloud等开发框架中，帮助框架完善服务治理功能。框架用户不感知，接入成本低
                   </span>
                 </b-col>
               </b-row>
@@ -327,7 +326,7 @@
                   <h5 class="mt-0">支持Kubernetes</h5>
                   <p>
                     提供原生的k8s polaris-controller，支持k8s
-                    service的自动接入，帮助k8s实现跨集群、跨地域、跨云的服务发现和治理
+                    service自动注入，帮助k8s无缝兼容微服务框架体系，实现跨集群的服务发现和治理
                   </p>
                 </b-media>
               </b-col>
@@ -352,7 +351,7 @@
                 <b-col cols="12" class="function-text-desc">
                   <span>
                     提供原生的k8s polaris-controller，支持k8s
-                    service的自动接入，帮助k8s实现跨集群、跨地域、跨云的服务发现和治理
+                    service自动注入，帮助k8s无缝兼容微服务框架体系，实现跨集群的服务发现和治理
                   </span>
                 </b-col>
               </b-row>
@@ -383,9 +382,9 @@
                     />
                   </template>
 
-                  <h5 class="mt-0">支持服务网格</h5>
+                  <h5 class="mt-0">服务网格</h5>
                   <p>
-                    北极星的服务网格兼容xds协议和envoy接入，支持跨k8s集群的服务网格节点的统一管理，支持采用SDK和服务网格开发的服务互相访问
+                    提供高性能SDK和无侵入Sidecar两种接入方式，采用SDK和Sidecar的服务可以互相访问，功能语义相同，适用于不同的业务场景
                   </p>
                 </b-media>
               </b-col>
@@ -405,11 +404,11 @@
                   />
                 </b-col>
                 <b-col cols="12" class="function-text-title">
-                  <span>支持服务网格</span>
+                  <span>服务网格</span>
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >北极星的服务网格兼容xds协议和envoy接入，支持跨k8s集群的服务网格节点的统一管理，支持采用SDK和服务网格开发的服务互相访问</span
+                    >提供高性能SDK和无侵入Sidecar两种接入方式，采用SDK和Sidecar的服务可以互相访问，功能语义相同，适用于不同的业务场景</span
                   >
                 </b-col>
               </b-row>
@@ -440,7 +439,7 @@
 
                   <h5 class="mt-0">大规模生产应用</h5>
                   <p>
-                    腾讯服务治理平台的开源版本，为腾讯数百万服务提供标准化的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验
+                    腾讯服务治理中心的开源版本，为腾讯百万服务提供标准的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验
                   </p>
                 </b-media>
               </b-col>
@@ -464,7 +463,7 @@
                 </b-col>
                 <b-col cols="12" class="function-text-desc">
                   <span
-                    >腾讯服务治理平台的开源版本，为腾讯数百万服务提供标准化的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验</span
+                    >腾讯服务治理中心的开源版本，为腾讯百万服务提供标准的服务治理功能，沉淀了腾讯从虚拟机到容器时代的分布式服务治理经验</span
                   >
                 </b-col>
               </b-row>
@@ -523,7 +522,7 @@
       </b-row>
     </div>
     <div class="footer">
-      @ 2021 The Polaris Authors | A Tencent Microservice Project
+      @ 2021 The PolarisMesh Authors | A Tencent Microservice Project
     </div>
   </div>
 </template>

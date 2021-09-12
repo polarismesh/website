@@ -1,20 +1,17 @@
 <template>
-  <main class="page">
+  <main class="page news-page">
     <Content class="theme-default-content" />
-    <PageEdit />
-
-    <PageNav v-bind="{ sidebarItems }" />
   </main>
 </template>
 
 <script>
-import PageEdit from '@theme/components/PageEdit.vue'
-import PageNav from '@theme/components/PageNav.vue'
+import PageEdit from "@theme/components/PageEdit.vue";
+import PageNav from "@theme/components/PageNav.vue";
 
 export default {
   components: { PageEdit, PageNav },
-  props: ['sidebarItems']
-}
+  props: ["sidebarItems"],
+};
 </script>
 
 <style lang="stylus">
@@ -23,5 +20,21 @@ export default {
 .page {
   padding-bottom: 2rem;
   display: block;
+}
+
+.news-page {
+  .theme-default-content {
+    padding: 2rem 1.5rem;
+    h1 {
+      padding-top: 1rem;
+    }
+  }
+
+}
+
+.news-back {
+  background: url('/vuepress-image/news.png');
+  height: 12vw;
+  background-size: cover;
 }
 </style>

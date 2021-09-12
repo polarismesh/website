@@ -15,17 +15,17 @@ Polaris-JAVA的集成依赖maven环境，需要预先配置maven，并且需要�
 
 ## 快速接入
 
-### 依赖管理
+### 包依赖
 
 可以在polaris-java的[release note]()上获取到Polaris的所有版本以及相关介绍。推荐使用最新的稳定版本。
 
 在工程根目录的pom中的\<dependencyManagement>添加如下配置，即可在项目中引用需要的polaris-java子模块依赖。
-
+#### 依赖管理
 ```xml
 <dependencyManagement>        
     <dependencies>
         <dependency>
-            <groupId>com.tencent.nameservice</groupId>
+            <groupId>com.tencent.polaris</groupId>
             <artifactId>polaris-dependencies</artifactId>
             <version>${version}</version>
             <type>pom</type>
@@ -34,6 +34,34 @@ Polaris-JAVA的集成依赖maven环境，需要预先配置maven，并且需要�
     </dependencies>
 </dependencyManagement>
 ```
+#### 使用全量功能
+   ```xml
+   <dependency>
+       <groupId>com.tencent.polaris</groupId>
+       <artifactId>polaris-factory</artifactId>
+   </dependency>
+   ```
+#### 仅服务注册服务发现
+   ```xml
+   <dependency>
+       <groupId>com.tencent.polaris</groupId>
+       <artifactId>polaris-discovery-factory</artifactId>
+   </dependency>
+   ```
+#### 仅使用服务熔断
+   ```xml
+   <dependency>
+       <groupId>com.tencent.polaris</groupId>
+       <artifactId>polaris-circuitbreaker-factory</artifactId>
+   </dependency>
+   ```
+#### 仅使用服务限流
+   ```xml
+   <dependency>
+       <groupId>com.tencent.polaris</groupId>
+       <artifactId>polaris-ratelimit-factory</artifactId>
+   </dependency>
+   ```   
 
 ### 配置服务端地址
 
@@ -46,6 +74,7 @@ global:
     - 127.0.0.1:8091
 ```
 
+
 ### 服务注册与心跳上报
 
 1. 添加依赖
@@ -54,7 +83,7 @@ global:
 
    ```xml
    <dependency>
-       <groupId>com.tencent.nameservice</groupId>
+       <groupId>com.tencent.polaris</groupId>
        <artifactId>polaris-discovery-factory</artifactId>
    </dependency>
    ```

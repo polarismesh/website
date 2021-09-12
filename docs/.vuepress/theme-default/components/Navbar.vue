@@ -5,7 +5,7 @@
         src="/vuepress-image/logo-polaris.png"
         class="d-inline-block align-top"
         alt="Polaris"
-        style="width: 121px"
+        style="height: 30px"
       />
     </b-navbar-brand>
     <b-navbar-toggle
@@ -22,14 +22,17 @@
           >新闻</b-nav-item
         >
         <b-nav-item
-          :to="`/${language}/doc/`"
+          :to="`/${language}/doc/北极星是什么/简介.html#简介`"
           :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
           >文档</b-nav-item
         >
-        <b-nav-item href="https://github.com/PolarisMesh" class="navlink"
+        <b-nav-item
+          href="https://github.com/PolarisMesh"
+          target="_blank"
+          class="navlink"
           >Github</b-nav-item
         >
-        <b-nav-item href="http://159.75.195.18/" class="navlink"
+        <b-nav-item href="http://159.75.195.18/" target="_blank" class="navlink"
           >体验版</b-nav-item
         >
       </b-navbar-nav>

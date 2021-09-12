@@ -1,24 +1,48 @@
 const path = require("path");
 const sidebar = {
   "/zh/doc/": [
-    "",
+    {
+      title: "北极星是什么",
+      collapsable: false,
+      children: [
+        "北极星是什么/简介",
+        "北极星是什么/架构原理",
+        "北极星是什么/北极星和k8s",
+        "北极星是什么/对比其他组件",
+      ],
+    },
     {
       title: "快速入门",
       collapsable: false,
       children: [
-        "快速入门/",
-        "快速入门/安装",
-        "快速入门/使用原生SDK",
-        "快速入门/使用gRPC",
-        "快速入门/使用Spring Boot",
-        "快速入门/使用Spring Cloud",
+        "快速入门/安装服务端",
+        "快速入门/使用polaris-java",
+        "快速入门/使用polaris-go",
+        "快速入门/使用polaris-cpp",
+        "快速入门/使用spring cloud",
+        "快速入门/使用grpc-go",
         "快速入门/使用k8s和服务网格",
       ],
     },
     {
-      title: "架构原理",
+      title: "接口文档",
       collapsable: false,
-      children: ["架构原理/", "架构原理/概念"],
+      children: ["接口文档/客户端接口"],
+    },
+    {
+      title: "使用指南",
+      collapsable: false,
+      children: ["使用指南/动态路由"],
+    },
+    {
+      title: "用户案例",
+      collapsable: false,
+      children: [
+        "用户案例/腾讯会议",
+        "用户案例/腾讯视频",
+        "用户案例/微信支付",
+        "用户案例/央视频",
+      ],
     },
   ],
   "/zh/news/": [
@@ -100,12 +124,26 @@ module.exports = {
         crossorigin: "anonymous",
       },
     ],
+    [
+      "link",
+      {
+        rel: "icon",
+        type: "image/x-icon",
+        href: "/vuepress-image/favicon.ico",
+      },
+    ],
   ],
   configureWebpack: {
     resolve: {
       alias: {
         "@assets": "../../src/assets",
       },
+    },
+  },
+  title: "文档",
+  markdown: {
+    extendMarkdown: (md) => {
+      md.use(require("markdown-it-disable-url-encode"));
     },
   },
 };

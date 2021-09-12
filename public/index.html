@@ -4,21 +4,24 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="data:image/png;base64,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"
+    />
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>北极星</title>
   </head>
   <body>
     <noscript>
       <strong
-        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
-        properly without JavaScript enabled. Please enable it to
-        continue.</strong
+        >We're sorry but Polaris Mesh doesn't work properly without JavaScript
+        enabled. Please enable it to continue.</strong
       >
     </noscript>
     <div id="app"></div>
