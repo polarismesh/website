@@ -43,7 +43,7 @@
 
 ### 服务注册与发现
 
-完整样例代码参考：[服务注册与发现Example](https://github.com/tencent/spring-cloud-tencent/spring-cloud-tencent-examples/polaris-discovery-example/README.md)
+完整样例代码参考：[服务注册与发现Example](https://github.com/tencent/spring-cloud-tencent/blob/main/spring-cloud-tencent-examples/polaris-discovery-example/README.md)
 
 1. 添加依赖
 
@@ -73,7 +73,7 @@ spring:
 
 3. 启动并验证
 
-以[服务注册与发现Example](https://github.com/tencent/spring-cloud-tencent/spring-cloud-tencent-examples/polaris-discovery-example/README.md)为例。
+以[服务注册与发现Example](https://github.com/tencent/spring-cloud-tencent/blob/main/spring-cloud-tencent-examples/polaris-discovery-example/README.md)为例。
 
 - Feign调用
 
@@ -125,7 +125,7 @@ Polaris提供了服务路由配置和元数据配置。其中服务路由配置�
 
 ### 故障节点熔断
 
-完整样例代码参考：[故障节点熔断Example](https://github.com/tencent/spring-cloud-tencent/spring-cloud-tencent-examples/polaris-circuitbreaker-example/README.md)
+完整样例代码参考：[故障节点熔断Example](https://github.com/tencent/spring-cloud-tencent/blob/main/spring-cloud-tencent-examples/polaris-circuitbreaker-example/README.md)
 
 1. 添加依赖
 
@@ -139,7 +139,7 @@ Polaris提供了服务路由配置和元数据配置。其中服务路由配置�
 
 2. 启动并验证
 
-以[故障节点熔断Example](https://github.com/tencent/spring-cloud-tencent/spring-cloud-tencent-examples/polaris-circuitbreaker-example/README.md)为例。
+以[故障节点熔断Example](https://github.com/tencent/spring-cloud-tencent/blob/main/spring-cloud-tencent-examples/polaris-circuitbreaker-example/README.md)为例。
 
 - Feign调用
 
@@ -159,7 +159,7 @@ trigger the refuse for service b
 
 ### 服务限流
 
-完整样例代码参考：[服务限流Example](https://github.com/tencent/spring-cloud-tencent/spring-cloud-tencent-examples/polaris-discovery-example/README.md)
+完整样例代码参考：[服务限流Example](https://github.com/tencent/spring-cloud-tencent/blob/main/spring-cloud-tencent-examples/polaris-discovery-example/README.md)
 
 1. 添加依赖
 
