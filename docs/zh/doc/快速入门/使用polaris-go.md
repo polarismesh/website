@@ -215,7 +215,7 @@ global:
    ```go
 	//set the grey metadata
 	svcInfo := &model.ServiceInfo{}
-	svcInfo.Metadata = map[string]string{"grep": "true"}
+	svcInfo.Metadata = map[string]string{"grey": "true"}
 	request := &api.GetOneInstanceRequest{}
 	request.Namespace = "Test"
 	request.Service = "dummyGrey"

@@ -297,7 +297,7 @@ global:
 	polaris::ServiceKey service_key = {"Test", "dummy"};
 	polaris::GetOneInstanceRequest request(service_key);
 	polaris::ServiceInfo service_info;
-	service_info.metadata_["grep"] = true;
+	service_info.metadata_["grey"] = true;
 	request.SetSourceService(service_info);
 	polaris::Instance instance;
 	polaris::ReturnCode ret = consumer->GetOneInstance(request, instance);
