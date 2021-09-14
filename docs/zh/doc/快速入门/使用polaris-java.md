@@ -271,7 +271,7 @@ global:
     GetOneInstanceRequest request = new GetOneInstanceRequest();
     ServiceInfo serviceInfo = new ServiceInfo();
     Map<String, String> metadata = new HashMap<>();
-    metadata.put("grep", "true");
+    metadata.put("grey", "true");
     serviceInfo.setMetadata(metadata);
     request.setServiceInfo(serviceInfo);
     request.setNamespace(namespace);
