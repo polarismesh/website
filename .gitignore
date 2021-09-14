@@ -1,7 +1,8 @@
 .DS_Store
 /mainsite
 /node_modules
-/.vuepress/dist
-/.vuepress/vuepress
+/docs/.vuepress/dist
+/docs/.vuepress/vuepress
 /dist
 /vuepress
+/doc-build.tar.gz

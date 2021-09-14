@@ -15,7 +15,7 @@ const sidebar = {
       title: "快速入门",
       collapsable: false,
       children: [
-        "快速入门/安装服务端",
+        "快速入门/单机版安装",
         "快速入门/使用polaris-java",
         "快速入门/使用polaris-go",
         "快速入门/使用polaris-cpp",
