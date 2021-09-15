@@ -81,6 +81,8 @@ polaris-java支持上报监控数据到prometheus，如需开启，需要执行�
 1. 添加监控数据采集服务实例
 
    打开polaris控制台，点击“服务列表->新建”，选择命名空间为“Polaris”，服务名为polaris.monitor，并确认后新建服务。
+   
+   ![image](https://user-images.githubusercontent.com/45474304/133397804-b5b815ff-eb54-44af-9797-d82f828233d2.png) 
 
    回到服务列表，点击polaris.monitor服务进入实例列表，点击“新建”后，填入push-gateway安装地址以及端口（默认9091），权重选择100，并确认后新建实例
 
