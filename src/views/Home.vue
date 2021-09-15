@@ -12,7 +12,7 @@
             lead
             style="background-color: transparent; color: #fff"
           >
-            <p style="margin-bottom: 0px">
+            <p style="margin-top: 30px">
               一个支持多语言、多框架的云原生服务发现和治理中心
             </p>
             <p>提供高性能SDK和无侵入Sidecar两种接入方式</p>
@@ -44,73 +44,224 @@
           <h1>核心功能</h1>
         </b-col>
       </b-row>
-      <b-row style="margin: 6.3vw 0 0 0; text-align: center">
-        <b-col xl="3" lg="6" md="6" cols="12" class="function-card">
-          <b-row>
-            <b-col cols="12">
-              <img
-                src="../assets/image/Registration-discovery.svg"
-                class="function-image"
-              />
-            </b-col>
-            <b-col cols="12" class="function-text-title">
-              <span>服务注册和发现</span>
-            </b-col>
-            <b-col cols="12" class="function-text-desc">
-              <span
-                >以服务为中心的分布式应用架构，通过服务和注册发现的方式维护不断变化的请求地址，提高应用的扩展能力，降低应用的迁移成本</span
-              >
+      <b-row style="margin: 6.3vw 0 0 0">
+        <b-col
+          xl="6"
+          lg="8"
+          md="8"
+          cols="12"
+          offset-md="2"
+          offset-cols="2"
+          offset-lg="2"
+          offset-xl="0"
+        >
+          <b-card class="feature-card">
+            <b-row align-v="center" style="height: 100%">
+              <b-col>
+                <b-media>
+                  <template #aside>
+                    <img
+                      src="../assets/image/Registration-discovery.svg"
+                      alt="placeholder"
+                      style="width: 32px"
+                    />
+                  </template>
+
+                  <h5 class="mt-0">服务注册和发现</h5>
+                  <p>
+                    以服务为中心的分布式应用架构，通过服务和注册发现的方式维护不断变化的请求地址，提高应用的扩展能力，降低应用的迁移成本
+                  </p>
+                </b-media>
+              </b-col>
+            </b-row>
+          </b-card>
+          <b-row
+            align-v="center"
+            style="height: 100%"
+            class="feature-card-small"
+          >
+            <b-col>
+              <b-row>
+                <b-col cols="12">
+                  <img
+                    src="../assets/image/Registration-discovery.svg"
+                    class="function-image"
+                  />
+                </b-col>
+                <b-col cols="12" class="function-text-title">
+                  <span>服务注册和发现</span>
+                </b-col>
+                <b-col cols="12" class="function-text-desc">
+                  <span
+                    >以服务为中心的分布式应用架构，通过服务和注册发现的方式维护不断变化的请求地址，提高应用的扩展能力，降低应用的迁移成本</span
+                  >
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
-        <b-col xl="3" lg="6" md="6" cols="12" class="function-card">
-          <b-row>
-            <b-col cols="12">
-              <img src="../assets/image/Router.svg" class="function-image" />
-            </b-col>
-            <b-col cols="12" class="function-text-title">
-              <span>路由和负载均衡</span>
-            </b-col>
-            <b-col cols="12" class="function-text-desc">
-              <span
-                >根据请求标签、实例标签和标签匹配规则，对线上流量进行动态调度，可以应用于按地域就近、单元化隔离和金丝雀发布等多种场景</span
-              >
+        <b-col
+          xl="6"
+          lg="8"
+          md="8"
+          cols="12"
+          offset-md="2"
+          offset-cols="2"
+          offset-lg="2"
+          offset-xl="0"
+        >
+          <b-card class="feature-card">
+            <b-row align-v="center" style="height: 100%">
+              <b-col>
+                <b-media>
+                  <template #aside>
+                    <img
+                      src="../assets/image/Router.svg"
+                      alt="placeholder"
+                      style="width: 32px"
+                    />
+                  </template>
+
+                  <h5 class="mt-0">路由和负载均衡</h5>
+                  <p>
+                    根据请求标签、实例标签和标签匹配规则，对线上流量进行动态调度，可以应用于按地域就近、单元化隔离和金丝雀发布等多种场景
+                  </p>
+                </b-media>
+              </b-col>
+            </b-row>
+          </b-card>
+          <b-row
+            align-v="center"
+            style="height: 100%"
+            class="feature-card-small"
+          >
+            <b-col>
+              <b-row>
+                <b-col cols="12">
+                  <img
+                    src="../assets/image/Router.svg"
+                    class="function-image"
+                  />
+                </b-col>
+                <b-col cols="12" class="function-text-title">
+                  <span>路由和负载均衡</span>
+                </b-col>
+                <b-col cols="12" class="function-text-desc">
+                  <span
+                    >根据请求标签、实例标签和标签匹配规则，对线上流量进行动态调度，可以应用于按地域就近、单元化隔离和金丝雀发布等多种场景</span
+                  >
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
-        <b-col xl="3" lg="6" md="6" cols="12" class="function-card">
-          <b-row>
-            <b-col cols="12">
-              <img
-                src="../assets/image/Fault-fusing.svg"
-                class="function-image"
-              />
-            </b-col>
-            <b-col cols="12" class="function-text-title">
-              <span>熔断降级和限流</span>
-            </b-col>
-            <b-col cols="12" class="function-text-desc">
-              <span
-                >及时熔断异常的服务、接口、实例或者实例分组，降低请求失败率。针对不同的请求来源和系统资源进行访问限流，避免服务被压垮</span
-              >
+        <b-col
+          xl="6"
+          lg="8"
+          md="8"
+          cols="12"
+          offset-md="2"
+          offset-cols="2"
+          offset-lg="2"
+          offset-xl="0"
+        >
+          <b-card class="feature-card">
+            <b-row align-v="center" style="height: 100%">
+              <b-col>
+                <b-media>
+                  <template #aside>
+                    <img
+                      src="../assets/image/Fault-fusing.svg"
+                      alt="placeholder"
+                      style="width: 32px"
+                    />
+                  </template>
+
+                  <h5 class="mt-0">熔断降级和限流</h5>
+                  <p>
+                    及时熔断异常的服务、接口、实例或者实例分组，降低请求失败率。针对不同的请求来源和系统资源进行访问限流，避免服务被压垮
+                  </p>
+                </b-media>
+              </b-col>
+            </b-row>
+          </b-card>
+          <b-row
+            align-v="center"
+            style="height: 100%"
+            class="feature-card-small"
+          >
+            <b-col>
+              <b-row>
+                <b-col cols="12">
+                  <img
+                    src="../assets/image/Fault-fusing.svg"
+                    class="function-image"
+                  />
+                </b-col>
+                <b-col cols="12" class="function-text-title">
+                  <span>熔断降级和限流</span>
+                </b-col>
+                <b-col cols="12" class="function-text-desc">
+                  <span
+                    >及时熔断异常的服务、接口、实例或者实例分组，降低请求失败率。针对不同的请求来源和系统资源进行访问限流，避免服务被压垮</span
+                  >
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
-        <b-col xl="3" lg="6" md="6" cols="12" class="function-card">
-          <b-row>
-            <b-col cols="12">
-              <img
-                src="../assets/image/Observability.svg"
-                class="function-image"
-              />
-            </b-col>
-            <b-col cols="12" class="function-text-title">
-              <span>可观测性</span>
-            </b-col>
-            <b-col cols="12" class="function-text-desc">
-              <span
-                >支持请求量、请求延时和请求成功率的指标查询，支持服务调用关系和多维度的流量曲线查询，实现服务治理功能和流量观测一体化</span
-              >
+        <b-col
+          xl="6"
+          lg="8"
+          md="8"
+          cols="12"
+          offset-md="2"
+          offset-cols="2"
+          offset-lg="2"
+          offset-xl="0"
+        >
+          <b-card class="feature-card">
+            <b-row align-v="center" style="height: 100%">
+              <b-col>
+                <b-media>
+                  <template #aside>
+                    <img
+                      src="../assets/image/Observability.svg"
+                      alt="placeholder"
+                      style="width: 32px"
+                    />
+                  </template>
+
+                  <h5 class="mt-0">可观测性</h5>
+                  <p>
+                    支持请求量、请求延时和请求成功率的指标查询，支持服务调用关系和多维度的流量曲线查询，实现服务治理功能和流量观测一体化
+                  </p>
+                </b-media>
+              </b-col>
+            </b-row>
+          </b-card>
+          <b-row
+            align-v="center"
+            style="height: 100%"
+            class="feature-card-small"
+          >
+            <b-col>
+              <b-row>
+                <b-col cols="12">
+                  <img
+                    src="../assets/image/Observability.svg"
+                    class="function-image"
+                  />
+                </b-col>
+                <b-col cols="12" class="function-text-title">
+                  <span>可观测性</span>
+                </b-col>
+                <b-col cols="12" class="function-text-desc">
+                  <span
+                    >支持请求量、请求延时和请求成功率的指标查询，支持服务调用关系和多维度的流量曲线查询，实现服务治理功能和流量观测一体化</span
+                  >
+                </b-col>
+              </b-row>
             </b-col>
           </b-row>
         </b-col>
@@ -150,7 +301,7 @@
                     <img
                       src="../assets/image/One-stopServiceGovernance.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
@@ -205,7 +356,7 @@
                     <img
                       src="../assets/image/Multi-language-console.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
@@ -262,7 +413,7 @@
                     <img
                       src="../assets/image/Multi-Framework.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
@@ -319,7 +470,7 @@
                     <img
                       src="../assets/image/Support-Kubernetes.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
@@ -378,7 +529,7 @@
                     <img
                       src="../assets/image/Service-Mesh.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
@@ -433,7 +584,7 @@
                     <img
                       src="../assets/image/MassProductionApplications.svg"
                       alt="placeholder"
-                      style="width: 5vw"
+                      style="width: 32px"
                     />
                   </template>
 
