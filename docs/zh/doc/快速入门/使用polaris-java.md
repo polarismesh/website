@@ -61,7 +61,7 @@ Polaris-JAVA的集成依赖maven环境，需要预先配置maven，并且需要�
        <groupId>com.tencent.polaris</groupId>
        <artifactId>polaris-ratelimit-factory</artifactId>
    </dependency>
-   ```   
+   ```
 
 ### 配置服务端地址
 
@@ -74,6 +74,27 @@ global:
     - 127.0.0.1:8091
 ```
 
+### 开启监控上报
+
+polaris-java支持上报监控数据到prometheus，如需开启，需要执行以下2步
+
+1. 添加监控数据采集服务实例
+
+   打开polaris控制台，点击“服务列表->新建”，选择命名空间为“Polaris”，服务名为polaris.monitor，并确认后新建服务。
+
+   回到服务列表，点击polaris.monitor服务进入实例列表，点击“新建”后，填入push-gateway安装地址以及端口（默认9091），权重选择100，并确认后新建实例
+
+2. 开启监控上报配置
+
+   修改polaris.yml文件，开启statReporter功能
+
+   ```yaml
+   global:
+     #描述: 监控及日志数据上报相关配置
+     statReporter:
+       #描述: 是否启用上报
+       enable: true
+   ```
 
 ### 服务注册与心跳上报
 
@@ -441,7 +462,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
    }
    ```
 
-   
+
 
 
 ## 相关链接
