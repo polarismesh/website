@@ -4,7 +4,7 @@
 
 ### 准备polaris后台环境
 
-您需要先下载 Polaris并启动，详细可参考[服务端安装指南]()
+您需要先下载 Polaris并启动，详细可参考[服务端安装指南](https://polarismesh.cn/zh/doc/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85.html#%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E)
 
 ### 准备编译/运行环境
 

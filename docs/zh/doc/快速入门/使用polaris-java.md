@@ -4,7 +4,7 @@
 
 ### 准备polaris后台环境
 
-您需要先下载 Polaris并启动，详细可参考[服务端安装指南]()
+您需要先下载 Polaris并启动，详细可参考[服务端安装指南](https://polarismesh.cn/zh/doc/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/%E5%8D%95%E6%9C%BA%E7%89%88%E5%AE%89%E8%A3%85.html#%E5%AE%89%E8%A3%85%E8%AF%B4%E6%98%8E)
 
 ### 准备编译/运行环境
 
@@ -17,7 +17,7 @@ Polaris-JAVA的集成依赖maven环境，需要预先配置maven，并且需要�
 
 ### 包依赖
 
-可以在polaris-java的[release note]()上获取到Polaris的所有版本以及相关介绍。推荐使用最新的稳定版本。
+可以在polaris-java的[release note](https://github.com/polarismesh/polaris-java/releases)上获取到Polaris的所有版本以及相关介绍。推荐使用最新的稳定版本。
 
 在工程根目录的pom中的\<dependencyManagement>添加如下配置，即可在项目中引用需要的polaris-java子模块依赖。
 #### 依赖管理
