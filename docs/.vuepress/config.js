@@ -24,26 +24,26 @@ const sidebar = {
         "快速入门/使用k8s和服务网格",
       ],
     },
-    {
-      title: "接口文档",
-      collapsable: false,
-      children: ["接口文档/客户端接口"],
-    },
-    {
-      title: "使用指南",
-      collapsable: false,
-      children: ["使用指南/动态路由"],
-    },
-    {
-      title: "用户案例",
-      collapsable: false,
-      children: [
-        "用户案例/腾讯会议",
-        "用户案例/腾讯视频",
-        "用户案例/微信支付",
-        "用户案例/央视频",
-      ],
-    },
+    // {
+    //   title: "接口文档",
+    //   collapsable: false,
+    //   children: ["接口文档/客户端接口"],
+    // },
+    // {
+    //   title: "使用指南",
+    //   collapsable: false,
+    //   children: ["使用指南/动态路由"],
+    // },
+    // {
+    //   title: "用户案例",
+    //   collapsable: false,
+    //   children: [
+    //     "用户案例/腾讯会议",
+    //     "用户案例/腾讯视频",
+    //     "用户案例/微信支付",
+    //     "用户案例/央视频",
+    //   ],
+    // },
   ],
   "/zh/news/": [
     {

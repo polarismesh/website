@@ -23,9 +23,9 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto nav-dropdown-list">
           <b-nav-item href="/" class="navlink">首页</b-nav-item>
-          <b-nav-item :href="`${language}/news/`" class="navlink"
+          <!-- <b-nav-item :href="`${language}/news/`" class="navlink"
             >新闻</b-nav-item
-          >
+          > -->
           <b-nav-item
             :href="`${language}/doc/北极星是什么/简介.html#简介`"
             class="navlink"
