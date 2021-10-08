@@ -80,18 +80,8 @@ global:
 
 ### 服务发现
 
-1. 创建ConsumerAPI
-	ConsumerAPI的所有方法都是线程安全的，所以一个进程创建一个ConsumerAPI来使用就足够了，最后进程退出前要调用一下Destroy()方法
-	
-	```go
-	consumer, err := api.NewConsumerAPI()
-	if nil != err {
-		log.Fatal(err)
-	}
-	//before process exits
-	consumer.Destroy()
-	```
-2. 拉取所有的服务实例
+ 拉取所有的服务实例
+
 	```go
 	request := &api.GetAllInstancesRequest{}
 	request.Namespace = "Test"
