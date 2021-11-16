@@ -25,11 +25,27 @@ const sidebar = {
             ],
         },
         {
-            title: "开发者",
+            title: "开源建设",
             collapsable: false,
-            children: [
-                "开发者/2021-11-16 第一次开发者例会",
-            ],
+            children: [{
+                title: "如何加入",
+                children: [
+
+                ]
+            }, {
+                title: "行为准则",
+                children: [
+
+                ]
+            }, {
+                title: "双周例会",
+                children: [{
+                    title: "第一次开发者例会",
+                    children: [
+                        "polarismesh开发者例会"
+                    ]
+                }]
+            }],
         },
         // {
         //   title: "接口文档",
