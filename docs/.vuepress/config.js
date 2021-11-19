@@ -19,6 +19,7 @@ const sidebar = {
                 "快速入门/使用polaris-java",
                 "快速入门/使用polaris-go",
                 "快速入门/使用polaris-cpp",
+                "快速入门/使用polaris-php",
                 "快速入门/使用spring cloud",
                 "快速入门/使用grpc-go",
                 "快速入门/使用k8s和服务网格",
@@ -29,29 +30,23 @@ const sidebar = {
             collapsable: false,
             children: [{
                 title: "如何加入",
-                children: [
-
-                ]
             }, {
                 title: "行为准则",
-                children: [
-
-                ]
             }, {
                 title: "双周例会",
                 children: [{
                     title: "第一次开发者例会",
                     children: [
-                        "polarismesh开发者例会"
+                        "开源建设/双周例会/第一次开发者例会",
                     ]
                 }]
             }],
         },
-        // {
-        //   title: "接口文档",
-        //   collapsable: false,
-        //   children: ["接口文档/客户端接口"],
-        // },
+        {
+            title: "接口文档",
+            collapsable: false,
+            children: ["接口文档/客户端接口"],
+        },
         // {
         //   title: "使用指南",
         //   collapsable: false,
@@ -133,6 +128,7 @@ module.exports = {
                 sidebar: EnglishSidebar,
             },
         },
+        smoothScroll: true,
         search: true,
         searchMaxSuggestions: 10,
     },
@@ -168,4 +164,5 @@ module.exports = {
             md.use(require("markdown-it-disable-url-encode"));
         },
     },
+
 };
