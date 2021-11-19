@@ -66,6 +66,8 @@ spring:
     name: ${application.name}
   cloud:
     polaris:
+      discovery:
+        namespace: default
       address: ${protocol}://${ip}:${port}
 ```
 
