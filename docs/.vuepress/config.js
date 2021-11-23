@@ -1,55 +1,60 @@
 const path = require("path");
 const sidebar = {
     "/zh/doc/": [{
-        title: "北极星是什么",
-        collapsable: false,
-        children: [
-            "北极星是什么/简介",
-            "北极星是什么/架构原理",
-            "北极星是什么/北极星和k8s",
-            "北极星是什么/对比其他组件",
-        ],
-    },
-    {
-        title: "快速入门",
-        collapsable: false,
-        children: [
-            "快速入门/单机版安装",
-            "快速入门/集群版安装",
-            "快速入门/使用polaris-java",
-            "快速入门/使用polaris-go",
-            "快速入门/使用polaris-cpp",
-            "快速入门/使用polaris-php",
-            "快速入门/使用spring cloud",
-            "快速入门/使用grpc-go",
-            "快速入门/使用k8s和服务网格",
-        ],
-    },
-    {
-        title: "开源建设",
-        collapsable: false,
-        children: [{
-            title: "如何加入",
-        }, {
-            title: "行为准则",
-        }, {
-            title: "双周例会",
+            title: "北极星是什么",
+            collapsable: false,
+            children: [
+                "北极星是什么/简介",
+                "北极星是什么/架构原理",
+                "北极星是什么/北极星和k8s",
+                "北极星是什么/对比其他组件",
+            ],
+        },
+        {
+            title: "快速入门",
+            collapsable: false,
+            sidebarDepth: 2,
+            children: [
+                "快速入门/单机版安装",
+                "快速入门/集群版安装",
+                "快速入门/使用polaris-java",
+                "快速入门/使用polaris-go",
+                "快速入门/使用polaris-cpp",
+                "快速入门/使用polaris-php",
+                "快速入门/使用spring cloud",
+                "快速入门/使用grpc-go",
+                "快速入门/使用k8s和服务网格",
+            ],
+        },
+        {
+            title: "开源建设",
+            collapsable: false,
             children: [{
-                title: "第一次开发者例会",
+                title: "如何加入",
+            }, {
+                title: "行为准则",
+            }, {
+                title: "双周例会",
                 children: [
                     "开源建设/双周例会/第一次开发者例会",
                 ]
-            }]
-        }],
-    },
-    {
-        title: "接口文档",
-        collapsable: false,
-        children: [
-            "接口文档/服务端接口",
-            // "接口文档/客户端接口"
-        ],
-    },
+            }],
+        },
+        {
+            title: "接口文档",
+            collapsable: false,
+            children: [{
+                    title: "服务端",
+                    children: [
+                        "接口文档/服务端/命名空间",
+                        "接口文档/服务端/服务",
+                        "接口文档/服务端/实例",
+                        "接口文档/服务端/错误码表",
+                    ]
+                },
+                // "接口文档/客户端接口"
+            ],
+        },
         // {
         //   title: "使用指南",
         //   collapsable: false,
@@ -72,7 +77,7 @@ const sidebar = {
         children: [
             ["", "版本更新"], "new1", "new2", "new3"
         ],
-    },],
+    }, ],
 };
 const EnglishSidebar = {
     "/en/doc/": [
@@ -102,7 +107,7 @@ const EnglishSidebar = {
         children: [
             ["", "Updated Version"], "new1", "new2", "new3"
         ],
-    },],
+    }, ],
 };
 module.exports = {
     theme: path.resolve("./docs/.vuepress/theme-default"),
