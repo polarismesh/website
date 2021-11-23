@@ -101,7 +101,7 @@ global:
    服务注册接口用于向服务中注册服务实例。服务注册必须带上服务token，可以到控制台查看服务的token。
    此外可以配置是否开启健康检查，对于开启了健康检查的服务实例，注册完成后必须定期心跳上报接口维持自身的健康状态
 
-   ```c++
+   ```cpp
    std::string service_namespace = "Test";
    std::string service_name = "dummy";
    std::string service_token;  // 默认无token鉴权
@@ -125,7 +125,7 @@ global:
 
    如果在服务注册的时候开启了上报心跳，则业务需要定时调用心跳上报接口维持服务健康状态
 
-   ```c++
+   ```cpp
    // instance_id为通过服务注册接口返回的服务实例ID
    polaris::InstanceHeartbeatRequest heartbeat_req(service_token, instance_id);
    while (true) {
@@ -138,7 +138,7 @@ global:
 
    服务退出时，可调用服务反注册接口将服务实例从服务的实例列表中删除
 
-   ```c++
+   ```cpp
    polaris::InstanceDeregisterRequest deregister_req(service_token, instance_id);
    ret = provider->Deregister(deregister_req);
    ```
@@ -149,7 +149,7 @@ global:
 
    业务程序在调用相关接口前必须先创建ConsumerApi对象。ConsumerApi对象是线程安全的，一个进程只需要创建一个即可。
 
-   ```c++
+   ```cpp
    // 这个方法默认加载当前目录下的`polaris.yaml`配置文件初始化Context来创建ConsumerApi。
    // 如果该配置文件不存在，则使用默认配置；否则，加载该文件的配置项覆盖相关默认配置。
    polaris::ConsumerApi* consumer_api = polaris::ConsumerApi::CreateWithDefaultFile();
@@ -163,7 +163,7 @@ global:
    ```
 2. 拉取所有的服务实例
 
-   ```c++
+   ```cpp
    polaris::ServiceKey service_key = {"Test", "dummy"};
    polaris::GetInstancesRequest request(service_key);
    polaris::InstancesResponse* response = NULL;
@@ -190,7 +190,7 @@ global:
 
    注册version 1.0的服务实例
 
-   ```c++
+   ```cpp
    std::string service_namespace = "Test";
    std::string service_name = "dummyGrey";
    std::string host = "127.0.0.1";
@@ -210,7 +210,7 @@ global:
 
    注册version 2.0的服务实例
 
-   ```c++
+   ```cpp
    for (int i = 0; i < 2; i++) {
      request := &api.InstanceRegisterRequest{}
      polaris::InstanceRegisterRequest register_req(service_namespace, service_name, service_token, host, port);
@@ -294,7 +294,7 @@ global:
    ```
 4. 拉取经过路由及负载均衡后的单个实例
 
-   ```c++
+   ```cpp
    polaris::ServiceKey service_key = {"Test", "dummy"};
    polaris::GetOneInstanceRequest request(service_key);
    polaris::ServiceInfo service_info;
@@ -315,7 +315,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
 
 1. 添加2个服务实例
 
-   ```c++
+   ```cpp
    //add 2 instances, one is 127.0.0.1:10010, second is 127.0.0.1:10011
    std::string service_namespace = "Test";
    std::string service_name = "dummy";
@@ -334,7 +334,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
    ```
 2. 针对其中一个实例连续上报10次失败（模拟业务调用10次失败）
 
-   ```c++
+   ```cpp
    //report 10 continuous failure
    for (int i = 0; i < 10; i++) {
      polaris::ServiceCallResult result;
@@ -348,7 +348,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
    ```
 3. 实例被熔断，通过GetOneInstance无法再获取该实例（已经被剔除）
 
-   ```c++
+   ```cpp
    polaris::ServiceKey service_key = {"Test", "dummy"};
    polaris::GetOneInstanceRequest request(service_key);
    polaris::Instance instance;
@@ -419,7 +419,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
 
    LimitAPI的所有方法都是线程安全的，所以一个进程创建一个LimitAPI来使用就足够了
 
-   ```c++
+   ```cpp
    // 使用运行目录下的polaris.yaml配置创建Limit API对象
    polaris::LimitApi* limit_api = polaris::LimitApi::CreateWithDefaultFile();
    if (limit_api == NULL) {
@@ -442,7 +442,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
 
    每次收到访问/path1的请求时，需要先获取配额，以判断本次是否限流
 
-   ```c++
+   ```cpp
    polaris::QuotaRequest quota_request;                   // 限流请求
    quota_request.SetServiceNamespace("Test");  // 设置限流规则对应服务的命名空间
    quota_request.SetServiceName("dummyLimit");            // 设置限流规则对应的服务名
@@ -466,7 +466,7 @@ Polaris支持在主调方侧感知到被调实例出现异常，并且及时将�
    ```
 4. 针对/path2获取配额
 
-   ```c++
+   ```cpp
    polaris::QuotaRequest quota_request;                   // 限流请求
    quota_request.SetServiceNamespace("Test");  // 设置限流规则对应服务的命名空间
    quota_request.SetServiceName("dummyLimit");            // 设置限流规则对应的服务名
