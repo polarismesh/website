@@ -26,15 +26,15 @@
   使用K8s和网格
 
 使用指南/
-  polaris-java/
+  polaris-java/
     服务注册和发现
     路由和负载均衡
     熔断降级
     鉴权
     限流
-  polaris-go/
-  polaris-cpp/
-  polaris-php/
+  polaris-go/
+  polaris-cpp/
+  polaris-php/
   spring-cloud-polaris/
   grpc-go-polaris/
 
