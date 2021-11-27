@@ -1,8 +1,8 @@
-# 使用SDK接入
+# 使用 SDK 接入
 
 ## 功能简介
 
-北极星网格提供多语言SDK作为高性能接入方式：
+北极星网格提供多语言 SDK 作为高性能接入方式：
 
 - [polaris-java](https://github.com/polarismesh/polaris-java)
 - [polaris-go](https://github.com/polarismesh/polaris-go)
@@ -113,7 +113,7 @@ Deregister(namespace, service, instance)
 
 ## 快速入门示例
 
-各语言SDK的快速入门示例：
+各语言 SDK 的快速入门示例：
 
 - [polaris-java 快速入门](https://github.com/polarismesh/polaris-java/tree/main/examples/quickstart)
 - [polaris-go 快速入门](https://github.com/polarismesh/polaris-go/tree/main/examples/quickstart)
