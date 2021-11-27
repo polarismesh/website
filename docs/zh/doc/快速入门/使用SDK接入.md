@@ -47,24 +47,25 @@ GetLimitQuota
 GetAllInstances
 
 功能：获取全部实例
-描述：获取注册到某个服务下的全部实例，包含健康、异常和隔离的实例。本接口只使用服务发现功能模块
+描述：获取注册到某个服务下的全部实例，包含健康、异常和隔离的实例。本接口只使用服务发现功能模块
 ```
 
 ```
 GetOneInstance
 
 功能：获取一个可用实例
-描述：在每次服务调用之前，获取一个可用实例。本接口使用服务发现、动态路由、负载均衡和熔断降级功能模块。几个功能模块采用插件化设计，默认插件配置适用于基本场景
+描述：在每次服务调用之前，获取一个可用实例。本接口使用服务发现、动态路由、负载均衡和熔断降级功能模块
+备注：几个功能模块采用插件化设计，默认插件配置适用于基本场景，可以根据业务场景调整插件配置
 
-UpdateServiceCallResult
+UpdateServiceCallResult
 
 功能：上报服务调用结果
-描述：在每次服务调用之后，上报本次服务调用的结果。服务调用结果一方面用于熔断降级，一方面用于监控统计
+描述：在每次服务调用之后，上报本次服务调用的结果。服务调用结果用于熔断降级和监控统计
 ```
 
 ## 接口使用说明
 
-### 服务被调方/提供者
+### 服务被调方
 
 ```
 // 在应用启动阶段，注册服务实例
@@ -77,14 +78,18 @@ Register(namespace, service, instance)
 
 // 如果使用限流功能，在每次处理请求之前，获取请求处理配额
 {
-    GetLimitQuota(limiter)
+    if( GetLimitQuota(limiter) ) {
+        Handle(request)
+    } else {
+        Refuse(request)
+    }
 }
 
 // 在应用停止阶段，反注册服务实例
 Deregister(namespace, service, instance)
 ```
 
-### 服务主调方/消费者
+### 服务主调方
 
 ```
 // 发起一次服务调用
@@ -96,7 +101,7 @@ Deregister(namespace, service, instance)
     response = ServiceCall(instance.address, request)
 
     // 上报本次服务调用的结果
-    UpdateServiceCallResult(instance, response.code, response.delay)
+    UpdateServiceCallResult(instance, response.code, response.delay)
 }
 ```
 
