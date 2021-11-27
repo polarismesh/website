@@ -1,57 +1,82 @@
 const path = require("path");
 const sidebar = {
     "/zh/doc/": [{
-            title: "北极星是什么",
-            collapsable: false,
+            title: "简介",
             children: [
-                "北极星是什么/简介",
-                "北极星是什么/架构原理",
-                "北极星是什么/北极星和k8s",
-                "北极星是什么/对比其他组件",
+                "简介/北极星是什么",
+                "简介/架构原理",
+                "简介/北极星和K8s",
+                "简介/对比其他组件",
             ],
         },
         {
             title: "快速入门",
-            children: [
-                "快速入门/单机版安装",
-                "快速入门/集群版安装",
-                "快速入门/使用polaris-java",
-                "快速入门/使用polaris-go",
-                "快速入门/使用polaris-cpp",
-                "快速入门/使用polaris-php",
-                "快速入门/使用spring cloud",
-                "快速入门/使用grpc-go",
-                "快速入门/使用k8s和服务网格",
-            ],
-        },
-        {
-            title: "开源建设",
-            children: [
-                "开源建设/如何加入",
-                "开源建设/行为准则",
-                {
-                    title: "双周例会",
-                    children: ["开源建设/双周例会/第一次开发者例会"],
-                },
-            ],
-        },
-        {
-            title: "接口文档",
             children: [{
-                title: "服务端",
+                title: "安装服务端",
                 children: [
-                    "接口文档/服务端/命名空间",
-                    "接口文档/服务端/服务",
-                    "接口文档/服务端/实例",
-                    // "接口文档/服务端/命名空间",
+                    "快速入门/安装服务端/安装单机版",
+                    "快速入门/安装服务端/安装集群版",
+                ]
+            }, {
+                title: "使用SDK",
+                children: [
+                    "快速入门/使用SDK/使用polaris-go",
+                    "快速入门/使用SDK/使用polaris-java",
+                    "快速入门/使用SDK/使用polaris-cpp",
+                    "快速入门/使用SDK/使用polaris-php",
+                ]
+            }, {
+                title: "使用框架",
+                children: [
+                    "快速入门/使用框架/使用spring-cloud",
+                    "快速入门/使用框架/使用grpc-go",
+                ]
+            }, {
+                title: "使用网关",
+                children: [
+                    "快速入门/使用网关/使用nginx",
+                ]
+            }, {
+                title: "使用服务网格",
+                children: [
+                    "快速入门/使用服务网格/使用K8s和网格",
                 ]
             }],
         },
-        // {
-        //   title: "使用指南",
-        //   collapsable: false,
-        //   children: ["使用指南/动态路由"],
-        // },
+        {
+            title: "开源社区",
+            children: [{
+                title: "开发者会议",
+                children: [
+                    "开源社区/开发者会议/会议纪要20211116",
+                    "开源社区/开发者会议/会议纪要20211130"
+                ],
+            }],
+        },
+        {
+            title: "接口文档",
+            children: [
+                "接口文档/命名空间",
+                "接口文档/服务",
+                "接口文档/实例",
+            ],
+        },
+        {
+            title: "使用指南",
+            children: [{
+                title: "polaris-go"
+            }, {
+                title: "polaris-java"
+            }, {
+                title: "polaris-cpp"
+            }, {
+                title: "polaris-php"
+            }, {
+                title: "spring-cloud-polaris"
+            }, {
+                title: "grpc-go-polaris"
+            }],
+        },
         // {
         //   title: "用户案例",
         //   collapsable: false,

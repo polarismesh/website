@@ -19,7 +19,7 @@
           >新闻</b-nav-item
         >-->
         <b-nav-item
-          :to="`/${language}/doc/北极星是什么/简介.html#简介`"
+          :to="`/${language}/doc/简介/北极星是什么.html#简介`"
           :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
         >文档</b-nav-item>
         <b-nav-item href="https://github.com/PolarisMesh" target="_blank" class="navlink">Github</b-nav-item>
