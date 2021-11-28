@@ -107,7 +107,7 @@ Deregister(namespace, service, instance)
     response = ServiceCall(instance.address, request)
 
     // 上报本次服务调用的结果
-    UpdateServiceCallResult(instance, response.code, response.delay)
+    UpdateServiceCallResult(instance.id, response.code, response.delay)
 }
 ```
 
