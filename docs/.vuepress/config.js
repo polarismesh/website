@@ -49,7 +49,7 @@ const sidebar = {
                 title: "开发者会议",
                 children: [
                     "开源社区/开发者会议/会议纪要20211116",
-                    "开源社区/开发者会议/会议纪要20211130"
+                    // "开源社区/开发者会议/会议纪要20211130"
                 ],
             }],
         },
@@ -61,22 +61,22 @@ const sidebar = {
                 "接口文档/实例",
             ],
         },
-        {
-            title: "使用指南",
-            children: [{
-                title: "polaris-go"
-            }, {
-                title: "polaris-java"
-            }, {
-                title: "polaris-cpp"
-            }, {
-                title: "polaris-php"
-            }, {
-                title: "spring-cloud-polaris"
-            }, {
-                title: "grpc-go-polaris"
-            }],
-        },
+        // {
+        //     title: "使用指南",
+        //     children: [{
+        //         title: "polaris-go"
+        //     }, {
+        //         title: "polaris-java"
+        //     }, {
+        //         title: "polaris-cpp"
+        //     }, {
+        //         title: "polaris-php"
+        //     }, {
+        //         title: "spring-cloud-polaris"
+        //     }, {
+        //         title: "grpc-go-polaris"
+        //     }],
+        // },
         // {
         //   title: "用户案例",
         //   collapsable: false,
