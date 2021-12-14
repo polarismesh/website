@@ -1,6 +1,7 @@
 const path = require("path");
 const sidebar = {
-    "/zh/doc/": [{
+    "/zh/doc/": [
+        {
             title: "简介",
             children: [
                 "简介/北极星是什么",
@@ -11,47 +12,47 @@ const sidebar = {
         },
         {
             title: "快速入门",
-            children: [{
-                title: "安装服务端",
-                children: [
-                    "快速入门/安装服务端/安装单机版",
-                    "快速入门/安装服务端/安装集群版",
-                ]
-            }, {
-                title: "使用SDK",
-                children: [
-                    "快速入门/使用SDK/使用polaris-go",
-                    "快速入门/使用SDK/使用polaris-java",
-                    "快速入门/使用SDK/使用polaris-cpp",
-                    "快速入门/使用SDK/使用polaris-php",
-                ]
-            }, {
-                title: "使用框架",
-                children: [
-                    "快速入门/使用框架/使用spring-cloud",
-                    "快速入门/使用框架/使用grpc-go",
-                ]
-            }, {
-                title: "使用网关",
-                children: [
-                    "快速入门/使用网关/使用nginx",
-                ]
-            }, {
-                title: "使用服务网格",
-                children: [
-                    "快速入门/使用服务网格/使用K8s和网格",
-                ]
-            }],
+            children: [
+                {
+                    title: "安装服务端",
+                    children: [
+                        "快速入门/安装服务端/安装单机版",
+                        "快速入门/安装服务端/安装集群版",
+                    ]
+                },
+                "快速入门/使用SDK接入",
+                {
+                    title: "使用框架",
+                    children: [
+                        "快速入门/使用框架/使用spring-cloud",
+                        "快速入门/使用框架/使用grpc-go",
+                    ]
+                },
+                {
+                    title: "使用网关",
+                    children: [
+                        "快速入门/使用网关/使用nginx",
+                    ]
+                },
+                {
+                    title: "使用服务网格",
+                    children: [
+                        "快速入门/使用服务网格/使用K8s和网格",
+                    ]
+                }
+            ],
         },
         {
             title: "开源社区",
-            children: [{
-                title: "开发者会议",
-                children: [
-                    "开源社区/开发者会议/会议纪要20211116",
-                    // "开源社区/开发者会议/会议纪要20211130"
-                ],
-            }],
+            children: [
+                {
+                    title: "开发者会议",
+                    children: [
+                        "开源社区/开发者会议/会议纪要20211116",
+                        // "开源社区/开发者会议/会议纪要20211130"
+                    ],
+                }
+            ],
         },
         {
             title: "接口文档",
@@ -88,13 +89,15 @@ const sidebar = {
         //   ],
         // },
     ],
-    "/zh/news/": [{
-        collapsable: false,
-        sidebarDepth: 0,
-        children: [
-            ["", "版本更新"], "new1", "new2", "new3"
-        ],
-    }, ],
+    "/zh/news/": [
+        {
+            collapsable: false,
+            sidebarDepth: 0,
+            children: [
+                ["", "版本更新"], "new1", "new2", "new3"
+            ],
+        },
+    ],
 };
 const EnglishSidebar = {
     "/en/doc/": [
