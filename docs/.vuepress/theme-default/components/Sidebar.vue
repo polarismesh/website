@@ -1,16 +1,18 @@
 <template>
   <div class="sidebar-wrapper">
-    <div class>
-      <SearchBox aria-placeholder="请输入关键词" />
+    <div class="sidebar-menu">
+      <div class>
+        <SearchBox aria-placeholder="请输入关键词" />
+      </div>
+      <aside class="sidebar">
+        <NavLinks />
+
+        <slot name="top" />
+
+        <SidebarLinks :depth="0" :items="items" />
+        <slot name="bottom" />
+      </aside>
     </div>
-    <aside class="sidebar">
-      <NavLinks />
-
-      <slot name="top" />
-
-      <SidebarLinks :depth="0" :items="items" />
-      <slot name="bottom" />
-    </aside>
   </div>
 </template>
 
@@ -37,9 +39,18 @@ export default {
       width: 100%;
       border-radius: 0;
     }
+
+    .suggestions {
+      left: 0;
+      z-index: 30;
+    }
   }
 
-  margin: 70px 0px;
+  height: 100%;
+
+  .sidebar-menu {
+    margin: 70px 0px;
+  }
 }
 
 .sidebar {

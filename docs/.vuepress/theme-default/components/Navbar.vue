@@ -96,6 +96,14 @@ function css(el, property) {
   margin: 0px 1vw;
 }
 
+.navbar-nav {
+  background-color: #030213;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
 .navbar {
   height: 56px;
 }

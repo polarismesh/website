@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-row>
-      <b-col cols="3">
+      <b-col xl="2" lg="3" md="3" cols="3">
         <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
           <template #top>
             <slot name="sidebar-top" />
@@ -11,7 +11,7 @@
           </template>
         </Sidebar>
       </b-col>
-      <b-col cols="9">
+      <b-col xl="8" lg="9" md="9" cols="9">
         <Page :sidebar-items="sidebarItems">
           <template #top>
             <slot name="page-top" />
