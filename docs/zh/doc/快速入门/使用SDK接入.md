@@ -115,7 +115,7 @@ Deregister(namespace, service, instance)
 
 各语言 SDK 的快速入门示例：
 
-- [polaris-java 示例](https://github.com/polarismesh/polaris-java/tree/main/examples)
+- [polaris-java 示例](https://github.com/polarismesh/polaris-java/tree/main/polaris-examples)
 - [polaris-go 示例](https://github.com/polarismesh/polaris-go/tree/main/examples)
 - [polaris-cpp 示例](https://github.com/polarismesh/polaris-cpp/tree/main/examples)
-- [polaris-php 示例](https://github.com/polarismesh/polaris-php/tree/main/examples)
+- [polaris-php 示例](https://github.com/polarismesh/polaris-php/tree/php-7.x/examples)
