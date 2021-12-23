@@ -9,7 +9,7 @@
       <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
     </div>
     <!-- <div class="news-back wrap-container"></div> -->
-    <div class="wrap-container">
+    <div>
       <div style="margin: auto; z-index: 30">
         <DocMainLayout v-if="showLayoutType === 'doc'"></DocMainLayout>
         <NewsMainLayout v-else-if="showLayoutType === 'news'"></NewsMainLayout>
