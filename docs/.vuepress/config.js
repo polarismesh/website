@@ -21,19 +21,8 @@ const sidebar = {
                     ]
                 },
                 "快速入门/使用SDK接入",
-                {
-                    title: "使用框架",
-                    children: [
-                        "快速入门/使用框架/使用spring-cloud",
-                        "快速入门/使用框架/使用grpc-go",
-                    ]
-                },
-                {
-                    title: "使用网关",
-                    children: [
-                        "快速入门/使用网关/使用nginx",
-                    ]
-                },
+				"快速入门/使用框架接入",
+				"快速入门/使用网关接入",
                 {
                     title: "使用服务网格",
                     children: [
