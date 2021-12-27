@@ -126,4 +126,4 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 [Polaris Controller](https://github.com/PolarisMesh/polaris-controller)
 
-[Polaris Demo](https://github.com/polarismesh/examples/tree/main/servicemesh/bookinfo)
+[Polaris Demo](https://github.com/polarismesh/examples/tree/main/servicemesh/extended-bookinfo)
