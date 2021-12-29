@@ -43,7 +43,7 @@ polaris-system   Active   3d2h
 
 部署示例 demo 验证注入功能：
 
-参考 [Polaris Samples 项目](https://github.com/PolarisMesh/samples)，部署示例 demo: 
+参考 [Polaris Samples 项目](https://github.com/polarismesh/examples/tree/main/servicemesh/extended-bookinfo)，部署示例 demo: 
 
 ```
 kubectl create -f sample/bookinfo.yaml
