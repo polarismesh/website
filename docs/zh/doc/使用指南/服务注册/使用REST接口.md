@@ -1,4 +1,4 @@
-# 使用REST接口注册
+# 使用REST接口
 
 ## 准备Polaris服务端
 
