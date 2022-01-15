@@ -9,7 +9,7 @@
 
 执行以下命令进行命名空间注册：
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0.0.1:8090/naming/v1/namespaces
 ```
 详细接口参数以及返回值可参考[命名空间管理](polarismesh.cn/zh/doc/接口文档/命名空间管理.html#命名空间管理)
@@ -18,7 +18,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0
 
 执行以下命令进行命名空间反注册：
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0.0.1:8090/naming/v1/namespaces/delete
 ```
 详细接口参数以及返回值可参考[命名空间管理](polarismesh.cn/zh/doc/接口文档/命名空间管理.html#命名空间管理)
@@ -27,7 +27,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0
 
 执行以下命令进行服务注册：
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespace":"Test"}]' http://127.0.0.1:8090/naming/v1/services
 ```
 详细接口参数以及返回值可参考[服务管理](polarismesh.cn/zh/doc/接口文档/服务管理.html#服务管理)
@@ -36,7 +36,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespa
 
 执行以下命令进行服务反注册：
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespace":"Test"}]' http://127.0.0.1:8090/naming/v1/services/delete
 ```
 详细接口参数以及返回值可参考[服务管理](polarismesh.cn/zh/doc/接口文档/服务管理.html#服务管理)
@@ -45,14 +45,14 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespa
 
 执行以下命令进行服务实例注册：
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"service":"FooService", "namespace":"Test", "host": "127.0.0.1", "port": 8080}]' http://127.0.0.1:8090/naming/v1/instances
 ```
 详细接口参数以及返回值可参考[实例管理](polarismesh.cn/zh/doc/接口文档/实例管理.html#实例管理)
 
 ## 反注册服务实例
 
-```
+```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"service":"FooService", "namespace":"Test", "host": "127.0.0.1", "port": 8080}]' http://127.0.0.1:8090/naming/v1/instances/delete
 ```
 详细接口参数以及返回值可参考[实例管理](polarismesh.cn/zh/doc/接口文档/实例管理.html#实例管理)

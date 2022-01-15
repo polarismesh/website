@@ -10,7 +10,7 @@ Polaris SDK提供```Register```接口，供用户进行服务实例注册。
 
 - Java语言
 
-```
+```java
 InstanceRegisterRequest registerRequest = new InstanceRegisterRequest();
 registerRequest.setNamespace("Test");
 registerRequest.setService("FooService");
@@ -18,12 +18,12 @@ registerRequest.setHost("127.0.0.1");
 registerRequest.setPort(8888);
 InstanceRegisterResponse registerResp = provider.register(registerRequest);
 ```
-  
+
 详细使用逻辑可以参考[polaris-java快速入门](https://github.com/polarismesh/polaris-java/tree/main/polaris-examples/quickstart-example)
 
 - Go语言
 
-```
+```go
 registerRequest := &api.InstanceRegisterRequest{}
 registerRequest.Service = "FooService"
 registerRequest.Namespace = "Test"
@@ -36,7 +36,7 @@ resp, err := provider.Register(registerRequest)
 
 - C++语言
 
-```
+```c++
 polaris::InstanceRegisterRequest register_req("Test", "FooService", service_token, "127.0.0.1", 8888);
 std::string instance_id;
 ret = provider->Register(register_req, instance_id);
@@ -47,10 +47,10 @@ ret = provider->Register(register_req, instance_id);
 ## 反注册服务实例
 
 Polaris SDK提供```Deregister```接口，供用户进行服务实例反注册。
- 
+
 - Java语言
 
-```
+```java
 InstanceDeregisterRequest deregisterRequest = new  InstanceDeregisterRequest();
 deregisterRequest.setNamespace("Test");
 deregisterRequest.setService("FooService");
@@ -63,7 +63,7 @@ providerAPI.deRegister(deregisterRequest);
 
 - Go语言
 
-```
+```go
 deregisterRequest := &api.InstanceDeRegisterRequest{}
 deregisterRequest.Service = "FooService"
 deregisterRequest.Namespace = "Test"
@@ -76,7 +76,7 @@ err = provider.Deregister(deregisterRequest)
 
 - C++语言
 
-```
+```c++
 polaris::InstanceDeregisterRequest deregister_req(service_token, instance_id);
 ret = provider->Deregister(deregister_req);
 ```
