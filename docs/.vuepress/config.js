@@ -51,22 +51,19 @@ const sidebar = {
                 "接口文档/限流规则管理"
             ],
         },
-        // {
-        //     title: "使用指南",
-        //     children: [{
-        //         title: "polaris-go"
-        //     }, {
-        //         title: "polaris-java"
-        //     }, {
-        //         title: "polaris-cpp"
-        //     }, {
-        //         title: "polaris-php"
-        //     }, {
-        //         title: "spring-cloud-polaris"
-        //     }, {
-        //         title: "grpc-go-polaris"
-        //     }],
-        // },
+        {
+             title: "使用指南",
+             children: [{
+                    title: "服务注册",
+                    children: [
+                        "使用指南/服务注册/概述",
+                        "使用指南/服务注册/使用控制台",
+                        "使用指南/服务注册/使用SDK",
+                        "使用指南/服务注册/使用REST接口",
+						"使用指南/服务注册/基于kubernetes服务同步"
+                    ],
+             }],
+        },
         // {
         //   title: "用户案例",
         //   collapsable: false,
