@@ -29,7 +29,7 @@ const sidebar = {
         {
              title: "使用指南",
              children: [
-			    "使用指南/基本原理",
+                "使用指南/基本原理",
                 {
                     title: "服务注册",
                     children: [
