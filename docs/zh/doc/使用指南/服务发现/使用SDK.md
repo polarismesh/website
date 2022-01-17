@@ -1,4 +1,4 @@
-# 使用REST接口
+# 使用SDK
 
 ## 准备Polaris服务端
 
