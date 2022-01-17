@@ -1,6 +1,6 @@
 ## 准备Polaris服务端
 
-需要预先安装好Polaris服务端，安装方式可参考：[单机版安装](polarismesh.cn/zh/doc/快速入门/安装服务端/安装单机版.html#单机版安装)或者[集群版安装](polarismesh.cn/zh/doc/快速入门/安装服务端/安装集群版.html#集群版安装)
+需要预先安装好Polaris服务端，安装方式可参考：[单机版安装](https://polarismesh.cn/zh/doc/快速入门/安装服务端/安装单机版.html#单机版安装)或者[集群版安装](https://polarismesh.cn/zh/doc/快速入门/安装服务端/安装集群版.html#集群版安装)
 
 Polaris SDK会提供拉取全量服务实例的接口，用户可以通过服务名来进行服务发现。
 
