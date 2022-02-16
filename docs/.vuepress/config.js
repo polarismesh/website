@@ -62,12 +62,12 @@ const sidebar = {
 				},
             ],
         },
-		{
-			title: "运维指南",
-			children: [
-				"运维指南/polaris服务发现性能测试报告"
-			]
-		},
+//		{
+//			title: "运维指南",
+//			children: [
+//				"运维指南/polaris服务发现性能测试报告"
+//			]
+//		},
         {
             title: "接口文档",
             children: [
