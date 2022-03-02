@@ -272,7 +272,6 @@
         <img class="topo-graph" src="../assets/image/topo-graph.png" />
       </b-row>
     </div>
-
     <div class="feature-container wrap-container">
       <b-row>
         <b-col
@@ -672,9 +671,7 @@
         </b-col>
       </b-row>
     </div>
-    <div class="footer">
-      @ 2021 The PolarisMesh Authors | A Tencent Microservice Project
-    </div>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -682,11 +679,13 @@
 import { Component, Vue } from "vue-property-decorator";
 import HomeSkeleton from "@/components/HomeSkeleton.vue";
 import TopNavbar from "@/components/TopNavbar.vue";
+import Footer from "@/components/Footer.vue";
 
 @Component({
   components: {
     HomeSkeleton,
     TopNavbar,
+    Footer,
   },
 })
 export default class Home extends Vue {}
