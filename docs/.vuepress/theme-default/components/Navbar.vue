@@ -21,9 +21,7 @@
           :class="showLayoutType === 'news' ? 'navlink active' : 'navlink'"
           >新闻</b-nav-item
         >-->
-        <b-nav-item :href="`${window.location.host}/project`" class="navlink"
-          >项目</b-nav-item
-        >
+        <b-nav-item :href="`/project`" class="navlink">项目</b-nav-item>
         <b-nav-item
           :to="`/${language}/doc/简介/北极星是什么.html#简介`"
           :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
