@@ -43,7 +43,7 @@ global:
   serverConnector:
     # target server address
     addresses:
-      - 9.134.122.18:8091
+      - 127.0.0.1:8091
 #描述:主调端配置
 consumer:
   #描述:节点熔断相关配置
@@ -54,7 +54,7 @@ configFile:
   serverConnector:
     connectorType: polaris
     addresses:
-      - 9.134.122.18:8093
+      - 127.0.0.1:8093
 ```
 服务地址需要根据实际部署的北极星服务替换。需要注意点是：global.serverConnector.addresses 为服务发现的地址，configFile.serverConnector.addresses 为配置中心的地址。为了能够隔离物理连接，注册中心和配置中心虽然部署在同一个进程内部，但通过端口区分。默认情况下注册中心为 8091 端口，配置中心为 8093 端口。
 # 四、编写代码
