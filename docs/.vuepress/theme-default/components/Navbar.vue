@@ -8,7 +8,10 @@
         style="height: 30px"
       />
     </b-navbar-brand>
-    <b-navbar-toggle target="nav-collapse" class="navbar-toggle-btn"></b-navbar-toggle>
+    <b-navbar-toggle
+      target="nav-collapse"
+      class="navbar-toggle-btn"
+    ></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav class="ml-auto">
@@ -18,12 +21,21 @@
           :class="showLayoutType === 'news' ? 'navlink active' : 'navlink'"
           >新闻</b-nav-item
         >-->
+        <b-nav-item :href="`/project`" class="navlink">项目</b-nav-item>
         <b-nav-item
           :to="`/${language}/doc/简介/北极星是什么.html#简介`"
           :class="showLayoutType === 'doc' ? 'navlink active' : 'navlink'"
-        >文档</b-nav-item>
-        <b-nav-item href="https://github.com/PolarisMesh" target="_blank" class="navlink">Github</b-nav-item>
-        <b-nav-item href="http://159.75.195.18/" target="_blank" class="navlink">体验版</b-nav-item>
+          >文档</b-nav-item
+        >
+        <b-nav-item
+          href="https://github.com/PolarisMesh"
+          target="_blank"
+          class="navlink"
+          >Github</b-nav-item
+        >
+        <b-nav-item href="http://159.75.195.18/" target="_blank" class="navlink"
+          >体验版</b-nav-item
+        >
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

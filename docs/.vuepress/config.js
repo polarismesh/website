@@ -1,7 +1,6 @@
 const path = require("path");
 const sidebar = {
-    "/zh/doc/": [
-        {
+    "/zh/doc/": [{
             title: "简介",
             children: [
                 "简介/北极星是什么",
@@ -12,8 +11,7 @@ const sidebar = {
         },
         {
             title: "快速入门",
-            children: [
-                {
+            children: [{
                     title: "安装服务端",
                     children: [
                         "快速入门/安装服务端/安装单机版",
@@ -27,8 +25,8 @@ const sidebar = {
             ],
         },
         {
-             title: "使用指南",
-             children: [
+            title: "使用指南",
+            children: [
                 "使用指南/基本原理",
                 {
                     title: "服务注册",
@@ -48,26 +46,34 @@ const sidebar = {
                         "使用指南/服务发现/使用SDK"
                     ],
                 },
-				{
+                {
                     title: "存量兼容",
                     children: [
                         "使用指南/存量兼容/兼容eureka客户端",
-                    ],   
-				},
-				{
-					title: "服务网格",
-					children: [
+                    ],
+                },
+                {
+                    title: "服务网格",
+                    children: [
                         "使用指南/服务网格/概念及原理",
                     ],
-				},
+                },
+                {
+                    title: "鉴权控制",
+                    children: [
+                        "使用指南/鉴权控制/概述",
+                        "使用指南/鉴权控制/使用控制台",
+                        "使用指南/鉴权控制/使用SDK",
+                    ],
+                },
             ],
         },
-		{
-			title: "运维指南",
-			children: [
-				"运维指南/polaris服务发现性能测试报告"
-			]
-		},
+        //		{
+        //			title: "运维指南",
+        //			children: [
+        //				"运维指南/polaris服务发现性能测试报告"
+        //			]
+        //		},
         {
             title: "接口文档",
             children: [
@@ -77,15 +83,17 @@ const sidebar = {
                 "接口文档/实例管理",
                 "接口文档/路由规则管理",
                 "接口文档/限流规则管理",
-                "接口文档/服务发现"
+                "接口文档/服务发现",
+                "接口文档/配置管理",
+                "接口文档/鉴权管理",
             ],
         },
         {
             title: "开源社区",
             children: [
-				"开源社区/如何加入",
-				"开源社区/如何获取学习资料",
-				{
+                "开源社区/如何加入",
+                "开源社区/如何获取学习资料",
+                {
                     title: "路线规划",
                     children: [
                         "开源社区/路线规划/2021路线图",
@@ -105,15 +113,13 @@ const sidebar = {
         //   ],
         // },
     ],
-    "/zh/news/": [
-        {
-            collapsable: false,
-            sidebarDepth: 0,
-            children: [
-                ["", "版本更新"], "new1", "new2", "new3"
-            ],
-        },
-    ],
+    "/zh/news/": [{
+        collapsable: false,
+        sidebarDepth: 0,
+        children: [
+            ["", "版本更新"], "new1", "new2", "new3"
+        ],
+    }, ],
 };
 const EnglishSidebar = {
     "/en/doc/": [

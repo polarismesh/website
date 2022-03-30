@@ -26,6 +26,7 @@
           <!-- <b-nav-item :href="`${language}/news/`" class="navlink"
             >新闻</b-nav-item
           > -->
+          <b-nav-item :href="`/project`" class="navlink">项目</b-nav-item>
           <b-nav-item
             :href="`${language}/doc/简介/北极星是什么.html#北极星是什么`"
             class="navlink"
