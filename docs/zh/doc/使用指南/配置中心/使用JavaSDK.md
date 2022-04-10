@@ -1,10 +1,17 @@
+
+# 使用JavaSDK
+
 [配置中心 Demo 地址](https://github.com/polarismesh/polaris-java/tree/main/polaris-examples/configuration-example)
-# 一、准备工作
+
+## 一、准备工作
 
 - 北极星服务端 v1.7.0 以上版本
 - polaris-java v1.3.0 版本
-# 二、增加 Maven 依赖
-## 2.1 增加北极星 DependencyManager
+
+## 二、增加 Maven 依赖
+
+### 2.1 增加北极星 DependencyManager
+
 ```xml
 <dependencyManagement>
     <dependencies>
@@ -18,16 +25,21 @@
     </dependencies>
 </dependencyManagement>
 ```
-## 2.2 增加配置中心依赖
+
+### 2.2 增加配置中心依赖
+
 ```xml
 <dependency>
     <groupId>com.tencent.polaris</groupId>
     <artifactId>polaris-configuration-factory</artifactId>
 </dependency>
 ```
-# 三、添加北极星配置文件
+
+## 三、添加北极星配置文件
+
 在 resources 目录下新增一个配置文件：polaris.yml，注意放是 resources 根目录下。
 内容为：
+
 ```yaml
 global:
   system:
@@ -56,10 +68,15 @@ configFile:
     addresses:
       - 127.0.0.1:8093
 ```
+
 服务地址需要根据实际部署的北极星服务替换。需要注意点是：global.serverConnector.addresses 为服务发现的地址，configFile.serverConnector.addresses 为配置中心的地址。为了能够隔离物理连接，注册中心和配置中心虽然部署在同一个进程内部，但通过端口区分。默认情况下注册中心为 8091 端口，配置中心为 8093 端口。
-# 四、编写代码
-## 4.1 获取并监听文本类型的配置文件
+
+## 四、编写代码
+
+### 4.1 获取并监听文本类型的配置文件
+
 properties、yaml 格式的配置文件可以解析成 key、value 的格式。但是其它类型的配置文件例如 xml、json 并不能解析成 key、value 格式，只能以整个文本形式处理。下面先介绍非 key、value 格式的配置文件使用方式。
+
 ```java
 public static void main(String[] args) throws Exception {
         //定义配置文件三元组
@@ -97,15 +114,25 @@ public static void main(String[] args) throws Exception {
         System.in.read();
     }
 ```
+
 运行后控制台将打印配置文件内容，如下图所示：
+
 ![](get-config-file-result.png)
+
 控制台上修改并发布配置文件，将会收到变更事件：
+
 ![](receive-config-file-event.png)
+
 更多的 API 用法，可自行查看 API 接口说明。
-## 4.2 使用 properties、yaml 格式的配置文件
+
+### 4.2 使用 properties、yaml 格式的配置文件
+
 实际生产使用过程中，绝大部分配置文件还是以 properties、yaml 格式的配置文件为主。所以 polaris-sdk 针对这两种配置文件提供了一系列自动解析的能力，方便在业务代码中快速使用配置文件，减少重复工作。
-### 4.2.1 使用 properties 配置文件
+
+#### 4.2.1 使用 properties 配置文件
+
 代码如下：
+
 ```java
 public static void main(String[] args) throws IOException {
         // 定义配置文件三元组
@@ -160,12 +187,17 @@ public static void main(String[] args) throws IOException {
         }
     }
 ```
+
 和获取配置文件相比，区别有以下几个点：
 
 1. configFileService.getConfigPropertiesFile(namespace, fileGroup, fileName) 返回 ConfigKVFile 对象。
-1. ConfigKVFile 会自动解析 properties 格式的配置文件，提供了一系列自动类型转化的方法，例如基础类型的 getIntProperty、getFloatProperty，高级类型有：getEnumProperty、getArrayProperty、getJsonProperty
-1. 配置文件变更回调事件中，可以精确到每个 key 的粒度
-### 4.2.2 使用 yaml 配置文件
+
+2. ConfigKVFile 会自动解析 properties 格式的配置文件，提供了一系列自动类型转化的方法，例如基础类型的 getIntProperty、getFloatProperty，高级类型有：getEnumProperty、getArrayProperty、getJsonProperty
+
+3. 配置文件变更回调事件中，可以精确到每个 key 的粒度
+
+#### 4.2.2 使用 yaml 配置文件
+
 ```java
 public static void main(String[] args) throws IOException {
         //配置文件三元组
@@ -223,5 +255,7 @@ public static void main(String[] args) throws IOException {
         }
     }
 ```
+
 和使用 properties 文件唯一区别是 
+
 ConfigKVFile configFile = configFileService.getConfigYamlFile(namespace, fileGroup, fileName);
