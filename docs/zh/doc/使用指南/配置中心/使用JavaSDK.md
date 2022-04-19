@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.tencent.polaris</groupId>
             <artifactId>polaris-dependencies</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>1.4.0</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -62,7 +62,7 @@ consumer:
   circuitBreaker:
     #描述:是否启用节点熔断功能
     enable: false
-configFile:
+config:
   serverConnector:
     connectorType: polaris
     addresses:
