@@ -1,6 +1,18 @@
 
 # 使用JavaSDK
 
+- [使用JavaSDK](#使用javasdk)
+  - [一、准备工作](#一准备工作)
+  - [二、增加 Maven 依赖](#二增加-maven-依赖)
+    - [2.1 增加北极星 DependencyManager](#21-增加北极星-dependencymanager)
+    - [2.2 增加配置中心依赖](#22-增加配置中心依赖)
+  - [三、添加北极星配置文件](#三添加北极星配置文件)
+  - [四、编写代码](#四编写代码)
+    - [4.1 获取并监听文本类型的配置文件](#41-获取并监听文本类型的配置文件)
+    - [4.2 使用 properties、yaml 格式的配置文件](#42-使用-propertiesyaml-格式的配置文件)
+      - [4.2.1 使用 properties 配置文件](#421-使用-properties-配置文件)
+      - [4.2.2 使用 yaml 配置文件](#422-使用-yaml-配置文件)
+
 [配置中心 Demo 地址](https://github.com/polarismesh/polaris-java/tree/main/polaris-examples/configuration-example)
 
 ## 一、准备工作
