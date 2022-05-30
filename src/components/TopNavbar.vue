@@ -39,7 +39,7 @@
             >Github</b-nav-item
           >
           <b-nav-item
-            href="http://159.75.195.18/"
+            href="http://14.116.241.63:8080/"
             target="_blank"
             class="navlink"
             >体验版</b-nav-item
