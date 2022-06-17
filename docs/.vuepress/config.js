@@ -53,7 +53,6 @@ const sidebar = {
         {
             title: "教程",
             children: [
-                "教程/基本原理",
                 {
                     title: "服务注册",
                     children: [
