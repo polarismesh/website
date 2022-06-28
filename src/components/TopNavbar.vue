@@ -28,7 +28,7 @@
           > -->
           <b-nav-item :href="`/project`" class="navlink">项目</b-nav-item>
           <b-nav-item
-            :href="`${language}/doc/简介/北极星是什么.html#北极星是什么`"
+            :href="`${language}/doc/北极星是什么/简介.html`"
             class="navlink"
             >文档</b-nav-item
           >
