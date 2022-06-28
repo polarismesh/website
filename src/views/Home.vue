@@ -19,7 +19,7 @@
             <div class="banner-button-group" style="margin-top: 2rem">
               <b-button
                 variant="primary"
-                href="zh/doc/简介/北极星是什么.html#北极星是什么"
+                href="zh/doc/北极星是什么/简介.html"
                 class="banner-button"
                 >文档</b-button
               >
