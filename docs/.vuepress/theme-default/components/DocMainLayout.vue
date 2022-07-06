@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row>
+    <b-row style="--bs-gutter-x: 0rem">
       <b-col xl="2" lg="3" md="3" cols="3">
         <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
           <template #top>
