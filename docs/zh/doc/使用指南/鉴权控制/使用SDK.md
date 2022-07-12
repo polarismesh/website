@@ -56,7 +56,7 @@ resp, err := provider.Register(registerRequest)
 
 - C++语言
 
-```c++
+```cpp
 polaris::InstanceRegisterRequest register_req("Test", "FooService", ${user_token | group_token}, "127.0.0.1", 8888);
 std::string instance_id;
 ret = provider->Register(register_req, instance_id);
