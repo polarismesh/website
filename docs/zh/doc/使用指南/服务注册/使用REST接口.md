@@ -21,7 +21,7 @@
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0.0.1:8090/naming/v1/namespaces
 ```
-详细接口参数以及返回值可参考[命名空间管理](https://polarismesh.cn/zh/doc/接口文档/命名空间管理.html#命名空间管理)
+详细接口参数以及返回值可参考[命名空间管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/命名空间管理.html#命名空间管理)
 
 ## 反注册命名空间
 
@@ -30,7 +30,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0.0.1:8090/naming/v1/namespaces/delete
 ```
-详细接口参数以及返回值可参考[命名空间管理](https://polarismesh.cn/zh/doc/接口文档/命名空间管理.html#命名空间管理)
+详细接口参数以及返回值可参考[命名空间管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/命名空间管理.html#命名空间管理)
 
 ## 注册服务
 
@@ -39,7 +39,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"Test"}]' http://127.0
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespace":"Test"}]' http://127.0.0.1:8090/naming/v1/services
 ```
-详细接口参数以及返回值可参考[服务管理](https://polarismesh.cn/zh/doc/接口文档/服务管理.html#服务管理)
+详细接口参数以及返回值可参考[服务管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/服务管理.html#服务管理)
 
 ## 反注册服务
 
@@ -48,7 +48,7 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespa
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespace":"Test"}]' http://127.0.0.1:8090/naming/v1/services/delete
 ```
-详细接口参数以及返回值可参考[服务管理](https://polarismesh.cn/zh/doc/接口文档/服务管理.html#服务管理)
+详细接口参数以及返回值可参考[服务管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/服务管理.html#服务管理)
 
 ## 注册服务实例
 
@@ -57,11 +57,11 @@ curl -XPOST -H'Content-Type:application/json' -d'[{"name":"FooService", "namespa
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"service":"FooService", "namespace":"Test", "host": "127.0.0.1", "port": 8080}]' http://127.0.0.1:8090/naming/v1/instances
 ```
-详细接口参数以及返回值可参考[实例管理](https://polarismesh.cn/zh/doc/接口文档/实例管理.html#实例管理)
+详细接口参数以及返回值可参考[实例管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/实例管理.html#实例管理)
 
 ## 反注册服务实例
 
 ```shell
 curl -XPOST -H'Content-Type:application/json' -d'[{"service":"FooService", "namespace":"Test", "host": "127.0.0.1", "port": 8080}]' http://127.0.0.1:8090/naming/v1/instances/delete
 ```
-详细接口参数以及返回值可参考[实例管理](https://polarismesh.cn/zh/doc/接口文档/实例管理.html#实例管理)
+详细接口参数以及返回值可参考[实例管理](https://polarismesh.cn/zh/doc/参考文档/接口文档/实例管理.html#实例管理)
