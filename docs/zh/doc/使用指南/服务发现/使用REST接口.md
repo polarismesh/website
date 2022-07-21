@@ -21,5 +21,5 @@ POST /v1/Discover
 }
 ```
 
-详细接口参数以及返回值可参考[服务发现](https://polarismesh.cn/zh/doc/接口文档/服务发现.html#服务发现)
+详细接口参数以及返回值可参考[服务发现](https://polarismesh.cn/zh/doc/参考文档/接口文档/服务发现.html#服务发现)
 
