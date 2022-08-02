@@ -2,9 +2,7 @@
   <div class="footer">
     @ 2022 The PolarisMesh Authors | A Tencent Microservice Project
     <div>
-      <a href="https://beian.miit.gov.cn/#/Integrated/index"
-        >ICP备案号 粤B2-20090059
-      </a>
+      <a href="https://beian.miit.gov.cn/#/Integrated/index">粤B2-20090059 </a>
     </div>
   </div>
 </template>
