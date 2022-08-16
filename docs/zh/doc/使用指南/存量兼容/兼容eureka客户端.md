@@ -20,7 +20,15 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
 ```
 
-2. 打包 demo 源码成 jar 包。
+  - 如果期望使用`Eureka`的安全认证体系, 则按照如下进行配置，[北极星鉴权文档](../%E9%89%B4%E6%9D%83%E6%8E%A7%E5%88%B6/%E6%A6%82%E8%BF%B0.md)
+```yaml
+eureka:
+    client:
+    serviceUrl:
+      defaultZone: http://{任意用户名称}:{北极星鉴权Token}@127.0.0.1:8761/eureka/
+```
+
+1. 打包 demo 源码成 jar 包。
 
  在`eureka-java`源码根目录下，打开 cmd 命令，执行 mvn clean package 命令，对项目进行打包编译，编译成功后，生成如下表所示的2个 Jar 包：
 <table>
