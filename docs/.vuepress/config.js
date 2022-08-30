@@ -37,7 +37,7 @@ const sidebar = {
         },
         {
           title: "北极星架构原理",
-          children: ["架构原理/北极星架构原理/polaris架构设计"],
+          children: ["架构原理/北极星架构原理/高可用架构设计"],
         },
       ],
     },
