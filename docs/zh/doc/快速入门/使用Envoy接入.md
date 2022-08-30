@@ -3,12 +3,16 @@
 - [使用Envoy接入](#使用Envoy接入)
   - [概览](#概览)
   - [环境准备](#环境准备)
-    - [准备 polaris 后台环境](#准备-polaris-后台环境)
+    - [部署polaris](#部署polaris)
     - [部署 polaris-controller](#部署-polaris-controller)
   - [快速接入](#快速接入)
+    - [服务调用关系说明](#服务调用关系说明)
     - [启用 sidecar 自动注入功能](#启用-sidecar-自动注入功能)
-    - [服务注册与发现](#服务注册与发现)
-    - [服务路由与负载均衡](#服务路由与负载均衡)
+    - [部署样例](#部署样例)
+  - [使用服务治理能力](#使用服务治理能力)
+    - [流量调度](#流量调度)
+    - [访问限流](#访问限流)
+    - [可观测性](#可观测性)
   - [相关链接](#相关链接)
 
 ---
@@ -45,7 +49,7 @@ polaris支持在kubernetes环境中进行部署，注意必须保证暴露HTTP�
 
 - [github下载](https://github.com/polarismesh/polaris-controller/releases)
 
-#### 安装部署
+#### 部署包安装
 
 安装前，需确保kubectl命令已经加入环境变量Path中，并且可以访问kubernetes的APIServer。
 
@@ -148,7 +152,7 @@ envoy:
 
 通过productpage暴露的地址，可以访问productpage的主界面，进入Normal User或者TestUser后，可以看到（红、黑、无）三种形态的星星，代表demo已经部署成功。
 
-## 服务治理能力验证
+## 使用服务治理能力
 
 ### 流量调度
 
