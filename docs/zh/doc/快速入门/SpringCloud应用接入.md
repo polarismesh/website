@@ -4,8 +4,8 @@
   - [快速入门](#快速入门)
     - [前提条件](#前提条件)
     - [确定 Spring Cloud 版本](#确定-spring-cloud-版本)
-      - [确认自己项目的 Spring Boot 版本](#确认自己项目的-spring-boot-版本)
-      - [版本列表](#版本列表)
+        - [确认自己项目的 Spring Boot 版本](#确认自己项目的-spring-boot-版本)
+        - [版本列表](#版本列表)
     - [服务注册](#服务注册)
     - [服务发现](#服务发现)
     - [动态配置](#动态配置)
@@ -16,6 +16,11 @@
     - [服务熔断](#服务熔断)
       - [服务提供者](#服务提供者-1)
       - [服务调用者](#服务调用者-1)
+  - [常见问题(FAQ)](#常见问题faq)
+      - [Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地](#spring-cloud-或者-spring-cloud-tencent-的依赖无法拉到本地)
+      - [Spring Cloud 应用无法注册到北极星](#spring-cloud-应用无法注册到北极星)
+      - [无法通过 RestTemplate 从北极星发现服务并发起调用](#无法通过-resttemplate-从北极星发现服务并发起调用)
+      - [无法通过 Feign 从北极星发现服务并发起调用](#无法通过-feign-从北极星发现服务并发起调用)
 ---
 
 ## 功能简介
@@ -59,12 +64,13 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
+- 引入 **spring-boot-starter-web** 进行启动一个 Web 服务，Spring Cloud 的项目要完成服务注册首先的是一个 Web 服务。
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
 
@@ -88,6 +94,14 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -197,17 +211,16 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ### 服务发现
 
-
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
-- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
+- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现从北极星中发现服务。
 
 
 ```xml
@@ -232,6 +245,14 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -241,11 +262,15 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <!-- 引入 Spring Cloud Tencent 的服务注册发现依赖 -->
         <dependency>
             <groupId>com.tencent.cloud</groupId>
             <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+        </dependency>
+        <!-- 引入 Feign 依赖实现 Feign 调用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 
@@ -288,6 +313,8 @@ spring:
 
 ##### 示例代码
 
+> 基于 RestTemplate 的服务发现调用
+
 ```java
 @SpringBootApplication
 public class SpringCloudConsumerApplication {
@@ -319,9 +346,44 @@ public class SpringCloudConsumerApplication {
 }
 ```
 
+> 基于 Feign 的服务发现调用
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class SpringCloudPolarisConsumerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringCloudPolarisConsumerApplication.class, args);
+    }
+
+    @RestController
+    static class EchoController {
+
+        private final EchoServerClient client;
+
+        EchoController(EchoServerClient client) {
+            this.client = client;
+        }
+
+        @GetMapping(value = "/echo")
+        public String echo(@RequestParam(name = "value") String val) {
+            return client.echo(val);
+        }
+    }
+
+    @FeignClient(name = "EchoServer")
+    public interface EchoServerClient {
+
+        @GetMapping("/echo/{value}")
+        String echo(@PathVariable("value") String value);
+    }
+}
+```
+
 ##### 验证
 
-通过 curl 命令查询服务端是否有该实例。
+通过 curl 命令对服务消费者发起调用。
 
 ```bash
 curl --location --request GET '127.0.0.1:38888/echo?value=SCT'
@@ -338,11 +400,11 @@ Hello PolarisMesh SCT, I'm EchoServer
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-config** 实现 Spring Cloud 配置的动态管理。
@@ -486,11 +548,11 @@ public class SpringCloudTencentConfigDemoApplication {
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -515,6 +577,14 @@ public class SpringCloudTencentConfigDemoApplication {
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -641,11 +711,11 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -670,6 +740,14 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -808,7 +886,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
@@ -833,6 +911,14 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -943,11 +1029,11 @@ Hello PolarisMesh , I'm RateLimit Demo%
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -972,6 +1058,14 @@ Hello PolarisMesh , I'm RateLimit Demo%
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
                 <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1105,11 +1199,11 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -1289,3 +1383,69 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 Hello PolarisMesh hello, I'm EchoServer:20001%
 ➜  ~ curl --location --request GET '127.0.0.1:38888/echo?value=hello'
 ```
+
+
+
+## 常见问题(FAQ)
+
+#### Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地
+
+pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${ Spring Cloud 的版本 }</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-tencent-dependencies</artifactId>
+            <version>${ 与 Spring Cloud 版本对应的 SCT 版本 }</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+#### Spring Cloud 应用无法注册到北极星
+
+- 确保项目引入了 **spring-boot-starter-web** 或者引入 **spring-boot-starter-webflux**
+- 确保项目引入了 **spring-cloud-tencent-dependencies** 以及 **spring-cloud-starter-tencent-polaris-discovery**
+
+由于在 Spring Cloud 的设计中，一个 Spring Cloud 服务要触发注册动作，必须要有 WebServerInitializedEvent 事件。
+
+#### 无法通过 RestTemplate 从北极星发现服务并发起调用
+
+- 确保项目引入了 **spring-cloud-tencent-dependencies** 以及 **spring-cloud-starter-tencent-polaris-discovery**
+- 确保按照如下代码对 RestTemple 创建 bean 以及引入 LoadBalancer 能力
+
+```java
+@LoadBalanced
+@Bean
+public RestTemplate restTemplate() {
+    return new RestTemplate();
+}
+```
+
+#### 无法通过 Feign 从北极星发现服务并发起调用
+
+- 确保 @FeignClient 注解中的 **url** 不要指定任何路径
+
+**错误示例**
+
+```java
+@FeignClient(name = "EchoServer", url = "https://172.0.0.1")
+public interface EchoServerClient {
+    @RequestMapping(value = "/search/users", method = RequestMethod.GET)
+    String searchUsers(@RequestParam("q") String queryStr);
+}
+```
+
+
