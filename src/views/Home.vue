@@ -669,6 +669,42 @@
         >
           <img src="../assets/image/yangshipin.png" />
         </b-col>
+        <b-col
+          align-self="center"
+          xl="3"
+          lg="3"
+          md="6"
+          cols="12"
+          class="customer-image"
+        >
+          <img src="../assets/image/haoweilai.png" />
+        </b-col>
+        <b-col
+          align-self="center"
+          xl="3"
+          lg="3"
+          md="6"
+          cols="12"
+          class="customer-image"
+        >
+          <img
+            src="../assets/image/futongtianxia.png"
+            style="width: 100px; min-width: 100px"
+          />
+        </b-col>
+        <b-col
+          align-self="center"
+          xl="3"
+          lg="3"
+          md="6"
+          cols="12"
+          class="customer-image"
+        >
+          <img
+            src="../assets/image/haiguanjia.png"
+            style="width: 150px; min-width: 150px"
+          />
+        </b-col>
       </b-row>
     </div>
     <Footer></Footer>
