@@ -33,9 +33,9 @@ polaris支持在kubernetes环境中进行部署，注意必须保证暴露HTTP�
 | 变量名                         | 默认值                      | 说明                                         |
 | ------------------------------ | --------------------------- | -------------------------------------------- |
 | polaris_address                | polaris.polaris-system:8091 | 北极星服务端地址，8091为GRPC端口             |
-| polaris.nginx.namespace        | default                     | 网关服务所在的命名空间                       |
-| polaris.nginx.service          | nginx-gateway               | 网关服务所在的服务名，用于查找并关联限流规则 |
-| polaris.nginx.ratelimit.enable | true                        | 是否启用限流功能                             |
+| polaris_nginx_namespace        | default                     | 网关服务所在的命名空间                       |
+| polaris_nginx_service          | nginx-gateway               | 网关服务所在的服务名，用于查找并关联限流规则 |
+| polaris_nginx_ratelimit_enable | true                        | 是否启用限流功能                             |
 
 - 部署样例：以1.1.0-beta.0为例，源码包名称为：nginx-gateway-1.1.0-beta.0.zip
 
@@ -94,9 +94,9 @@ http {
 | 变量名                         | 默认值                      | 说明                                         |
 | ------------------------------ | --------------------------- | -------------------------------------------- |
 | polaris_address                | polaris.polaris-system:8091 | 北极星服务端地址，8091为GRPC端口             |
-| polaris.nginx.namespace        | default                     | 网关服务所在的命名空间                       |
-| polaris.nginx.service          | nginx-gateway               | 网关服务所在的服务名，用于查找并关联限流规则 |
-| polaris.nginx.ratelimit.enable | true                        | 是否启用限流功能                             |
+| polaris_nginx_namespace        | default                     | 网关服务所在的命名空间                       |
+| polaris_nginx_service          | nginx-gateway               | 网关服务所在的服务名，用于查找并关联限流规则 |
+| polaris_nginx_ratelimit_enable | true                        | 是否启用限流功能                             |
 
 - 重启nginx
 
