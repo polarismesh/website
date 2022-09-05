@@ -1390,7 +1390,7 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 
 #### Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地
 
-pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
+- pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
 
 ```xml
 <dependencyManagement>
@@ -1412,6 +1412,48 @@ pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必�
         </dependency>
     </dependencies>
 </dependencyManagement>
+```
+
+- 确认 Maven 的 setting.xml 中是否正确配置了 release 仓库地址以及 snapshot 仓库地址，
+
+```xml
+<settings>
+...
+
+<profiles>
+  <profile>
+    <id>sonatype</id>
+    <properties>
+      <downloadSources>true</downloadSources>
+      <downloadJavadocs>true</downloadJavadocs>
+    </properties>
+    <repositories>
+      <repository>
+        <id>nexus-snapshots</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+      <repository>
+        <id>nexus-releases</id>
+        <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+  </profile>	
+</profiles>
+
+...
+</settings>
 ```
 
 #### Spring Cloud 应用无法注册到北极星
