@@ -1430,7 +1430,7 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
     <repositories>
       <repository>
         <id>nexus-snapshots</id>
-        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         <releases>
           <enabled>false</enabled>
         </releases>
@@ -1440,7 +1440,7 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
       </repository>
       <repository>
         <id>nexus-releases</id>
-        <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         <releases>
           <enabled>true</enabled>
         </releases>
@@ -1455,6 +1455,13 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 ...
 </settings>
 ```
+
+- 确认 jetbrains IDEA 开启了拉取 maven 的 snapshot 依赖
+
+步骤：在IntelliJ IDEA的 File -> Settings -> Build,Execution,Deployment -> Build Tools -> Maven 配置中勾选上 Always
+update snapshots 选项然后保存后再重新 Maven Reimport 即可
+
+![](./图片/maven_snapshot_idea_setting.png)
 
 #### Spring Cloud 应用无法注册到北极星
 
