@@ -12,7 +12,8 @@
     - [服务路由](#服务路由)
       - [服务提供者](#服务提供者)
       - [服务调用者](#服务调用者)
-    - [服务限流](#服务限流)
+    - [单机服务限流](#单机服务限流)
+    - [分布式服务限流](#分布式服务限流)
     - [服务熔断](#服务熔断)
       - [服务提供者](#服务提供者-1)
       - [服务调用者](#服务调用者-1)
@@ -141,6 +142,8 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -293,6 +296,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 └── resources
     └── application.yaml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -478,6 +483,8 @@ Hello PolarisMesh SCT, I'm EchoServer
     └── bootstrap.yml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 48084
@@ -525,11 +532,11 @@ public class SpringCloudTencentConfigDemoApplication {
 - 创建配置分组 ConfigExample
 - 创建配置文件 `config/user.properties`
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
 
 - 编辑并发布配置文件 `config/user.properties`
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
 
 
 ##### 验证
@@ -537,7 +544,7 @@ public class SpringCloudTencentConfigDemoApplication {
 1. 调用 curl --location --request GET '127.0.0.1:48084/name' 查看返回值，预期返回 `polarismesh`
 2. 在线修改配置并发布
 
-![](./图片/springcloud接入-修改配置文件.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-修改配置文件.png)
 
 3. 调用 curl --location --request GET '127.0.0.1:48084/name' 查看返回值，预期返回 `polarismesh@2021`
 
@@ -624,6 +631,8 @@ public class SpringCloudTencentConfigDemoApplication {
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -791,6 +800,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
     └── application.yml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 38888
@@ -844,7 +855,7 @@ public class SpringCloudConsumerApplication {
 
 ##### 设置 RouterEchoServer 的被调路由规则
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99.png)
 
 ##### 验证
 
@@ -877,7 +888,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20002%
 Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 ```
 
-### 服务限流
+### 单机服务限流
 
 
 ##### 项目初始化
@@ -959,6 +970,8 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
     └── application.yaml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 38888
@@ -1001,7 +1014,173 @@ public class SpringCloudRateLimitApplication {
 
 为服务 `EchoServer` 创建一条限流规则
 
-![](./图片/springcloud接入-创建限流规则.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建限流规则.png)
+
+##### 验证
+
+通过 curl 命令快速发起多次查询，查看是否触发限流
+
+```bash
+curl --location --request GET '127.0.0.1:38888/echo'
+```
+
+预期的结果如下
+
+```
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+Hello PolarisMesh , I'm RateLimit Demo%
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+The request is denied by rate limit because the throttling threshold is reached%
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+Hello PolarisMesh , I'm RateLimit Demo%
+```
+
+
+### 分布式服务限流
+
+##### 安装北极星分布式限流服务端
+
+具体操作参见 [Polaris 分布式限流服务端安装](./%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1%E7%AB%AF/%E5%AE%89%E8%A3%85%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81%E6%9C%8D%E5%8A%A1.md)
+
+##### 项目初始化
+
+使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+
+##### 引入依赖
+
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+
+- 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
+- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
+
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.11</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    ...
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tencent.cloud</groupId>
+                <artifactId>spring-cloud-tencent-dependencies</artifactId>
+                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        ...
+        <!-- 北极星服务注册发现依赖 -->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+        </dependency>
+        <!-- 北极星服务限流依赖 -->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-ratelimit</artifactId>
+        </dependency>
+        ...
+    </dependencies>
+    ...
+
+</project>
+```
+
+##### 配置 application.yaml 
+
+在 resources 目录下创建 application.yml 文件 文件以及 polaris.yaml，并按照如下进行配置
+
+```
+.
+├── java
+│   └── com
+│       └── example
+│           └── spingcloudpolarisratelimit
+│               └── SpringCloudRateLimitApplication.java
+└── resources
+    ├── polaris.yml
+    └── application.yaml
+```
+
+配置 application.yml
+
+```yaml
+server:
+  port: 38888
+spring:
+  application:
+    name: RateLimitEchoServer
+
+  cloud:
+    polaris:
+      address: grpc://127.0.0.1:8091
+      discovery:
+        enabled: true
+      stat:
+        enabled: true
+        port: 38082
+```
+
+配置 polaris.yml
+
+```yaml
+# 被调方配置
+provider:
+  rateLimit:
+    # 是否开启限流功能
+    enable: true
+    # 限流服务的命名空间
+    limiterNamespace: Polaris
+    # 限流服务名
+    limiterService: polaris.limiter
+```
+
+##### 示例代码
+
+```java
+@SpringBootApplication
+public class SpringCloudRateLimitApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringCloudRateLimitApplication.class, args);
+    }
+
+    @RestController
+    static class EchoController {
+
+        @GetMapping(value = "/echo")
+        public String echo() {
+            return "Hello PolarisMesh , I'm RateLimit Demo";
+        }
+    }
+}
+```
+
+##### 配置限流规则
+
+为服务 `EchoServer` 创建一条限流规则
+
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建分布式限流规则.png)
 
 ##### 验证
 
@@ -1093,7 +1272,7 @@ Hello PolarisMesh , I'm RateLimit Demo%
 
 ##### 配置 application.yaml 
 
-在 resources 目录下创建 application.yml 文件，并按照如下进行配置
+在 resources 目录下创建 application.yml，并按照如下进行配置
 
 ```
 .
@@ -1105,6 +1284,8 @@ Hello PolarisMesh , I'm RateLimit Demo%
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -1127,6 +1308,7 @@ spring:
         port: 28082
       address: grpc://127.0.0.1:8091
 ```
+
 
 ##### 示例代码
 
@@ -1284,6 +1466,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
     └── application.yml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 38888
@@ -1348,7 +1532,7 @@ public class SpringCloudConsumerApplication {
 
 ##### 设置 CircuitBreakerEchoServer 的被调熔断规则
 
-![](./图片/springcloud接入-创建服务熔断规则.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建服务熔断规则.png)
 
 ##### 验证
 
@@ -1390,7 +1574,7 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 
 #### Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地
 
-pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
+- pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
 
 ```xml
 <dependencyManagement>
@@ -1413,6 +1597,55 @@ pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必�
     </dependencies>
 </dependencyManagement>
 ```
+
+- 确认 Maven 的 setting.xml 中是否正确配置了 release 仓库地址以及 snapshot 仓库地址，
+
+```xml
+<settings>
+...
+
+<profiles>
+  <profile>
+    <id>sonatype</id>
+    <properties>
+      <downloadSources>true</downloadSources>
+      <downloadJavadocs>true</downloadJavadocs>
+    </properties>
+    <repositories>
+      <repository>
+        <id>nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+      <repository>
+        <id>nexus-releases</id>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+  </profile>	
+</profiles>
+
+...
+</settings>
+```
+
+- 确认 jetbrains IDEA 开启了拉取 maven 的 snapshot 依赖
+
+步骤：在IntelliJ IDEA的 File -> Settings -> Build,Execution,Deployment -> Build Tools -> Maven 配置中勾选上 Always
+update snapshots 选项然后保存后再重新 Maven Reimport 即可
+
+![](./图片/maven_snapshot_idea_setting.png)
 
 #### Spring Cloud 应用无法注册到北极星
 

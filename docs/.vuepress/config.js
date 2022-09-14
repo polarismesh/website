@@ -49,6 +49,7 @@ const sidebar = {
           children: [
             "快速入门/安装服务端/安装单机版",
             "快速入门/安装服务端/安装集群版",
+            "快速入门/安装服务端/安装分布式限流服务",
           ],
         },
         "快速入门/SpringCloud应用接入",
@@ -125,6 +126,10 @@ const sidebar = {
     {
       title: "参考文档",
       children: [
+        {
+          title: "版本列表",
+          children: ["参考文档/版本列表/RELEASE-V1.11.1"],
+        },
         {
           title: "接口文档",
           children: [
