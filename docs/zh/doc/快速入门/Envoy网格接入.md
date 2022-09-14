@@ -176,7 +176,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 未登陆时，刷新 productpage 的页面，可以看到只返回没有颜色的星星（version=v1）。当使用 `jason` 登陆后，productpage 请求 reviews 时，会带上 header，end-user=jason，此时再刷新 productpage 页面，发现只会显示黑色的星星，即上面 version=v2 的实例。
 
-### 访问限流（支持中）
+### 访问限流
 
 北极星网格支持单机限流和分布式限流，同时直接细粒度的配额的设置。
 
@@ -207,6 +207,10 @@ demo项目中，为details服务设置流量限制，对于jason用户的请求�
 
 
 ### 可观测性（支持中）
+
+
+
+
 
 
 ## 相关链接
