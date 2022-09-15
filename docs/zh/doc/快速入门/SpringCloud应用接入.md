@@ -128,7 +128,7 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -282,7 +282,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -294,7 +294,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 │           └── spingcloudpolarisconsumer
 │               └── SpringCloudConsumerApplication.java
 └── resources
-    └── application.yaml
+    └── application.yml
 ```
 
 配置 application.yml
@@ -413,6 +413,7 @@ Hello PolarisMesh SCT, I'm EchoServer
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-config** 实现 Spring Cloud 配置的动态管理。
+- 引入 **spring-cloud-starter-bootstrap** 以便可以支持 bootstrap.yml 的识别与加载
 
 
 ```xml
@@ -468,7 +469,7 @@ Hello PolarisMesh SCT, I'm EchoServer
 ```
 
 
-##### 配置 bootstrap.yaml 
+##### 配置 bootstrap.yml 
 
 在 resources 目录下创建 bootstrap.yml 文件，并按照如下进行配置
 
@@ -483,7 +484,7 @@ Hello PolarisMesh SCT, I'm EchoServer
     └── bootstrap.yml
 ```
 
-配置 application.yml
+配置 bootstrap.yml
 
 ```yaml
 server:
@@ -617,7 +618,7 @@ public class SpringCloudTencentConfigDemoApplication {
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -785,7 +786,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -955,7 +956,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -1106,9 +1107,9 @@ Hello PolarisMesh , I'm RateLimit Demo%
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
-在 resources 目录下创建 application.yml 文件 文件以及 polaris.yaml，并按照如下进行配置
+在 resources 目录下创建 application.yml 文件 文件以及 polaris.yml，并按照如下进行配置
 
 ```
 .
@@ -1270,7 +1271,7 @@ Hello PolarisMesh , I'm RateLimit Demo%
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml，并按照如下进行配置
 
@@ -1451,7 +1452,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 </project>
 ```
 
-##### 配置 application.yaml 
+##### 配置 application.yml 
 
 在 resources 目录下创建 application.yml 文件，并按照如下进行配置
 
@@ -1682,3 +1683,35 @@ public interface EchoServerClient {
 ```
 
 
+#### 为什么无法识别我配置的 bootstrap.yml 文件，并且 profile 不生效
+
+[Spring Cloud 官方文档介绍](https://docs.spring.io/spring-cloud/docs/2020.0.1/reference/htmlsingle/#config-first-bootstrap)
+
+Spring Boot 2.4, the bootstrap context initialization (bootstrap.yml, bootstrap.properties) of property sources was
+deprecated.
+
+因此，如果用户希望继续在 Spring Boot 2.4 之上使用 bootstrap.yml 的话，可以通过添加 **spring-cloud-starter-bootstrap** 进行解决
+
+- 添加 bootstrap 的依赖
+
+```xml        
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+</dependency>
+```
+
+对于 profile 不生效的问题，请确保尊从以下使用方式
+
+- 使用 application.yml
+
+如果一开始使用了 application.yml 的话，则 profile 的文件名称只能为 application-{profile}.yml
+ 
+- 使用 bootstrap.yml
+
+如果一开始使用了 bootstrap.yml 的话，则 profile 的文件名称只能为 bootstrap-{profile}.yml
+
+
+**注意事项**
+
+如果使用 application.yml，但是 profile 文件名称为 bootstrap-{profile}.yml，那么 profile 是无法生效的
