@@ -53,13 +53,13 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 
 | Spring Boot 兼容版本 | Spring Cloud 版本 | Spring Cloud Tencent 版本 |
 | -------------------- | ----------------- | ------------------------- |
-| 2.6.x                | 2021.0.3          | 1.7.0-2021.0.3-SNAPSHOT   |
-| 2.4.x, 2.5.x         | 2020.0.5          | 1.7.0-2020.0.5-SNAPSHOT   |
-| 2.2.x, 2.3.x         | Hoxton.SR12       | 1.7.0-Hoxton.SR12         |
+| 2.6.x                | 2021.0.3          | 1.7.0-2021.0.3            |
+| 2.4.x, 2.5.x         | 2020.0.5          | 1.7.0-2020.0.5   |
+| 2.2.x, 2.3.x         | Hoxton.SR12       | 1.7.1-Hoxton.SR12         |
 | 2.1.x                | Greenwich.SR6     | 1.5.3-Greenwich.SR6       |
 
 
-接下来所有的示例我们将基于 Spring Cloud 版本为 2021.0.3、Spring Cloud Tencent 版本为 1.7.0-2021.0.3-SNAPSHOT 开展。
+接下来所有的示例我们将基于 Spring Cloud 版本为 2021.0.3、Spring Cloud Tencent 版本为 1.7.0-2021.0.3 开展。
 
 ### 服务注册
 
@@ -94,7 +94,7 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -244,7 +244,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -434,7 +434,7 @@ Hello PolarisMesh SCT, I'm EchoServer
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -583,7 +583,7 @@ public class SpringCloudTencentConfigDemoApplication {
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -748,7 +748,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -921,7 +921,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1072,7 +1072,7 @@ Hello PolarisMesh , I'm RateLimit Demo%
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1236,7 +1236,7 @@ Hello PolarisMesh , I'm RateLimit Demo%
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1409,7 +1409,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1645,7 +1645,7 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 步骤：在IntelliJ IDEA的 File -> Settings -> Build,Execution,Deployment -> Build Tools -> Maven 配置中勾选上 Always
 update snapshots 选项然后保存后再重新 Maven Reimport 即可
 
-![](./图片/maven_snapshot_idea_setting.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/maven_snapshot_idea_setting.png)
 
 #### Spring Cloud 应用无法注册到北极星
 
