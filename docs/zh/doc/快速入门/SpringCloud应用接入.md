@@ -4,18 +4,24 @@
   - [快速入门](#快速入门)
     - [前提条件](#前提条件)
     - [确定 Spring Cloud 版本](#确定-spring-cloud-版本)
-      - [确认自己项目的 Spring Boot 版本](#确认自己项目的-spring-boot-版本)
-      - [版本列表](#版本列表)
+        - [确认自己项目的 Spring Boot 版本](#确认自己项目的-spring-boot-版本)
+        - [版本列表](#版本列表)
     - [服务注册](#服务注册)
     - [服务发现](#服务发现)
     - [动态配置](#动态配置)
     - [服务路由](#服务路由)
       - [服务提供者](#服务提供者)
       - [服务调用者](#服务调用者)
-    - [服务限流](#服务限流)
+    - [单机服务限流](#单机服务限流)
+    - [分布式服务限流](#分布式服务限流)
     - [服务熔断](#服务熔断)
       - [服务提供者](#服务提供者-1)
       - [服务调用者](#服务调用者-1)
+  - [常见问题(FAQ)](#常见问题faq)
+      - [Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地](#spring-cloud-或者-spring-cloud-tencent-的依赖无法拉到本地)
+      - [Spring Cloud 应用无法注册到北极星](#spring-cloud-应用无法注册到北极星)
+      - [无法通过 RestTemplate 从北极星发现服务并发起调用](#无法通过-resttemplate-从北极星发现服务并发起调用)
+      - [无法通过 Feign 从北极星发现服务并发起调用](#无法通过-feign-从北极星发现服务并发起调用)
 ---
 
 ## 功能简介
@@ -47,24 +53,25 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 
 | Spring Boot 兼容版本 | Spring Cloud 版本 | Spring Cloud Tencent 版本 |
 | -------------------- | ----------------- | ------------------------- |
-| 2.6.x                | 2021.0.3          | 1.7.0-2021.0.3-SNAPSHOT   |
-| 2.4.x, 2.5.x         | 2020.0.5          | 1.7.0-2020.0.5-SNAPSHOT   |
-| 2.2.x, 2.3.x         | Hoxton.SR12       | 1.7.0-Hoxton.SR12         |
+| 2.6.x                | 2021.0.3          | 1.7.0-2021.0.3            |
+| 2.4.x, 2.5.x         | 2020.0.5          | 1.7.0-2020.0.5   |
+| 2.2.x, 2.3.x         | Hoxton.SR12       | 1.7.1-Hoxton.SR12         |
 | 2.1.x                | Greenwich.SR6     | 1.5.3-Greenwich.SR6       |
 
 
-接下来所有的示例我们将基于 Spring Cloud 版本为 2021.0.3、Spring Cloud Tencent 版本为 1.7.0-2021.0.3-SNAPSHOT 开展。
+接下来所有的示例我们将基于 Spring Cloud 版本为 2021.0.3、Spring Cloud Tencent 版本为 1.7.0-2021.0.3 开展。
 
 ### 服务注册
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
+- 引入 **spring-boot-starter-web** 进行启动一个 Web 服务，Spring Cloud 的项目要完成服务注册首先的是一个 Web 服务。
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
 
@@ -87,7 +94,15 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -127,6 +142,8 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -197,17 +214,16 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ### 服务发现
 
-
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
-- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
+- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现从北极星中发现服务。
 
 
 ```xml
@@ -228,7 +244,15 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -241,11 +265,15 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <!-- 引入 Spring Cloud Tencent 的服务注册发现依赖 -->
         <dependency>
             <groupId>com.tencent.cloud</groupId>
             <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+        </dependency>
+        <!-- 引入 Feign 依赖实现 Feign 调用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
 
@@ -269,6 +297,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
     └── application.yaml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 38888
@@ -287,6 +317,8 @@ spring:
 ```
 
 ##### 示例代码
+
+> 基于 RestTemplate 的服务发现调用
 
 ```java
 @SpringBootApplication
@@ -319,9 +351,44 @@ public class SpringCloudConsumerApplication {
 }
 ```
 
+> 基于 Feign 的服务发现调用
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class SpringCloudPolarisConsumerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringCloudPolarisConsumerApplication.class, args);
+    }
+
+    @RestController
+    static class EchoController {
+
+        private final EchoServerClient client;
+
+        EchoController(EchoServerClient client) {
+            this.client = client;
+        }
+
+        @GetMapping(value = "/echo")
+        public String echo(@RequestParam(name = "value") String val) {
+            return client.echo(val);
+        }
+    }
+
+    @FeignClient(name = "EchoServer")
+    public interface EchoServerClient {
+
+        @GetMapping("/echo/{value}")
+        String echo(@PathVariable("value") String value);
+    }
+}
+```
+
 ##### 验证
 
-通过 curl 命令查询服务端是否有该实例。
+通过 curl 命令对服务消费者发起调用。
 
 ```bash
 curl --location --request GET '127.0.0.1:38888/echo?value=SCT'
@@ -338,11 +405,11 @@ Hello PolarisMesh SCT, I'm EchoServer
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-config** 实现 Spring Cloud 配置的动态管理。
@@ -367,7 +434,7 @@ Hello PolarisMesh SCT, I'm EchoServer
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -416,6 +483,8 @@ Hello PolarisMesh SCT, I'm EchoServer
     └── bootstrap.yml
 ```
 
+配置 application.yml
+
 ```yaml
 server:
   port: 48084
@@ -463,11 +532,11 @@ public class SpringCloudTencentConfigDemoApplication {
 - 创建配置分组 ConfigExample
 - 创建配置文件 `config/user.properties`
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
 
 - 编辑并发布配置文件 `config/user.properties`
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.png)
 
 
 ##### 验证
@@ -475,7 +544,7 @@ public class SpringCloudTencentConfigDemoApplication {
 1. 调用 curl --location --request GET '127.0.0.1:48084/name' 查看返回值，预期返回 `polarismesh`
 2. 在线修改配置并发布
 
-![](./图片/springcloud接入-修改配置文件.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-修改配置文件.png)
 
 3. 调用 curl --location --request GET '127.0.0.1:48084/name' 查看返回值，预期返回 `polarismesh@2021`
 
@@ -486,11 +555,11 @@ public class SpringCloudTencentConfigDemoApplication {
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -514,7 +583,15 @@ public class SpringCloudTencentConfigDemoApplication {
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -554,6 +631,8 @@ public class SpringCloudTencentConfigDemoApplication {
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -641,11 +720,11 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -669,7 +748,15 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -712,6 +799,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -766,7 +855,7 @@ public class SpringCloudConsumerApplication {
 
 ##### 设置 RouterEchoServer 的被调路由规则
 
-![](./图片/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud%E6%8E%A5%E5%85%A5-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99.png)
 
 ##### 验证
 
@@ -799,7 +888,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20002%
 Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 ```
 
-### 服务限流
+### 单机服务限流
 
 
 ##### 项目初始化
@@ -808,7 +897,7 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
@@ -832,7 +921,15 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -872,6 +969,8 @@ Hello PolarisMesh hello, I'm RouterEchoServer:20001%
 └── resources
     └── application.yaml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -915,7 +1014,173 @@ public class SpringCloudRateLimitApplication {
 
 为服务 `EchoServer` 创建一条限流规则
 
-![](./图片/springcloud接入-创建限流规则.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建限流规则.png)
+
+##### 验证
+
+通过 curl 命令快速发起多次查询，查看是否触发限流
+
+```bash
+curl --location --request GET '127.0.0.1:38888/echo'
+```
+
+预期的结果如下
+
+```
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+Hello PolarisMesh , I'm RateLimit Demo%
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+The request is denied by rate limit because the throttling threshold is reached%
+➜  curl --location --request GET '127.0.0.1:38888/echo'
+Hello PolarisMesh , I'm RateLimit Demo%
+```
+
+
+### 分布式服务限流
+
+##### 安装北极星分布式限流服务端
+
+具体操作参见 [Polaris 分布式限流服务端安装](./%E5%AE%89%E8%A3%85%E6%9C%8D%E5%8A%A1%E7%AB%AF/%E5%AE%89%E8%A3%85%E5%88%86%E5%B8%83%E5%BC%8F%E9%99%90%E6%B5%81%E6%9C%8D%E5%8A%A1.md)
+
+##### 项目初始化
+
+使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+
+##### 引入依赖
+
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+
+- 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
+- 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现通过 Feign 或者 RestTemplate 完成服务调用。
+
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.11</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    ...
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.tencent.cloud</groupId>
+                <artifactId>spring-cloud-tencent-dependencies</artifactId>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        ...
+        <!-- 北极星服务注册发现依赖 -->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-discovery</artifactId>
+        </dependency>
+        <!-- 北极星服务限流依赖 -->
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-starter-tencent-polaris-ratelimit</artifactId>
+        </dependency>
+        ...
+    </dependencies>
+    ...
+
+</project>
+```
+
+##### 配置 application.yaml 
+
+在 resources 目录下创建 application.yml 文件 文件以及 polaris.yaml，并按照如下进行配置
+
+```
+.
+├── java
+│   └── com
+│       └── example
+│           └── spingcloudpolarisratelimit
+│               └── SpringCloudRateLimitApplication.java
+└── resources
+    ├── polaris.yml
+    └── application.yaml
+```
+
+配置 application.yml
+
+```yaml
+server:
+  port: 38888
+spring:
+  application:
+    name: RateLimitEchoServer
+
+  cloud:
+    polaris:
+      address: grpc://127.0.0.1:8091
+      discovery:
+        enabled: true
+      stat:
+        enabled: true
+        port: 38082
+```
+
+配置 polaris.yml
+
+```yaml
+# 被调方配置
+provider:
+  rateLimit:
+    # 是否开启限流功能
+    enable: true
+    # 限流服务的命名空间
+    limiterNamespace: Polaris
+    # 限流服务名
+    limiterService: polaris.limiter
+```
+
+##### 示例代码
+
+```java
+@SpringBootApplication
+public class SpringCloudRateLimitApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringCloudRateLimitApplication.class, args);
+    }
+
+    @RestController
+    static class EchoController {
+
+        @GetMapping(value = "/echo")
+        public String echo() {
+            return "Hello PolarisMesh , I'm RateLimit Demo";
+        }
+    }
+}
+```
+
+##### 配置限流规则
+
+为服务 `EchoServer` 创建一条限流规则
+
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建分布式限流规则.png)
 
 ##### 验证
 
@@ -943,11 +1208,11 @@ Hello PolarisMesh , I'm RateLimit Demo%
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -971,7 +1236,15 @@ Hello PolarisMesh , I'm RateLimit Demo%
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -999,7 +1272,7 @@ Hello PolarisMesh , I'm RateLimit Demo%
 
 ##### 配置 application.yaml 
 
-在 resources 目录下创建 application.yml 文件，并按照如下进行配置
+在 resources 目录下创建 application.yml，并按照如下进行配置
 
 ```
 .
@@ -1011,6 +1284,8 @@ Hello PolarisMesh , I'm RateLimit Demo%
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -1033,6 +1308,7 @@ spring:
         port: 28082
       address: grpc://127.0.0.1:8091
 ```
+
 
 ##### 示例代码
 
@@ -1105,11 +1381,11 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 
 ##### 项目初始化
 
-使用 jetbrain idea 等工具初始化一个 Spring Cloud 项目
+使用 jetbrain idea 等工具初始化一个 maven 项目
 
 ##### 引入依赖
 
-在上一步初始化好一个 Spring Cloud 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
+在上一步初始化好一个 maven 项目之后，我们在 pom.xml 中引入 Spring Cloud Tencent 相关依赖。
 
 - 引入 **spring-cloud-tencent-dependencies** 进行管理 Spring Cloud Tencent 相关组件的依赖版本。
 - 引入 **spring-cloud-starter-tencent-polaris-discovery** 实现 Spring Cloud 服务注册到北极星中。
@@ -1133,7 +1409,7 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
             <dependency>
                 <groupId>com.tencent.cloud</groupId>
                 <artifactId>spring-cloud-tencent-dependencies</artifactId>
-                <version>1.7.0-2021.0.3-SNAPSHOT</version>
+                <version>1.7.0-2021.0.3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -1189,6 +1465,8 @@ curl --location --request POST '127.0.0.1:8090/v1/Discover' \
 └── resources
     └── application.yml
 ```
+
+配置 application.yml
 
 ```yaml
 server:
@@ -1254,7 +1532,7 @@ public class SpringCloudConsumerApplication {
 
 ##### 设置 CircuitBreakerEchoServer 的被调熔断规则
 
-![](./图片/springcloud接入-创建服务熔断规则.png)
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/springcloud接入-创建服务熔断规则.png)
 
 ##### 验证
 
@@ -1289,3 +1567,118 @@ Hello PolarisMesh hello, I'm EchoServer:20001%
 Hello PolarisMesh hello, I'm EchoServer:20001%
 ➜  ~ curl --location --request GET '127.0.0.1:38888/echo?value=hello'
 ```
+
+
+
+## 常见问题(FAQ)
+
+#### Spring Cloud 或者 Spring Cloud Tencent 的依赖无法拉到本地
+
+- pom.xml 的 `<dependencyManagement></dependencyManagement>` 标签内部务必按照下面的示例加上。
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>${ Spring Cloud 的版本 }</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tencent.cloud</groupId>
+            <artifactId>spring-cloud-tencent-dependencies</artifactId>
+            <version>${ 与 Spring Cloud 版本对应的 SCT 版本 }</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+- 确认 Maven 的 setting.xml 中是否正确配置了 release 仓库地址以及 snapshot 仓库地址，
+
+```xml
+<settings>
+...
+
+<profiles>
+  <profile>
+    <id>sonatype</id>
+    <properties>
+      <downloadSources>true</downloadSources>
+      <downloadJavadocs>true</downloadJavadocs>
+    </properties>
+    <repositories>
+      <repository>
+        <id>nexus-snapshots</id>
+        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        <releases>
+          <enabled>false</enabled>
+        </releases>
+        <snapshots>
+          <enabled>true</enabled>
+        </snapshots>
+      </repository>
+      <repository>
+        <id>nexus-releases</id>
+        <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </repository>
+    </repositories>
+  </profile>	
+</profiles>
+
+...
+</settings>
+```
+
+- 确认 jetbrains IDEA 开启了拉取 maven 的 snapshot 依赖
+
+步骤：在IntelliJ IDEA的 File -> Settings -> Build,Execution,Deployment -> Build Tools -> Maven 配置中勾选上 Always
+update snapshots 选项然后保存后再重新 Maven Reimport 即可
+
+![](./图片/springcloud%E6%8E%A5%E5%85%A5/maven_snapshot_idea_setting.png)
+
+#### Spring Cloud 应用无法注册到北极星
+
+- 确保项目引入了 **spring-boot-starter-web** 或者引入 **spring-boot-starter-webflux**
+- 确保项目引入了 **spring-cloud-tencent-dependencies** 以及 **spring-cloud-starter-tencent-polaris-discovery**
+
+由于在 Spring Cloud 的设计中，一个 Spring Cloud 服务要触发注册动作，必须要有 WebServerInitializedEvent 事件。
+
+#### 无法通过 RestTemplate 从北极星发现服务并发起调用
+
+- 确保项目引入了 **spring-cloud-tencent-dependencies** 以及 **spring-cloud-starter-tencent-polaris-discovery**
+- 确保按照如下代码对 RestTemple 创建 bean 以及引入 LoadBalancer 能力
+
+```java
+@LoadBalanced
+@Bean
+public RestTemplate restTemplate() {
+    return new RestTemplate();
+}
+```
+
+#### 无法通过 Feign 从北极星发现服务并发起调用
+
+- 确保 @FeignClient 注解中的 **url** 不要指定任何路径
+
+**错误示例**
+
+```java
+@FeignClient(name = "EchoServer", url = "https://172.0.0.1")
+public interface EchoServerClient {
+    @RequestMapping(value = "/search/users", method = RequestMethod.GET)
+    String searchUsers(@RequestParam("q") String queryStr);
+}
+```
+
+

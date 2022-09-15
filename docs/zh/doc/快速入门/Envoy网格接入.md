@@ -1,6 +1,6 @@
-# 使用Envoy接入
+# Envoy网格接入
 
-- [使用Envoy接入](#使用Envoy接入)
+- [Envoy网格接入](#Envoy网格接入)
   - [概览](#概览)
   - [环境准备](#环境准备)
     - [部署polaris](#部署polaris)
@@ -25,8 +25,6 @@
 - 服务数据同步：`polaris-controller` 安装在用户的Kubernetes集群中，可以同步集群上的 Namespace，Service，Endpoints 等资源到 `polaris` 中，同时 `polaris-controller` 提供了 `Envoy Sidecar` 注入器功能，可以轻松地将 `Envoy Sidecar` 注入到您的 Kubernetes Pod 中，Envoy Sidecar 会自动去 Polaris 同步服务信息。
 
 - 规则数据下发：```polaris```控制面通过XDS v3标准协议与envoy进行交互，支持官方开源的envoy直接接入，当前支持的envoy版本为1.18
-
-
 
 ## 环境准备
 
@@ -178,7 +176,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 未登陆时，刷新 productpage 的页面，可以看到只返回没有颜色的星星（version=v1）。当使用 `jason` 登陆后，productpage 请求 reviews 时，会带上 header，end-user=jason，此时再刷新 productpage 页面，发现只会显示黑色的星星，即上面 version=v2 的实例。
 
-### 访问限流（支持中）
+### 访问限流
 
 北极星网格支持单机限流和分布式限流，同时直接细粒度的配额的设置。
 
@@ -209,6 +207,10 @@ demo项目中，为details服务设置流量限制，对于jason用户的请求�
 
 
 ### 可观测性（支持中）
+
+
+
+
 
 
 ## 相关链接
