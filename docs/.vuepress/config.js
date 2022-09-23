@@ -7,13 +7,13 @@ const sidebar = {
         "北极星是什么/简介",
         "北极星是什么/北极星组件",
         "北极星是什么/北极星和K8s",
-		{
+        {
           title: "业界对比",
           children: [
             "北极星是什么/业界对比/注册中心对比",
             "北极星是什么/业界对比/服务网格对比",
           ],
-        }
+        },
       ],
     },
     {
@@ -102,7 +102,7 @@ const sidebar = {
           title: "访问限流",
           children: [
             "使用指南/访问限流/单机限流",
-            "使用指南/访问限流/分布式限流"
+            "使用指南/访问限流/分布式限流",
           ],
         },
         {
@@ -291,4 +291,12 @@ module.exports = {
       md.use(require("markdown-it-disable-url-encode"));
     },
   },
+  plugins: [
+    [
+      "md-enhance",
+      {
+        enableAll: true,
+      },
+    ],
+  ],
 };
