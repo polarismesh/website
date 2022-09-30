@@ -58,6 +58,7 @@ const sidebar = {
             "快速入门/安装服务端/安装集群版",
             "快速入门/安装服务端/安装分布式限流服务",
             "快速入门/安装服务端/安装北极星controller",
+            "快速入门/安装服务端/安装k8s_controller",
           ],
         },
         "快速入门/SpringCloud应用接入",
@@ -173,6 +174,18 @@ const sidebar = {
             "最佳实践/测试环境路由/网关动态染色",
             "最佳实践/测试环境路由/网关静态染色",
           ],
+        },
+        {
+          title: "灰度发布",
+          children: [
+            "最佳实践/灰度发布/蓝绿发布",
+            "最佳实践/灰度发布/金丝雀发布",
+            "最佳实践/灰度发布/全链路灰度",
+          ],
+        },
+        {
+          title: "多k8s集群管理",
+          children: ["最佳实践/多k8s集群管理/跨集群服务注册"],
         },
       ],
     },
@@ -292,12 +305,4 @@ module.exports = {
       md.use(require("markdown-it-disable-url-encode"));
     },
   },
-  plugins: [
-    [
-      "md-enhance",
-      {
-        enableAll: true,
-      },
-    ],
-  ],
 };
