@@ -150,6 +150,47 @@ envoy:
 
 通过productpage暴露的地址，可以访问productpage的主界面，进入Normal User或者TestUser后，可以看到（红、黑、无）三种形态的星星，代表demo已经部署成功。
 
+## mTLS
+
+北极星网络支持服务间的mTLS认证及加密通讯，提供三种不同的服务粒度模式供用户选择：
+
+| 模式      | 解释 |
+| ----------- | ----------- |
+| Permissive      |宽容模式，服务接受纯文本/mTLS服务调用；发起服务调用时，根据对端接受状况自动选择发起mTLS或纯文本服务调用      |
+| Strict   |严格模式，服务仅接受/发起mTLS服务调用        |
+| None     |无加密模式（为默认选项），服务仅接受/发起纯文本服务调用|
+
+### 启用方式  
+只需要在服务的`metadata`中加入键为`polarismesh.cn/tls-mode`的`label`即可开启该功能，可选的值为`strict`,`permissive`,`none`，无此`label`时或者值错误时，默认为无加密的`none`模式。
+
+### 使用示例
+
+#### 部署polaris-security
+`polaris-security`是北极星的证书机构，负责签发证书以供服务使用，是开启双向TLS功能的必要组件。
+- 下载[polaris-security](https://github.com/polarismesh/polaris-security)
+- 将示例证书/密钥加载为k8s secret：```./deploy/load-certs-into-k8s.sh```
+- 验证secret加载成功：```kubectl get secrets -n polaris-system``` 
+- 使用Helm部署`polaris-security`, ```cd deploy/helm && helm install polaris-security .```
+- 验证polaris-security部署成功：```kubectl get po -n polaris-system | grep polaris-security```
+
+#### 部署mTLS版bookinfo示例
+- 下载样例部署文件：[mTLS版bookinfo](https://github.com/polarismesh/examples/blob/main/servicemesh/bookinfo-mtls/bookinfo.yaml)
+- 执行部署：```kubectl create -f bookinfo.yaml```
+
+mTLS版bookinfo在配置文件中使用`polarismesh.cn/tls-mode`的`label`为不同的服务启用了各自的双向TLS模式，部署完成后服务调用图如下所示：
+![](图片/使用envoy接入/mtls.png)
+
+
+#### 效果验证
+1. Strict模式验证
+由于`Reviews V3`服务使用了None模式，它将向`Ratings`服务发起纯文本请求，而`Ratings`服务使用了Strict模式，仅接受mTLS服务调用，因此`Reviews V3`到`Ratings`之间的服务调用总会失败。  
+因此，使用浏览器访问部署好的`ProductPage`，无论怎么刷新都无法看到红色的星星评级。
+
+2. mTLS验证
+使用Wireshark抓包验证mTLS启用,如下图：
+![](图片/使用envoy接入/wireshark.png)
+可以看到Server向Client提供证书后，要求Client提供自身证书，验证通过后方可开始加密数据通信。
+
 ## 使用服务治理能力
 
 ### 流量调度
@@ -203,8 +244,6 @@ demo项目中，为details服务设置流量限制，对于jason用户的请求�
 未登陆时，多次刷新界面，不会出现错误。
 
 以jason用户身份登陆，一分钟刷新超过5次，details界面出现限流的错误信息。
-
-
 
 ### 可观测性（支持中）
 
