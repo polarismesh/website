@@ -1,8 +1,12 @@
-# 北极星controller安装
+# k8s controller安装
+
+## k8s controller的作用
+
+北极星提供K8s controller的机制，可以安装在k8s集群中，通过接收集群内k8s apiserver的事件回调，将K8s Service以及POD注册成北极星的服务以及实例。
 
 ## 安装说明
 
-北极星controller包含以下组件：
+k8s controller包含以下组件：
 
 - polaris-controller：北极星controller服务端，主要是安装在k8s集群上，提供回调接口供k8s controller manager进行调用。
 
