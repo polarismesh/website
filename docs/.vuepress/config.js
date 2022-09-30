@@ -184,10 +184,8 @@ const sidebar = {
         },
 		{
           title: "多k8s集群管理",
-          children: [
-            "最佳实践/多k8s集群管理/跨集群服务注册"
-          ],
-        }
+          children: ["最佳实践/多k8s集群管理/跨集群服务注册"],
+        },
       ],
     },
     {
@@ -305,13 +303,5 @@ module.exports = {
     extendMarkdown: (md) => {
       md.use(require("markdown-it-disable-url-encode"));
     },
-  },
-  plugins: [
-    [
-      "md-enhance",
-      {
-        enableAll: true,
-      },
-    ],
-  ],
+  }
 };
