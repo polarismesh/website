@@ -178,6 +178,41 @@ th, td
     .sidebar
       top 0
 
+.code-group
+  .code-group-nav-tab 
+    --text-color #000 
+  .line-numbers-mode
+    pre
+      padding-left 1.25rem !important
+  .line-numbers-wrapper 
+    display none
+  .code-group-nav 
+    background-color #e0e0e0
+  .code-group-item
+    border 1px solid #e0e0e0
+    border-top none
+    border-bottom-left-radius 6px
+    border-bottom-right-radius 6px
+  .code-group-nav-tab:hover 
+    background-color #fff
+  .code-group-nav-tab.active:before 
+    background radial-gradient(12px at left top, transparent 50%, #fff 50%) !important
+  .code-group-nav-tab.active:after 
+    background radial-gradient(12px at right top, transparent 50%, #fff 50%) !important
+  div[class*="language-"] 
+    background-color #fff
+  .code-group-nav-tab.active
+    background-color #fff !important
+    border-bottom: none;
+  pre
+    code 
+      color #000 !important
+  .line-numbers-mode::after
+    display none
+
+
+
+
 @media (min-width: ($MQMobile + 1px))
   .theme-container.no-sidebar
     .sidebar
