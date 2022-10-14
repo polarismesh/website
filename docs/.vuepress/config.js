@@ -136,7 +136,10 @@ const sidebar = {
       children: [
         {
           title: "版本列表",
-          children: ["参考文档/版本列表/RELEASE-V1.11.1"],
+          children: [
+            "参考文档/版本列表/RELEASE-V1.11.1",
+            "参考文档/版本列表/RELEASE-V1.12.0"
+          ],
         },
         {
           title: "接口文档",
