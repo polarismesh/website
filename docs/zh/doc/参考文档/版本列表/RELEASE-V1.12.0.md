@@ -29,6 +29,8 @@
 #### 功能优化
 
 - [PR #642、#676] 北极星自定义路由功能优化
+  
+  <img src="./图片/release-1.12.0/release-1.12.0-router.png" width="70%" height="40%" >
 - [PR #687] 支持 xdsv3 协议下发规则时输出debug日志
 - [PR #627] 北极星OpenAPI支持Swagger2.0
 
@@ -60,6 +62,7 @@
 - [PR #91] Console 使用 Json Web Token 代替用户资源访问凭据，避免浏览器泄露用户Token
 - [PR #99] 支持配置中心配置文件编辑页面全屏编辑
 - [PR #102] 提供Swagger UI 供加载Polaris Server的OpenAPI 接口, 访问北极星控制台地址（127.0.0.1:8080/apidocs）即可
+   <img src="./图片/release-1.12.0/release-1.12.0-swagger.png" width="70%" height="40%" >
 - [PR #110] 新建/编辑服务优化标签交互
  
 #### Bug修复
