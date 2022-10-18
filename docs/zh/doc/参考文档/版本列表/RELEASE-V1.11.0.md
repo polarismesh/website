@@ -1,4 +1,4 @@
-# Release V1.11.1
+# Release V1.11.0
 
   - [下载地址](#下载地址)
       - [Github](#github)
@@ -19,8 +19,8 @@
 
 ## 下载地址
 
-- [Github Release v1.11.1](https://github.com/polarismesh/polaris/releases/tag/v1.11.1)
-- [Gitee Release v1.11.1](https://gitee.com/polarismesh/polaris/releases/tag/v1.11.1)
+- [Github Release v1.11.0](https://github.com/polarismesh/polaris/releases/tag/v1.11.0)
+- [Gitee Release v1.11.0](https://gitee.com/polarismesh/polaris/releases/tag/v1.11.0)
 
 ## 版本信息
 
