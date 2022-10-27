@@ -1,4 +1,8 @@
-# 使用prometheus插件
+---
+title: "使用prometheus插件"
+linkTitle: "使用prometheus插件"
+weight: 491
+---
 
 ## Prometheus准备
 
