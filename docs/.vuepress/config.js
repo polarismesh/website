@@ -60,7 +60,7 @@ const sidebar = {
             "快速入门/安装服务端/安装k8s_controller",
           ],
         },
-		{
+        {
           title: "接入方式",
           children: [
             "快速入门/接入方式/框架支持"
