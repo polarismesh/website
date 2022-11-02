@@ -60,12 +60,6 @@ const sidebar = {
             "快速入门/安装服务端/安装k8s_controller",
           ],
         },
-        {
-          title: "接入方式",
-          children: [
-            "快速入门/接入方式/框架支持"
-          ],
-        },
         "快速入门/SpringCloud应用接入",
         "快速入门/SpringBoot应用接入",
         "快速入门/Envoy网格接入",
@@ -145,6 +139,12 @@ const sidebar = {
           children: [
             "参考文档/版本说明/RELEASE-V1.11.0",
             "参考文档/版本说明/RELEASE-V1.12.0"
+          ],
+        },
+        {
+          title: "接入方式",
+          children: [
+            "参考文档/接入方式/框架支持"
           ],
         },
         {
