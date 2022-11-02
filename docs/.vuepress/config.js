@@ -60,6 +60,12 @@ const sidebar = {
             "快速入门/安装服务端/安装k8s_controller",
           ],
         },
+		{
+          title: "接入方式",
+          children: [
+            "快速入门/接入方式/框架支持"
+          ],
+        },
         "快速入门/SpringCloud应用接入",
         "快速入门/SpringBoot应用接入",
         "快速入门/Envoy网格接入",
@@ -135,16 +141,10 @@ const sidebar = {
       title: "参考文档",
       children: [
         {
-          title: "版本列表",
+          title: "版本说明",
           children: [
-            "参考文档/版本列表/RELEASE-V1.11.0",
-            "参考文档/版本列表/RELEASE-V1.12.0"
-          ],
-        },
-        {
-          title: "插件开发",
-          children: [
-            "参考文档/插件开发/服务端插件开发",
+            "参考文档/版本说明/RELEASE-V1.11.0",
+            "参考文档/版本说明/RELEASE-V1.12.0"
           ],
         },
         {
@@ -168,6 +168,12 @@ const sidebar = {
         {
           title: "指标监控",
           children: ["参考文档/指标监控/监控指标"],
+        },
+        {
+          title: "插件开发",
+          children: [
+            "参考文档/插件开发/服务端插件开发",
+          ],
         },
       ],
     },
