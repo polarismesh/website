@@ -101,30 +101,10 @@ bootstrap:
 ###### 执行 SQL 升级动作
 
 - 登陆北极星的MySQL存储实例
-- 执行以下 SQL 语句
+- 执行以下 SQL 增量脚本
 
-```SQL
-USE `polaris_server`;
-
-CREATE TABLE `routing_config_v2`
-(
-    `id`          VARCHAR(128)  NOT NULL,
-    `name`        VARCHAR(64)   NOT NULL default '',
-    `namespace`   VARCHAR(64)   NOT NULL default '',
-    `policy`      VARCHAR(64)   NOT NULL,
-    `config`       TEXT,
-    `enable`      INT           NOT NULL DEFAULT 0,
-    `revision`    VARCHAR(40)   NOT NULL,
-    `description` VARCHAR(500)  NOT NULL DEFAULT '',
-    `priority`    smallint(6)   NOT NULL DEFAULT '0' comment 'routing rule priority',
-    `flag`         TINYINT(4)    NOT NULL DEFAULT '0',
-    `ctime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `mtime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `etime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `extend_info` VARCHAR(1024) DEFAULT '',
-    PRIMARY KEY (`id`),
-    KEY `mtime` (`mtime`)
-) engine = innodb;
+```bash
+mysql -u $db_user -p $db_pwd -h $db_host < store/sqldb/scripts/delta/v1_11_0-v1_12_0.sql
 ```
 
 ##### 北极星控制台升级操作
