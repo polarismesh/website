@@ -91,27 +91,7 @@ bootstrap:
 - 执行以下 SQL 语句
 
 ```SQL
-USE `polaris_server`;
-
-CREATE TABLE `routing_config_v2`
-(
-    `id`          VARCHAR(128)  NOT NULL,
-    `name`        VARCHAR(64)   NOT NULL default '',
-    `namespace`   VARCHAR(64)   NOT NULL default '',
-    `policy`      VARCHAR(64)   NOT NULL,
-    `config`       TEXT,
-    `enable`      INT           NOT NULL DEFAULT 0,
-    `revision`    VARCHAR(40)   NOT NULL,
-    `description` VARCHAR(500)  NOT NULL DEFAULT '',
-    `priority`    smallint(6)   NOT NULL DEFAULT '0' comment 'routing rule priority',
-    `flag`         TINYINT(4)    NOT NULL DEFAULT '0',
-    `ctime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `mtime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `etime`       TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `extend_info` VARCHAR(1024) DEFAULT '',
-    PRIMARY KEY (`id`),
-    KEY `mtime` (`mtime`)
-) engine = innodb;
+mysql --host= --port= --user= --password= -D polaris_server < store/scripts/delta/v1_11_0-v1_12_0.sql
 ```
 
 ##### 北极星控制台升级操作
@@ -129,6 +109,7 @@ webServer:
   mode: "release"
   listenIP: "0.0.0.0"
   listenPort: 8080
+  # 此处配置仅作为 控制台 与 服务端通信过程中对用户凭据信息转为 Json Web Token 的转换配置，不影响原本的账户体系以及用户 token
   jwt:
     secretKey: "polarismesh@2021"
     expired: 1800

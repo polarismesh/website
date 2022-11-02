@@ -1,7 +1,7 @@
 ---
 title: "SpringBoot应用接入"
 linkTitle: "SpringBoot应用接入"
-weight: 312
+weight: 321
 ---
 
 ## 功能简介

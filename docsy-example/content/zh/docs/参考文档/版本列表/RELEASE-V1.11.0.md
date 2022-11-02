@@ -66,28 +66,8 @@ weight: 501
 ##### 执行 SQL 升级动作
 
 - 登陆北极星的MySQL存储实例
-- 执行以下 SQL 语句
+- 执行以下 SQL 脚本
 
 ```SQL
-USE `polaris_server`;
-
-CREATE TABLE `config_file_template` (
-    `id` bigint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `name` varchar(128) COLLATE utf8_bin NOT NULL COMMENT '配置文件模板名称',
-    `content` longtext COLLATE utf8_bin NOT NULL COMMENT '配置文件模板内容',
-    `format` varchar(16) COLLATE utf8_bin DEFAULT 'text' COMMENT '模板文件格式',
-    `comment` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '模板描述信息',
-    `flag` tinyint(4) NOT NULL DEFAULT '0' COMMENT '软删除标记位',
-    `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `create_by` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
-    `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间',
-    `modify_by` varchar(32) COLLATE utf8_bin DEFAULT NULL COMMENT '最后更新人',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='配置文件模板表';
-
-ALTER TABLE `ratelimit_config` CHANGE `cluster_id` `name` varchar(64) NOT NULL;
-ALTER TABLE `ratelimit_config` ADD COLUMN `disable` tinyint(4)  NOT NULL DEFAULT '0';
-ALTER TABLE `ratelimit_config` ADD COLUMN `etime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE `ratelimit_config` ADD COLUMN `method` varchar(512)   NOT NULL;
+mysql --host= --port= --user= --password= -D polaris_server < store/scripts/delta/v1_8_0-v1_11_0.sql
 ```
