@@ -17,7 +17,7 @@ Add styles or override variables from the theme here.
 
 .navbar {
   background-color: #e3e7ec !important;
-  padding-left: 15% !important;
+  padding-left: 6% !important;
   padding-right: 15% !important;
 }
 
@@ -333,3 +333,8 @@ Add styles or override variables from the theme here.
 .td-page-meta--project-issue {
   display: none !important;
 }
+
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+

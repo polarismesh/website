@@ -14,7 +14,7 @@ other = "下一页"
 other = "更多"
 
 [ui_search]
-other = "站内搜索…"
+other = "搜索"
 
 # Used in sentences such as "Posted in News"
 [ui_in]

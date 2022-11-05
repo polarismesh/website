@@ -62,7 +62,6 @@ id = "UA-00000000-0"
 description = "A Docsy example site"
 languageName = "English"
 title = "PolarisMesh"
-# Weight used for sorting.
 weight = 1
 [languages.zh-cn]
 contentDir = "content/zh"
@@ -106,12 +105,12 @@ lineNos = false
 lineNumbersInTable = true
 noClasses = true
 noHl = false
-style = 'monokai'
+style = 'emacs'
 tabWidth = 4
 [markup.tableOfContents]
-endLevel = 900
+endLevel = 2000
 ordered = false
-startLevel = 20
+startLevel = 1
 
 # Everything below this are Site Params
 
@@ -120,8 +119,8 @@ startLevel = 20
 section = ["HTML", "print", "RSS"]
 
 [params]
-copyright = "The Docsy Authors"
-privacy_policy = "https://policies.google.com/privacy"
+copyright = "The PolarisMesh Authors"
+# privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
@@ -166,12 +165,15 @@ algolia_docsearch = false
 offlineSearch = true
 
 # Enable syntax highlighting and copy buttons on code blocks with Prism
-prism_syntax_highlighting = false
+prism_syntax_highlighting = true
 
 # User interface configuration
 [params.ui]
+breadcrumb_disable = true
 navbar_logo = true
+# sidebar_cache_limit = 1
 sidebar_menu_compact = false
+sidebar_menu_foldable = true
 sidebar_search_disable = false
 
 # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.

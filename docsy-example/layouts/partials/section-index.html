@@ -1,4 +1,4 @@
-<div class="section-index">
+<div class="docs-section-index">
     {{ $parent := .Page }}
     {{ $pages := (where .Site.Pages "Section" .Section).ByWeight }}
     {{ $pages = (where $pages "Type" "!=" "search") }}
