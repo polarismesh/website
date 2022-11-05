@@ -1,48 +1,52 @@
-
-
 # UI strings. Buttons and similar.
 
 [ui_pager_prev]
-other = "Предишен"
+other = "Previous"
 
 [ui_pager_next]
-other = "Следващ"
+other = "Next"
 
 [ui_read_more]
-other = "Прочети повече"
+other = "Read more"
 
 [ui_search]
-other = "Търси в тази страница…"
+other = "Search this site…"
 
 # Used in sentences such as "Posted in News"
 [ui_in]
-other = "в"
+other = "in"
+
+# Used in sentences such as "All Tags"
+[ui_all]
+other = "all"
 
 # Footer text
 [footer_all_rights_reserved]
-other = "Всички права запазени!"
+other = "All Rights Reserved"
 
 [footer_privacy_policy]
-other = "Политика за поверителност"
+other = "Privacy Policy"
 
 
 # Post (blog, articles etc.)
 [post_byline_by]
-other = "От"
+other = "By"
 [post_created]
-other = "Създаден"
+other = "Created"
 [post_last_mod]
-other = "Последна промяна"
+other = "Last modified"
 [post_edit_this]
-other = "Промени тази страница"
+other = "Edit this page"
+[post_view_this]
+other = "View page source"
 [post_create_child_page]
-other = "Създай дъщерна страница"
+other = "Create child page"
 [post_create_issue]
-other = "Създаване на издаване на документ"
+other = "Create documentation issue"
 [post_create_project_issue]
-other = "Създаване на издаване на проект"
+other = "Create project issue"
 [post_posts_in]
-other = "Публикувано в"
+other = "Posts in"
 [post_reading_time]
 other = "minute read"
 [post_less_than_a_minute_read]
@@ -50,13 +54,13 @@ other = "less than a minute"
 
 # Print support
 [print_printable_section]
-other = "Изглед за печат на този раздел, в режим много страници"
+other = "This is the multi-page printable view of this section."
 [print_click_to_print]
-other = "Натисни тук за отпечатване"
+other = "Click here to print"
 [print_show_regular]
-other = "Върнете се към обичайния изглед на тази страница"
+other = "Return to the regular view of this page"
 [print_entire_section]
-other = "Отпечатайте цялата секция"
+other = "Print entire section"
 
 # Community
 [community_join]

@@ -6,12 +6,15 @@ Add styles or override variables from the theme here.
 .nav-link span {
   color: black;
 }
+
 .nav-link span:hover {
   color: rgba(0, 0, 0, 0.5);
 }
+
 .nav-link.active {
   color: rgba(0, 0, 0, 0.5);
 }
+
 .navbar {
   background-color: #e3e7ec !important;
   padding-left: 15% !important;
@@ -25,9 +28,11 @@ Add styles or override variables from the theme here.
 .td-search-input {
   background-color: #fff !important;
 }
+
 .td-search-input::placeholder {
   color: #495057 !important;
 }
+
 .polaris-footer {
   width: 100%;
   background-color: #f8f8f8;
@@ -35,11 +40,13 @@ Add styles or override variables from the theme here.
   color: #999;
   text-align: center;
 }
+
 .polaris-footer a {
   color: #999;
   text-decoration: none;
   margin-left: 20px;
 }
+
 .polaris-front {
   font-family: PingFang SC;
 }
@@ -80,11 +87,9 @@ Add styles or override variables from the theme here.
 
 .polaris-background {
   opacity: 1;
-  background: linear-gradient(
-    180deg,
-    rgba(226, 231, 236, 1) 0%,
-    rgba(226, 231, 236, 0) 100%
-  );
+  background: linear-gradient(180deg,
+      rgba(226, 231, 236, 1) 0%,
+      rgba(226, 231, 236, 0) 100%);
   height: 894px;
   position: absolute;
   top: 0;
@@ -190,9 +195,11 @@ Add styles or override variables from the theme here.
   flex-direction: row;
   align-items: center;
 }
+
 .function-desc-image img {
   width: 100%;
 }
+
 .who-is-using-logo:first-child {
   margin-left: 0px;
 }
@@ -205,9 +212,11 @@ Add styles or override variables from the theme here.
 .polaris-main-link-btn-group .btn {
   margin-top: 20px;
 }
+
 .polaris-main-download-btn-group .btn {
   margin-top: 20px;
 }
+
 @-webkit-keyframes leftScroll {
   0% {
     background-position: 0 0;
@@ -237,16 +246,19 @@ Add styles or override variables from the theme here.
     background-position: 1000% 0;
   }
 }
+
 @media (max-width: 1024px) {
   .function-desc-logo {
     margin: auto;
     display: block;
   }
+
   .function-desc-title {
     font-size: 24px;
     padding: 20px;
     text-align: center;
   }
+
   .function-desc-text {
     padding: 20px;
     font-size: 14px;
@@ -257,10 +269,12 @@ Add styles or override variables from the theme here.
   .function-desc-image img {
     padding: 20px;
   }
+
   #carouselExampleIndicators {
     padding: 20px;
   }
 }
+
 @media (min-width: 768px) {
   .low-resolution {
     display: none;
@@ -271,14 +285,17 @@ Add styles or override variables from the theme here.
   .high-resolution {
     display: none;
   }
+
   .who-is-using-logo {
     width: 100%;
     height: 100px;
     padding: 20px;
   }
+
   .polaris-main-link-btn-group .btn {
     margin-left: 0px;
   }
+
   .polaris-main-download-btn-group .btn {
     margin-left: 0px;
   }
@@ -286,17 +303,33 @@ Add styles or override variables from the theme here.
   .who-is-using-title {
     font-size: 24px;
   }
+
   .polaris-footer {
     font-size: 12px;
   }
+
   .polaris-footer a,
   .polaris-footer span {
     display: block;
   }
+
   .polaris-footer .high-resolution {
     display: none;
   }
+
   .polaris-main-title {
     font-size: 30px;
   }
+}
+
+.td-page-meta--view {
+  display: none !important;
+}
+
+.td-page-meta--child {
+  display: none !important;
+}
+
+.td-page-meta--project-issue {
+  display: none !important;
 }
