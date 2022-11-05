@@ -1,0 +1,335 @@
+/*
+
+Add styles or override variables from the theme here.
+
+*/
+.nav-link span {
+  color: black;
+}
+
+.nav-link span:hover {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-link.active {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.navbar {
+  background-color: #e3e7ec !important;
+  padding-left: 15% !important;
+  padding-right: 15% !important;
+}
+
+.navbar-logo img {
+  width: 120px;
+}
+
+.td-search-input {
+  background-color: #fff !important;
+}
+
+.td-search-input::placeholder {
+  color: #495057 !important;
+}
+
+.polaris-footer {
+  width: 100%;
+  background-color: #f8f8f8;
+  padding: 40px 0;
+  color: #999;
+  text-align: center;
+}
+
+.polaris-footer a {
+  color: #999;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.polaris-front {
+  font-family: PingFang SC;
+}
+
+.polaris-front .btn:focus,
+.polaris-front .btn:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+
+.polaris-main {
+  margin-top: 64px;
+}
+
+.polaris-main-title {
+  font-size: 64px;
+  margin-top: 8.8vw;
+  font-weight: 700;
+}
+
+.polaris-main-desc {
+  margin-top: 60px;
+}
+
+.polaris-main-link-btn-group {
+  margin-top: 30px;
+}
+
+.polaris-main-link-btn-group .btn {
+  border-radius: 3px;
+  background: #ffffff;
+  width: 174px;
+  height: 56px;
+  margin-left: 24px;
+  color: #000000;
+  border: 1px solid rgba(209, 209, 209, 1);
+}
+
+.polaris-background {
+  opacity: 1;
+  background: linear-gradient(180deg,
+      rgba(226, 231, 236, 1) 0%,
+      rgba(226, 231, 236, 0) 100%);
+  height: 894px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.polaris-main-download-btn-group {
+  margin-top: 40px;
+}
+
+.polaris-main-download-btn-group .btn {
+  border-radius: 3px;
+  background: #d1d1d1;
+  width: 122px;
+  height: 32px;
+  margin-left: 16px;
+  color: #000000;
+  font-size: 12px;
+  border: 1px solid rgba(209, 209, 209, 1);
+  padding: 5px 20px;
+}
+
+.animated-background {
+  background-image: url("/img/wave-background.png");
+  height: 894px;
+  position: absolute;
+  top: 150px;
+  left: 0;
+  width: 100%;
+  /* -webkit-animation: leftScroll 60s linear infinite;
+    -moz-animation: leftScroll 60s linear infinite;
+    animation: leftScroll 60s linear infinite; */
+  background-size: contain;
+  background-repeat: repeat-x;
+}
+
+.structure-diagram {
+  margin-top: 190px;
+}
+
+.polaris-container {
+  max-width: 1180px;
+  width: 61.45vw;
+}
+
+.function-desc {
+  margin: auto;
+  max-width: 1700px;
+  width: 88.54vw;
+  border-radius: 30px;
+  padding: 80px 0 40px 0;
+  margin-top: 5.2vw;
+}
+
+.function-desc-logo {
+  width: 50px;
+  height: 50px;
+  margin-top: 80px;
+}
+
+.function-desc-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-top: 40px;
+}
+
+.function-desc-text {
+  font-size: 18px;
+  margin-top: 40px;
+}
+
+.function-desc .carousel-indicators li {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.who-is-using {
+  width: 62.5vw;
+  max-width: 1000px;
+  margin: 6.25vw auto 0 auto;
+}
+
+.who-is-using-title {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.who-is-using-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.who-is-using-logo {
+  width: 14.42em;
+  max-width: 200px;
+  height: 14.42em;
+  max-height: 200px;
+  border-radius: 3px;
+  opacity: 1;
+  background: rgba(243, 244, 247, 1);
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.function-desc-image img {
+  width: 100%;
+}
+
+.who-is-using-logo:first-child {
+  margin-left: 0px;
+}
+
+.who-is-using-logo img {
+  width: 120px;
+  margin: auto;
+}
+
+.polaris-main-link-btn-group .btn {
+  margin-top: 20px;
+}
+
+.polaris-main-download-btn-group .btn {
+  margin-top: 20px;
+}
+
+@-webkit-keyframes leftScroll {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1000% 0;
+  }
+}
+
+@-moz-keyframes leftScroll {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1000% 0;
+  }
+}
+
+@keyframes leftScroll {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 1000% 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .function-desc-logo {
+    margin: auto;
+    display: block;
+  }
+
+  .function-desc-title {
+    font-size: 24px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .function-desc-text {
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .function-desc-image img {
+    padding: 20px;
+  }
+
+  #carouselExampleIndicators {
+    padding: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .low-resolution {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .high-resolution {
+    display: none;
+  }
+
+  .who-is-using-logo {
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+  }
+
+  .polaris-main-link-btn-group .btn {
+    margin-left: 0px;
+  }
+
+  .polaris-main-download-btn-group .btn {
+    margin-left: 0px;
+  }
+
+  .who-is-using-title {
+    font-size: 24px;
+  }
+
+  .polaris-footer {
+    font-size: 12px;
+  }
+
+  .polaris-footer a,
+  .polaris-footer span {
+    display: block;
+  }
+
+  .polaris-footer .high-resolution {
+    display: none;
+  }
+
+  .polaris-main-title {
+    font-size: 30px;
+  }
+}
+
+.td-page-meta--view {
+  display: none !important;
+}
+
+.td-page-meta--child {
+  display: none !important;
+}
+
+.td-page-meta--project-issue {
+  display: none !important;
+}
