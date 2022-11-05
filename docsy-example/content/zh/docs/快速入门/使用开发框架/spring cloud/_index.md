@@ -1,9 +1,9 @@
 ---
 title: "Spring Cloud 应用接入"
 linkTitle: "Spring Cloud 应用接入"
-weight: 320
+weight: 1
+simple_list: true
 ---
-
 
 ## 功能简介
 

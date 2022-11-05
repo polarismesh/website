@@ -1,7 +1,7 @@
 ---
 title: "使用JavaSDK"
 linkTitle: "使用JavaSDK"
-weight: 462
+weight: 702
 ---
 
 ## 一、准备工作

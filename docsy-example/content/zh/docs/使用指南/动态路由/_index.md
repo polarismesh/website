@@ -1,5 +1,5 @@
 ---
 title: "动态路由"
 linkTitle: "动态路由"
-weight: 420
+weight: 200
 ---
