@@ -175,6 +175,7 @@ rss_sections = [""]
 [params.ui]
 breadcrumb_disable = false
 navbar_logo = true
+# sidebar_cache_limit = 1
 sidebar_menu_compact = false
 sidebar_menu_foldable = true
 sidebar_search_disable = false
