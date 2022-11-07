@@ -77,6 +77,18 @@ Add styles or override variables from the theme here.
   color: #000000;
   border: 1px solid rgba(209, 209, 209, 1);
 }
+.polaris-main-link-btn-group .btn:hover,
+.polaris-main-link-btn-group .btn:focus {
+  background: #ececec !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000000 !important;
+}
+.polaris-main-link-btn-group .btn:active {
+  background: #a4a4a4 !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000000 !important;
+  outline: none;
+}
 
 .polaris-background {
   opacity: 1;
@@ -90,6 +102,7 @@ Add styles or override variables from the theme here.
   top: 0;
   left: 0;
   width: 100%;
+  z-index: -1;
 }
 
 .polaris-main-download-btn-group {
@@ -107,7 +120,18 @@ Add styles or override variables from the theme here.
   border: 1px solid rgba(209, 209, 209, 1);
   padding: 5px 20px;
 }
-
+.polaris-main-download-btn-group .btn:hover,
+.polaris-main-download-btn-group .btn:focus {
+  background: #fff !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000000 !important;
+}
+.polaris-main-download-btn-group .btn:active {
+  background: #fff !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000000 !important;
+  outline: none;
+}
 .animated-background {
   background-image: url("/img/wave-background.png");
   height: 894px;
@@ -123,9 +147,14 @@ Add styles or override variables from the theme here.
 }
 
 .structure-diagram {
-  margin-top: 190px;
+  margin-top: 10vw;
+  overflow-x: scroll;
 }
 
+.structure-diagram img {
+  min-width: 500px;
+  width: 100%;
+}
 .polaris-container {
   max-width: 1180px;
   width: 61.45vw;
@@ -163,7 +192,7 @@ Add styles or override variables from the theme here.
 
 .who-is-using {
   width: 62.5vw;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 6.25vw auto 0 auto;
 }
 
@@ -207,6 +236,24 @@ Add styles or override variables from the theme here.
 }
 .polaris-main-download-btn-group .btn {
   margin-top: 20px;
+}
+.polaris-experience {
+  width: 62vw;
+  height: 380px;
+  border-radius: 12px;
+  opacity: 1;
+  background: rgba(85, 108, 245, 1);
+  margin-top: 8.3vw;
+  background-image: url("/img/wave-background.png");
+  background-position: 90% 25%;
+}
+.polaris-experience .polaris-main-title {
+  margin-top: 70px;
+  color: #fff;
+}
+.polaris-experience .btn {
+  border: none;
+  border-radius: 8px;
 }
 @-webkit-keyframes leftScroll {
   0% {
