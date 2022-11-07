@@ -1,7 +1,6 @@
-
 ---
-title: "News About Docsy"
-linkTitle: "News"
+title: "News About PolarisMesh"
+linkTitle: "新闻"
 weight: 20
 ---
 
