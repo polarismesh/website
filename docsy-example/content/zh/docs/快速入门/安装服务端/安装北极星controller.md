@@ -1,8 +1,16 @@
-# 北极星controller安装
+---
+title: "北极星controller安装"
+linkTitle: "北极星controller安装"
+weight: 305
+---
+
+## k8s controller的作用
+
+北极星提供K8s controller的机制，可以安装在k8s集群中，通过接收集群内k8s apiserver的事件回调，将K8s Service以及POD注册成北极星的服务以及实例。
 
 ## 安装说明
 
-北极星controller包含以下组件：
+k8s controller包含以下组件：
 
 - polaris-controller：北极星controller服务端，主要是安装在k8s集群上，提供回调接口供k8s controller manager进行调用。
 
@@ -18,13 +26,13 @@
 
 安装前，需确保kubectl命令已经加入环境变量Path中，并且可以访问kubernetes的APIServer。
 
-以```polaris-controller-release_v1.3.0-beta.0.k8s1.21.zip```为例：
+以```polaris-controller-release_${version}.k8s1.21.zip```为例：
 
 解压并进入部署包：
 
 ```
-unzip polaris-controller-release_v1.3.0-beta.0.k8s1.21.zip
-cd polaris-controller-release_v1.3.0-beta.0.k8s1.21
+unzip polaris-controller-release_${version}.k8s1.21.zip
+cd polaris-controller-release_${version}.k8s1.21
 ```
 
 查询用户token，由于controller需要直接访问polaris的控制台OpenAPI，因此需要填写token。

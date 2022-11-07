@@ -1,4 +1,3 @@
-
 function Example() {
   // Declare a new state variable, which we'll call "count"
   const [count, setCount] = window.React.useState(0);
@@ -12,5 +11,6 @@ function Example() {
     </div>
   );
 }
-window.ReactDOM.render(window.React.createElement(Example),
-    document.getElementById("app"));
+
+window.ReactDOM.render(window.React.createElement(Example), document.getElementById("app"));
+
