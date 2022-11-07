@@ -79,3 +79,6 @@ other = "如果你想参与更多通过贡献 {{ .Site.Title }}，在这里加�
 other = "获取如何参与贡献这些文档，请参考我们的"
 [community_guideline]
 other = "贡献指南"
+
+[note]
+other = "说明："
