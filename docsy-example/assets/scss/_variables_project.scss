@@ -4,6 +4,10 @@ Add styles or override variables from the theme here.
 
 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 .nav-link span {
   color: black;
 }
@@ -18,12 +22,12 @@ Add styles or override variables from the theme here.
 
 .navbar {
   background-color: #e3e7ec !important;
-  // padding-left: 6% !important;
-  padding-right: 42.5% !important;
+  padding-left: 3% !important;
+  padding-right: 3% !important;
 }
 
 .navbar-logo img {
-  width: 120px;
+  height: 32px;
 }
 
 .td-search-input {
@@ -63,13 +67,14 @@ Add styles or override variables from the theme here.
 }
 
 .polaris-main-title {
-  font-size: 64px;
+  font-size: 40px;
   margin-top: 8.8vw;
   font-weight: 700;
 }
 
 .polaris-main-desc {
   margin-top: 60px;
+  color: gray;
 }
 
 .polaris-main-link-btn-group {
@@ -85,16 +90,37 @@ Add styles or override variables from the theme here.
   color: #000000;
   border: 1px solid rgba(209, 209, 209, 1);
 }
+.polaris-main-link-btn-group .btn-black {
+  border-radius: 3px;
+  background: rgba(38, 47, 62, 1);
+  width: 174px;
+  height: 56px;
+  margin-left: 24px;
+  color: #ffffff;
+  border: 1px solid rgba(209, 209, 209, 1);
+}
+.polaris-main-link-btn-group .btn-black:hover,
+.polaris-main-link-btn-group .btn-black:focus {
+  background: #fff !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000 !important;
+}
+.polaris-main-link-btn-group .btn-black:active {
+  background: #fff !important;
+  border: 1px solid rgba(209, 209, 209, 1) !important;
+  color: #000 !important;
+  outline: none;
+}
 .polaris-main-link-btn-group .btn:hover,
 .polaris-main-link-btn-group .btn:focus {
-  background: #ececec !important;
+  background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
-  color: #000000 !important;
+  color: #fff !important;
 }
 .polaris-main-link-btn-group .btn:active {
-  background: #a4a4a4 !important;
+  background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
-  color: #000000 !important;
+  color: #fff !important;
   outline: none;
 }
 
@@ -130,14 +156,14 @@ Add styles or override variables from the theme here.
 }
 .polaris-main-download-btn-group .btn:hover,
 .polaris-main-download-btn-group .btn:focus {
-  background: #fff !important;
+  background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
-  color: #000000 !important;
+  color: #fff !important;
 }
 .polaris-main-download-btn-group .btn:active {
-  background: #fff !important;
+  background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
-  color: #000000 !important;
+  color: #fff !important;
   outline: none;
 }
 .animated-background {
@@ -215,10 +241,6 @@ Add styles or override variables from the theme here.
 }
 
 .who-is-using-logo {
-  width: 14.42em;
-  max-width: 200px;
-  height: 14.42em;
-  max-height: 200px;
   border-radius: 3px;
   opacity: 1;
   background: rgba(243, 244, 247, 1);
@@ -237,7 +259,7 @@ Add styles or override variables from the theme here.
 }
 
 .who-is-using-logo img {
-  width: 120px;
+  width: 200px;
   margin: auto;
 }
 
@@ -371,4 +393,153 @@ Add styles or override variables from the theme here.
 ::-webkit-scrollbar {
   display: none;
   /* Chrome Safari */
+}
+#TableOfContents .active {
+  color: #72a1e5 !important;
+}
+.project-container {
+  padding: 0 15vw;
+}
+@media screen and (max-width: 1000px) {
+  .project-container {
+    padding: 0 2.5vw;
+  }
+}
+
+.project-banner {
+  background-image: url("/img/wave-background.png");
+  margin-top: 64px;
+  padding: 0 15vw;
+  text-align: center;
+}
+
+.categories-container {
+  text-align: center;
+}
+
+.categories-badge.badge {
+  margin: 5px 5px;
+  text-align: center;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+  font-size: 12px;
+  font-family: "PingFangSC";
+  font-weight: 400;
+  padding: 4px 12px;
+}
+
+.project-card {
+  height: 100%;
+  background-color: #f8f8f8;
+  border: none;
+  border-radius: 0;
+  margin-bottom: 20px;
+  padding: 32px;
+}
+
+.project-card .card-text {
+  height: 60px;
+  overflow: hidden;
+}
+
+.categories {
+  padding: 12px 0px 0px 0px;
+  font-family: "PingFangSC";
+}
+
+.categories-header {
+  font-size: 20px;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.project-card .card-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.project-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.project-description {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.small-logo {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  float: left;
+}
+
+.description-header {
+  color: #ababab;
+  font-size: 1rem;
+  text-align: center;
+  font-family: "PingFangSC";
+  font-weight: 400;
+}
+
+.project-github-btn:focus {
+  box-shadow: none;
+}
+
+.project-github-btn.btn {
+  color: #6c757d;
+  border-color: #6c757d !important;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  width: 100px;
+}
+
+.project-github-btn:hover {
+  color: #6c757d;
+  border-color: #6c757d;
+  background-color: transparent;
+}
+
+.project-github-btn .small-logo {
+  margin-top: 3px;
+}
+
+.color1 {
+  background-color: #0052d9;
+}
+
+.color2 {
+  background-color: #6c44ae;
+}
+
+.color3 {
+  background-color: #007595;
+}
+
+.color4 {
+  background-color: #4742b9;
+}
+
+.project-card .card-body {
+  padding: 32px;
+}
+
+.scroll-anchor {
+  position: relative;
+  top: -80px;
+  float: left;
+}
+
+@media screen and (max-width: 768px) {
+  .project-card .card-text {
+    height: 80px;
+    overflow: scroll;
+  }
 }
