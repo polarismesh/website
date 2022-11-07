@@ -117,6 +117,7 @@ html {
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
 }
+
 .polaris-main-link-btn-group .btn:active {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
@@ -154,18 +155,21 @@ html {
   border: 1px solid rgba(209, 209, 209, 1);
   padding: 5px 20px;
 }
+
 .polaris-main-download-btn-group .btn:hover,
 .polaris-main-download-btn-group .btn:focus {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
 }
+
 .polaris-main-download-btn-group .btn:active {
   background: #000 !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #fff !important;
   outline: none;
 }
+
 .animated-background {
   background-image: url("/img/wave-background.png");
   height: 894px;
@@ -189,6 +193,7 @@ html {
   min-width: 500px;
   width: 100%;
 }
+
 .polaris-container {
   max-width: 1180px;
   width: 61.45vw;
@@ -270,6 +275,7 @@ html {
 .polaris-main-download-btn-group .btn {
   margin-top: 20px;
 }
+
 .polaris-experience {
   width: 62vw;
   height: 380px;
@@ -280,14 +286,17 @@ html {
   background-image: url("/img/wave-background.png");
   background-position: 90% 25%;
 }
+
 .polaris-experience .polaris-main-title {
   margin-top: 70px;
   color: #fff;
 }
+
 .polaris-experience .btn {
   border: none;
   border-radius: 8px;
 }
+
 @-webkit-keyframes leftScroll {
   0% {
     background-position: 0 0;
@@ -331,9 +340,11 @@ html {
     margin-top: 20px;
     text-align: center;
   }
+
   .function-desc-image img {
     padding: 20px;
   }
+
   #carouselExampleIndicators {
     padding: 20px;
   }
@@ -354,25 +365,32 @@ html {
     height: 100px;
     padding: 20px;
   }
+
   .polaris-main-link-btn-group .btn {
     margin-left: 0px;
   }
+
   .polaris-main-download-btn-group .btn {
     margin-left: 0px;
   }
+
   .who-is-using-title {
     font-size: 24px;
   }
+
   .polaris-footer {
     font-size: 12px;
   }
+
   .polaris-footer a,
   .polaris-footer span {
     display: block;
   }
+
   .polaris-footer .high-resolution {
     display: none;
   }
+
   .polaris-main-title {
     font-size: 30px;
   }
@@ -388,11 +406,6 @@ html {
 
 .td-page-meta--project-issue {
   display: none !important;
-}
-
-::-webkit-scrollbar {
-  display: none;
-  /* Chrome Safari */
 }
 #TableOfContents .active {
   color: #72a1e5 !important;

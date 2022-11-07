@@ -1,8 +1,7 @@
-
 ---
 title: "New Releases"
-linkTitle: "Releases"
-weight: 20
+linkTitle: "版本信息"
+weight: 30
 ---
 
 
