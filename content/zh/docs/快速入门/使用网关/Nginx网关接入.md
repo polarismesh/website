@@ -1,7 +1,7 @@
 ---
 title: "Nginx网关接入"
 linkTitle: "Nginx网关接入"
-weight: 341
+weight: 1
 ---
 
 
@@ -49,13 +49,13 @@ kubectl apply -f examples/ratelimit/nginx.yaml
 
 在北极星控制台新建一个限流规则，服务名和命名空间分别选择nginx-gateway以及default，设置根据http header（user=1000）进行流量限制。
 
-![](../images/nginx/限流规则.png)
+![](图片/nginx网关接入/限流规则.png)
 
 - 验证限流效果
 
 通过postman，在http请求中带上头信息：user:1000，一分钟超过5次调用，会返回限流错误。
 
-![](../images/nginx/限流效果.png)
+![](图片/nginx网关接入/限流效果.png)
 
 ### 虚拟机环境使用
 
