@@ -1,0 +1,6924 @@
+swagger: '2.0'
+info:
+  version: v1.12.0
+paths:
+  /config/v1/GetConfigFile:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigClient
+      summary: 拉取配置
+      operationId: getConfigFile
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+          required: true
+        - type: string
+          description: 配置文件名
+          name: fileName
+          in: query
+          required: true
+        - type: integer
+          description: 配置文件客户端版本号，刚启动时设置为 0
+          name: version
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /config/v1/WatchConfigFile:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigClient
+      summary: 监听配置
+      operationId: watchConfigFile
+      parameters:
+        - description: 通过 Http LongPolling 机制订阅配置变更。
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ClientWatchConfigFileRequest'
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfilegroups:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 搜索配置文件组
+      operationId: QueryConfigFileGroups
+      parameters:
+        - type: string
+          description: 命名空间，不填表示全部命名空间
+          name: namespace
+          in: query
+        - type: string
+          description: 配置文件分组名，模糊搜索
+          name: group
+          in: query
+        - type: string
+          description: 配置文件名称，模糊搜索
+          name: fileName
+          in: query
+        - type: integer
+          default: 0
+          description: 翻页偏移量 默认为 0
+          name: offset
+          in: query
+        - type: integer
+          default: 100
+          description: 一页大小，最大为 100
+          name: limit
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 更新配置文件组
+      operationId: UpdateConfigFileGroup
+      parameters:
+        - description: |-
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+             ```
+            {
+                "name":"someGroup",
+                "namespace":"someNamespace",
+                "comment":"some comment",
+                "createBy":"ledou"
+            }
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFileGroup'
+      responses:
+        '200':
+          description: OK
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 创建配置文件组
+      operationId: CreateConfigFileGroup
+      parameters:
+        - description: |-
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+             ```
+            {
+                "name":"someGroup",
+                "namespace":"someNamespace",
+                "comment":"some comment",
+                "createBy":"ledou"
+            }
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFileGroup'
+      responses:
+        '200':
+          description: OK
+    delete:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 删除配置文件
+      operationId: DeleteConfigFileGroup
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 拉取配置
+      operationId: GetConfigFile
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+          required: true
+        - type: string
+          description: 配置文件名
+          name: name
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 创建配置文件
+      operationId: UpdateConfigFile
+      parameters:
+        - description: |
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+             ```{
+                "name":"application.properties",
+                "namespace":"someNamespace",
+                "group":"someGroup",
+                "content":"redis.cache.age=10",
+                "comment":"第一个配置文件",
+                "tags":[{"key":"service", "value":"helloService"}],
+                "createBy":"ledou",
+                "format":"properties"
+            }
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFile'
+      responses:
+        '200':
+          description: OK
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 创建配置文件
+      operationId: CreateConfigFile
+      parameters:
+        - description: |
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+             ```{
+                "name":"application.properties",
+                "namespace":"someNamespace",
+                "group":"someGroup",
+                "content":"redis.cache.age=10",
+                "comment":"第一个配置文件",
+                "tags":[{"key":"service", "value":"helloService"}],
+                "createBy":"ledou",
+                "format":"properties"
+            }
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFile'
+      responses:
+        '200':
+          description: OK
+    delete:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 创建配置文件
+      operationId: DeleteConfigFile
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+          required: true
+        - type: string
+          description: 配置文件
+          name: name
+          in: query
+          required: true
+        - type: string
+          description: 操作人
+          name: deleteBy
+          in: query
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles/batchdelete:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 批量删除配置文件
+      operationId: BatchDeleteConfigFile
+      parameters:
+        - type: string
+          description: 操作人
+          name: deleteBy
+          in: query
+        - description: |-
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+            ```[
+                 {
+                     "name":"application.properties",
+                     "namespace":"someNamespace",
+                     "group":"someGroup"
+                 }
+            ]
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFile'
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles/by-group:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 搜索配置文件
+      operationId: QueryConfigFilesByGroup
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+        - type: integer
+          default: 0
+          description: 翻页偏移量 默认为 0
+          name: offset
+          in: query
+        - type: integer
+          default: 100
+          description: 一页大小，最大为 100
+          name: limit
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles/release:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 获取配置文件最后一次全量发布信息
+      operationId: GetConfigFileRelease
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+          required: true
+        - type: string
+          description: 配置文件
+          name: name
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 发布配置文件
+      operationId: PublishConfigFile
+      parameters:
+        - description: |-
+            开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+            Header X-Polaris-Token: {访问凭据}
+            ```{
+                "name":"release-002",
+                "fileName":"application.properties",
+                "namespace":"someNamespace",
+                "group":"someGroup",
+                "comment":"发布第一个配置文件",
+                "createBy":"ledou"
+            }
+            ```
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ConfigFileRelease'
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles/releasehistory:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 获取配置文件发布历史记录
+      operationId: GetConfigFileReleaseHistory
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+        - type: string
+          description: 配置文件
+          name: name
+          in: query
+        - type: integer
+          default: 0
+          description: 翻页偏移量 默认为 0
+          name: offset
+          in: query
+        - type: integer
+          default: 100
+          description: 一页大小，最大为 100
+          name: limit
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiles/search:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 搜索配置文件
+      operationId: SearchConfigFile
+      parameters:
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+        - type: string
+          description: 配置文件分组
+          name: group
+          in: query
+        - type: string
+          description: 配置文件
+          name: name
+          in: query
+        - type: string
+          description: 格式：key1,value1,key2,value2
+          name: tags
+          in: query
+        - type: integer
+          default: 0
+          description: 翻页偏移量 默认为 0
+          name: offset
+          in: query
+        - type: integer
+          default: 100
+          description: 一页大小，最大为 100
+          name: limit
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /config/v1/configfiletemplates:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 获取配置模板
+      operationId: GetAllConfigFileTemplates
+      responses:
+        '200':
+          description: OK
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - ConfigConsole
+      summary: 创建配置模板
+      operationId: CreateConfigFileTemplate
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/principal/resources:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET
+        /core/v1/auth/principal/resources?principal_id=xxx&principal_type=user
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        | 参数名         | 类型   | 描述                     | 是否必填 |
+
+        |----------------|--------|------------------------|---------|
+
+        | principal_id   | string | 策略ID                   | 是       |
+
+        | principal_type | string | Principal类别，user/group | 是       |
+
+
+
+        响应示例：
+
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "resources": {
+                "namespaces": [
+                    {
+                        "id": "xxx",
+                        "namespace": "xxx",
+                        "name": "xxx"
+                    }
+                ],
+                "services": [
+                    {
+                        "id": "xxx",
+                        "namespace": "Polaris",
+                        "name": "xxx"
+                    }
+                ],
+                "config_groups": [{
+                        "id": "xxx",
+                        "namespace": "xxx",
+                        "name": "xxx"
+                    }
+                ]
+            }
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 获取鉴权策略详细
+      operationId: GetPrincipalResources
+      parameters:
+        - type: string
+          description: 策略ID
+          name: principal_id
+          in: query
+          required: true
+        - type: string
+          description: Principal类别，user/group
+          name: principal_type
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/status:
+    get:
+      description: "\n\n请求示例：\n\n~~~\nGET /core/v1/auth/status\n~~~\n\n\n\n响应示例：\n\n~~~\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"optionSwitch\": \n\t{\n\t\t\"auth\": \"true\"\n\t}\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 查询鉴权开关信息
+      operationId: AuthStatus
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/strategies:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET /core/v1/auth/strategies?{key}={value}
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        支持的URL参数
+
+
+        | 参数名         | 类型   |
+        描述                                                                  |
+        是否必填 |
+
+        |----------------|--------|---------------------------------------------------------------------|---------|
+
+        | id             | string |
+        策略ID                                                                |
+        否       |
+
+        | name           | string | 策略名称,
+        当前仅提供全模糊搜索                                        | 否       |
+
+        | default        | string | “0” 查询自定义策略；“1” 查询默认策略；不填则为查询（默认+自定义）鉴权策略 |
+        否       |
+
+        | res_id         | string |
+        资源ID                                                                |
+        否       |
+
+        | res_type       | string | 资源类型,
+        namespace、service、config_group                              | 否       |
+
+        | principal_id   | string |
+        成员ID                                                                |
+        否       |
+
+        | principal_type | string | 成员类型,
+        user、group                                                  | 否       |
+
+        | show_detail    | bool   |
+        是否显示策略详细                                                      | 否      
+        |
+
+        | offset         | int    | 查询偏移量,
+        默认为0                                                   | 否       |
+
+        | limit          | int    | 本次查询条数,
+        最大为100                                               | 否       |
+
+
+
+        响应示例：
+
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 1,
+            "size": 1,
+            "authStrategies": [
+                {
+                    "id": "xxx",
+                    "name": "xxx",
+                    "principals": {
+                        "users": [
+                            {
+                                "id": "xxx",
+                                "name": "xxx"
+                            }
+                        ],
+                        "groups": [
+                            {
+                                "id": "xxx",
+                                "name": "xxx"
+                            }
+                        ]
+                    },
+                    "resources": {
+                        "strategy_id": null,
+                        "namespaces": [],
+                        "services": [
+                            {
+                                "id": "xxx",
+                                "namespace": "default",
+                                "name": "Demo-1"
+                            },
+                            {
+                                "id": "xxx",
+                                "namespace": "default",
+                                "name": "Demo-2"
+                            }
+                        ],
+                        "config_groups": []
+                    },
+                    "action": "READ_WRITE",
+                    "comment": "Default Strategy",
+                    "ctime": "2022-02-09 19:48:53",
+                    "mtime": "2022-02-09 19:48:53",
+                    "default_strategy": true
+                },
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 查询鉴权策略列表
+      operationId: GetStrategies
+      parameters:
+        - type: string
+          description: 策略ID
+          name: id
+          in: query
+        - type: string
+          description: 策略名称, 当前仅提供全模糊搜索
+          name: name
+          in: query
+        - type: string
+          description: “0” 查询自定义策略；“1” 查询默认策略；不填则为查询（默认+自定义）鉴权策略
+          name: default
+          in: query
+        - type: string
+          description: 资源ID
+          name: res_id
+          in: query
+        - type: string
+          description: 资源类型, namespace、service、config_group
+          name: res_type
+          in: query
+        - type: string
+          description: 成员ID
+          name: principal_id
+          in: query
+        - type: string
+          description: 成员类型, user、group
+          name: principal_type
+          in: query
+        - type: boolean
+          description: 是否显示策略详细
+          name: show_detail
+          in: query
+        - type: integer
+          default: 0
+          description: 查询偏移量, 默认为0
+          name: offset
+          in: query
+        - type: integer
+          description: 本次查询条数, 最大为100
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    put:
+      description: |
+
+        请求示例：
+
+        ~~~
+        PUT /core/v1/auth/strategies
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        ~~~json
+        [
+            {
+                "id": "xxx",
+                "comment": "xxx",
+                "add_principals": {
+                    "users": [{
+                        "id": "xxx"
+                    },{
+                        "id": "xxx"
+                    }],
+                    "groups": [{
+                        "id": "xxx"
+                    }]
+                },
+                "remove_principals": {
+                    "users": [{"id": "xxx"}],
+                    "groups": [{
+                        "id": "xxx"
+                    }]
+                },
+                "add_resources": {
+                  "namespaces": [
+                    {
+                        "id":"xxx"
+                    }],
+                  "services": [{
+                        "id":"xxx"
+                   }],
+                  "config_groups": [
+                      {
+                        "id":"xxx"
+                   }]
+                },
+                "remove_resources": {
+                  "namespaces": [
+                    {
+                        "id": "xxx"
+                    }
+                  ],
+                  "services": [],
+                  "config_groups": []
+                }
+            }
+        ]
+        ~~~
+
+        响应示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 1,
+            "responses": [
+                {
+                    "code": 200000,
+                    "info": "execute success"
+                }
+            ]
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 更新鉴权策略
+      operationId: UpdateStrategies
+      parameters:
+        - description: update auth strategy
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.AuthStrategy'
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/strategies/delete:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /core/v1/auth/strategies/delete
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        ~~~json
+        [
+            {
+                "id": "xxx"
+            }
+        ]
+        ~~~
+
+        响应示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 1,
+            "responses": [
+                {
+                    "code": 200000,
+                    "info": "execute success"
+                }
+            ]
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 删除鉴权策略
+      operationId: DeleteStrategies
+      parameters:
+        - description: delete auth strategy
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.AuthStrategy'
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/strategy:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /core/v1/auth/strategy
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        ~~~json
+        {
+          "name": "xxx",
+          "comment": "xxx",
+          "principals": {
+            "users": [
+              {
+                  "id": "xxx"
+              }
+            ],
+            "groups": [
+              {
+                  "id": "xxx"
+              }
+            ]
+          },
+          "resources": {
+            "namespaces": [
+              {
+                  "id": "Polaris"
+              }
+            ],
+            "services": [
+              {
+                  "id": "Polaris"
+              }
+            ],
+            "config_groups": [
+              {
+                  "id": "Polaris"
+              }
+            ]
+          }
+        }
+        ~~~
+
+        响应示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success"
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 创建鉴权策略
+      operationId: CreateStrategy
+      parameters:
+        - description: create auth strategy
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.AuthStrategy'
+      responses:
+        '200':
+          description: OK
+  /core/v1/auth/strategy/detail:
+    get:
+      description: |
+
+        根据策略ID查询该策略的具体详细信息
+
+        请求示例：
+
+        ~~~
+        GET /core/v1/auth/strategy/detail?id=xxx
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        | 参数名 | 类型   | 描述   | 是否必填 |
+        |--------|--------|------|---------|
+        | id     | string | 策略ID | 是       |
+
+
+
+        响应示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "authStrategy": {
+                "id": "xxx",
+                "name": "xxx",
+                "principals": {
+                    "users": [
+                        {
+                            "id": "xxx",
+                            "name": "xxx"
+                        }
+                    ],
+                    "groups": []
+                },
+                "resources": {
+                    "namespaces": [],
+                    "services": [
+                        {
+                            "id": "xxx",
+                            "namespace": "default",
+                            "name": "Demo-1"
+                        },
+                        {
+                            "id": "xxx",
+                            "namespace": "default",
+                            "name": "Demo-2"
+                        }
+                    ],
+                    "config_groups": []
+                },
+                "action": "READ_WRITE",
+                "comment": "Default Strategy",
+                "ctime": "2022-02-09 19:43:26",
+                "mtime": "2022-02-15 23:20:48",
+                "default_strategy": true
+            }
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Auth
+      summary: 获取鉴权策略详细
+      operationId: GetStrategy
+      parameters:
+        - type: string
+          description: 策略ID
+          name: id
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/namespaces:
+    get:
+      description: >
+
+        | 参数名 | 类型   | 描述                                             | 是否必填 |
+
+        | ------ | ------ | ------------------------------------------------ |
+        -------- |
+
+        | name   | string | 命名空间唯一名称                                 | 是       |
+
+        | offset | uint   | 查询偏移量                                       |
+        否       |
+
+        | limit  | uint   | 查询条数，**最多查询100条**                      | 否       |
+
+
+
+        请求示例：
+
+
+        ~~~
+
+        GET /{core|naming}/v1/namespaces?name=&offset=&limit=
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 3,
+            "namespaces": [
+                {
+                    "name": "...",
+                    "comment": "",
+                    "ctime": "2021-11-22 23:50:52",
+                    "mtime": "2021-11-22 23:50:52"
+                },
+                {
+                    "name": "...",
+                    "comment": "",
+                    "ctime": "2021-11-22 23:50:52",
+                    "mtime": "2021-11-22 23:50:52"
+                }
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 查询命名空间列表
+      operationId: CoreGetNamespaces
+      parameters:
+        - type: string
+          description: 命名空间唯一名称
+          name: name
+          in: query
+          required: true
+        - type: integer
+          default: 0
+          description: 查询偏移量
+          name: offset
+          in: query
+        - type: integer
+          description: 查询条数，**最多查询100条**
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    put:
+      description: >
+
+        | 参数名           | 类型     |
+        描述                                                       | 是否必填 |
+
+        | ---------------- | -------- |
+        ---------------------------------------------------------- | -------- |
+
+        | name             | string   |
+        命名空间唯一名称                                           | 是       |
+
+        | comment          | string   |
+        描述                                                       | 否       |
+
+        | token            | string   |
+        命名空间的token，用于权限鉴定                              | 是       |
+
+        | user_ids         | []string | 可以操作该资源的用户，**仅当开启北极星鉴权时生效**         |
+        否       |
+
+        | group_ids        | []string | 可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     |
+        否       |
+
+        | remove_user_ids  | []string | 被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   |
+        否       |
+
+        | remove_group_ids | []string | 被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** |
+        否       |
+
+
+        请求示例：
+
+
+        ~~~
+
+        PUT /{core|naming}/v1/namespaces
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name": "...",
+                "comment": "..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 0
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 更新命名空间
+      operationId: CoreUpdateNamespaces
+      parameters:
+        - description: update namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: >
+
+        | 参数名           | 类型     |
+        描述                                                       | 是否必填 |
+
+        | ---------------- | -------- |
+        ---------------------------------------------------------- | -------- |
+
+        | name             | string   |
+        命名空间唯一名称                                           | 是       |
+
+        | comment          | string   |
+        描述                                                       | 否       |
+
+        | user_ids         | []string | 可以操作该资源的用户，**仅当开启北极星鉴权时生效**         |
+        否       |
+
+        | group_ids        | []string | 可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     |
+        否       |
+
+        | remove_user_ids  | []string | 被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   |
+        否       |
+
+        | remove_group_ids | []string | 被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** |
+        否       |
+
+
+
+        请求示例：
+
+
+        ~~~
+
+        POST /{core|naming}/v1/namespaces
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name": "...",
+                "comment": "..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"execute success",
+                    "namespace":{
+                        "name":"...",
+                        "token":"..."
+                    }
+                }
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 创建命名空间
+      operationId: CoreCreateNamespaces
+      parameters:
+        - description: create namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+  /core/v1/namespaces/delete:
+    post:
+      description: |
+
+        | 参数名 | 类型   | 描述                          | 是否必填 |
+        | ------ | ------ | ----------------------------- | -------- |
+        | name   | string | 命名空间唯一名称              | 是       |
+        | token  | string | 命名空间的token，用于权限鉴定 | 是       |
+
+        请求示例：
+
+        ~~~
+        POST /{core|naming}/v1/namespaces/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "name": "...",
+            }
+        ]
+        ~~~
+
+        应答示例：
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 0
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 删除命名空间
+      operationId: CoreDeleteNamespaces
+      parameters:
+        - description: delete namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+  /core/v1/namespaces/token:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 查询命名空间Token
+      operationId: CoreGetNamespaceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 更新命名空间Token
+      operationId: CoreUpdateNamespaceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/user:
+    put:
+      description: "\n更新用户的备注信息数据\n\n请求示例：\n\n~~~\nPUT /core/v1/user\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\",\n\t\"comment\": \"polarismesh\"\n}\n~~~\n\n| 参数名  | 类型   | 描述     | 是否必填 |\n|---------|--------|--------|---------|\n| id      | string | 用户ID   | 是       |\n| comment | string | 用户备注 | 否       |\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 更新用户
+      operationId: UpdateUser
+      parameters:
+        - description: update user
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.User'
+      responses:
+        '200':
+          description: OK
+  /core/v1/user/login:
+    post:
+      description: "\n用于控制台进行用户登陆操作\n\n请求示例：\n\n~~~\nPOST /core/v1/user/login\n~~~\n\n| 参数名   | 类型   | 描述     | 是否必填 |\n|----------|--------|--------|---------|\n| name     | string | 用户名   | 是       |\n| password | string | 用户密码 | 是       |\n\n\n应答示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"loginResponse\": {\n\t\t\"token\": \"xxx\",\n\t\t\"name\": \"xxx\",\n\t\t\"user_id\": \"xxx\",\n\t\t\"role\": \"xxx\"\n\t}\n}\n~~~\n\n| 参数名        |         | 类型   | 描述                                                    |\n|---------------|---------|--------|-------------------------------------------------------|\n| code          |         | uint32 | 六位返回码                                              |\n| info          |         | string | 返回信息                                                |\n| loginResponse |         |        | 命名空间                                                |\n|               | token   | string | 用户Token, 用于接口请求访问                             |\n|               | name    | string | 用户名                                                  |\n|               | role    | string | 当前用户角色, (admin:超级账户, main:主账户, sub:子账户) |\n|               | user_id | string | 当前用户ID                                              |\n\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 用户登录
+      operationId: Login
+      parameters:
+        - description: 用户登录接口
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.LoginRequest'
+      responses:
+        '200':
+          description: OK
+  /core/v1/user/password:
+    put:
+      description: "\n用户重新更新密码, 如果密码更新成功, 则会一并更新对应用户的访问凭据\n\n请求示例：\n\n~~~\nPUT /core/v1/user/password\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\",\n\t\"old_password\": \"xxx\",\n\t\"new_password\": \"xxx\"\n}\n~~~\n\n| 参数名       | 类型   | 描述   | 是否必填 |\n|--------------|--------|------|---------|\n| id           | string | 用户ID | 是       |\n| old_password | string | 旧密码 | 否       |\n| new_password | string | 新密码 | 否       |\n\n\n响应示例：\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 更新用户密码
+      operationId: UpdateUserPassword
+      parameters:
+        - description: update user password
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ModifyUserPassword'
+      responses:
+        '200':
+          description: OK
+  /core/v1/user/token:
+    get:
+      description: "\n查询用户的Token凭据信息，通过用户ID或者用户名进行查询\n\n请求示例：\n\n~~~\nGET /core/v1/user/token?id=xxx\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n| 参数名 | 类型   | 描述   | 是否必填 |\n|--------|--------|------|---------|\n| id     | string | 用户ID | 是       |\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"user\": {\n\t\t\"id\": \"xxx\",\n\t\t\"auth_token\": \"xxx\",\n\t\t\"token_enable\": true\n\t}\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 获取用户Token
+      operationId: GetUserToken
+      parameters:
+        - type: string
+          description: 用户ID
+          name: id
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/user/token/refresh:
+    put:
+      description: "\n重置用户的Token, 当Token重置之后，原先的Token失效并且无法进行访问北极星接口以及资源\n\n请求示例：\n\n~~~\nPUT /core/v1/user/token/refresh\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\"\n}\n~~~\n\n| 参数名 | 类型   | 描述   | 是否必填 |\n|--------|--------|------|---------|\n| id     | string | 用户ID | 是       |\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\"\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 重置用户Token
+      operationId: ResetUserToken
+      parameters:
+        - description: reset user token
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.User'
+      responses:
+        '200':
+          description: OK
+  /core/v1/user/token/status:
+    put:
+      description: "\n对用户Token的使用状态进行修改, 如果用户的Token被设置为禁用状态, 则该Token后续无法用于访问北极星接口以及资源, 需使用主账户或者超级账户进行解封\n\n请求示例：\n\n~~~\nPUT /core/v1/user/token/status\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\",\n\t\"token_enable\": false\n}\n~~~\n\n| 参数名       | 类型   | 描述                                       | 是否必填 |\n|--------------|--------|------------------------------------------|---------|\n| id           | string | 用户ID                                     | 是       |\n| token_enable | bool   | 当前Token可用状态, true为启用, false为禁用 | 是       |\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\"\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 更新用户Token
+      operationId: UpdateUserToken
+      parameters:
+        - description: update user token
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.User'
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroup:
+    post:
+      description: "\n请求示例：\n\n~~~\nPOST /core/v1/usergroup\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"name\": \"GROUP_1\",\n\t\"comment\": \"\",\n\t\"relation\": {\n\t\t\"users\": [\n\t\t\t{\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}, {\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}\n\t\t]\n\t}\n}\n~~~\n\n| 参数名   | 类型     | 描述                   |\n|----------|----------|----------------------|\n| name     | string   | 用户组名称             |\n| comment  | string   | 用户组备注信息         |\n| relation | user列表 | 当前用户组关联的用户ID |\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\"\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 创建用户组
+      operationId: CreateGroup
+      parameters:
+        - description: create group
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.UserGroup'
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroup/detail:
+    get:
+      description: "\n请求示例：\n\n~~~\nGET /core/v1/usergroup/detail?id=xxx\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"userGroup\": {\n\t\t\"id\": \"xxx\",\n\t\t\"name\": \"xxx\",\n\t\t\"token_enable\": true,\n\t\t\"comment\": \"\",\n\t\t\"ctime\": \"2022-02-09 21:46:33\",\n\t\t\"mtime\": \"2022-02-09 21:46:33\",\n\t\t\"relation\": {\n\t\t\"users\": [\n\t\t\t\t{\n\t\t\t\t\t\"id\": \"xxx\",\n\t\t\t\t\t\"name\": \"xxx\",\n\t\t\t\t\t\"source\": \"\",\n\t\t\t\t\t\"token_enable\": true,\n\t\t\t\t\t\"comment\": \"\",\n\t\t\t\t\t\"ctime\": \"2022-02-09 19:48:53\",\n\t\t\t\t\t\"mtime\": \"2022-02-09 19:48:53\",\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t\"user_count\": 1\n\t}\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 获取用户组详情
+      operationId: GetGroup
+      parameters:
+        - type: integer
+          description: 用户组ID
+          name: id
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroup/token:
+    get:
+      description: "\n请求示例：\n\n~~~\nGET /core/v1/usergroup/token?id=xxx\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"userGroup\": {\n\t\t\"id\": \"xxx\",\n\t\t\"auth_token\": \"xxx\",\n\t\t\"token_enable\": true\n\t}\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 获取用户组 token
+      operationId: GetGroupToken
+      parameters:
+        - type: integer
+          description: 用户组ID
+          name: id
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroup/token/refresh:
+    put:
+      description: "\n请求示例：\n\n~~~\nPUT /core/v1/usergroup/token/refresh\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\"\n}\n~~~\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\"\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 重置用户组 token
+      operationId: ResetGroupToken
+      parameters:
+        - description: reset user group token
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.UserGroup'
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroup/token/status:
+    put:
+      description: "\n请求示例：\n\n~~~\nPUT /core/v1/usergroup/token/status\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\",\n\t\"token_enable\": false\n}\n~~~\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\"\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 更新用户组 token
+      operationId: UpdateGroupToken
+      parameters:
+        - description: update user group token
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.UserGroup'
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroups:
+    get:
+      description: "\n请求示例：\n\n~~~\nGET /core/v1/usergroups?{key}={value}\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n支持的URL参数\n\n| 参数名  | 类型   | 描述                                     | 是否必填 |\n|---------|--------|----------------------------------------|---------|\n| id      | string | 用户组ID                                 | 否       |\n| name    | string | 用户组名称, 当前仅提供全模糊搜索         | 否       |\n| user_id | string | 用户ID, 用于查询某个用户关联的用户组列表 | 否       |\n| offset  | int    | 查询偏移量, 默认为0                      | 否       |\n| limit   | int    | 本次查询条数, 最大为100                  | 否       |\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"amount\": 1,\n\t\"size\": 1,\n\t\"userGroups\": [\n\t\t{\n\t\t\t\"id\": \"xxx\",\n\t\t\t\"name\": \"xxx\",\n\t\t\t\"auth_token\": null,\n\t\t\t\"token_enable\": true,\n\t\t\t\"comment\": \"\",\n\t\t\t\"ctime\": \"2022-02-09 21:46:33\",\n\t\t\t\"mtime\": \"2022-02-09 21:46:33\",\n\t\t\t\"user_count\": 1\n\t\t}\n\t]\n}\n~~~\n\n数据结构：\n\n> userGroups\n\n| 参数名       | 类型   | 描述                   |\n|--------------|--------|----------------------|\n| id           | string | 用户组ID               |\n| name         | string | 用户组名称             |\n| auth_token   | string | 用户组访问凭据         |\n| token_enable | bool   | 用户组访问凭据是否可用 |\n| comment      | string | 用户组备注信息         |\n| ctime        | string | 用户组创建时间         |\n| mtime        | string | 用户组修改时间         |\n| user_count   | int    | 当前用户组下用户的数量 |\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 查询用户组列表
+      operationId: GetGroups
+      parameters:
+        - type: string
+          description: 用户组ID
+          name: id
+          in: query
+        - type: string
+          description: 用户组名称, 当前仅提供全模糊搜索
+          name: name
+          in: query
+        - type: string
+          description: 用户ID, 用于查询某个用户关联的用户组列表
+          name: user_id
+          in: query
+        - type: integer
+          default: 0
+          description: 查询偏移量, 默认为0
+          name: offset
+          in: query
+        - type: integer
+          description: 本次查询条数, 最大为100
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    put:
+      description: "\n请求示例：\n\n~~~\nPUT /core/v1/usergroup\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n[\n\t{\n\t\t\"id\": \"xxx\",\n\t\t\"comment\": \"xxx\",\n\t\t\"add_relations\": {\n\t\t\t\"users\": [{\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}, {\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}]\n\t\t},\n\t\t\"remove_relations\": {\n\t\t\t\"users\": [{\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}, {\n\t\t\t\t\"id\": \"xxx\"\n\t\t\t}]\n\t\t}\n\t}\n]\n~~~\n\n| 参数名          | 类型     | 描述                       |\n|-----------------|----------|--------------------------|\n| id              | string   | 用户组ID                   |\n| comment         | string   | 用户组备注信息             |\n| add_relation    | user列表 | 当前用户组追加关联的用户ID |\n| remove_relation | user列表 | 当前用户组移除关联的用户ID |\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"size\": 1,\n\t\"responses\": [\n\t\t{\n\t\t\t\"code\": 200000,\n\t\t\t\"info\": \"execute success\"\n\t\t}\n\t]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 更新用户组
+      operationId: UpdateGroups
+      parameters:
+        - description: update group
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.UserGroup'
+      responses:
+        '200':
+          description: OK
+  /core/v1/usergroups/delete:
+    post:
+      description: "\n请求示例：\n\n~~~\nPOST /core/v1/usergroups/delete\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n[\n\t{\n\t\t\"id\": \"xxx\"\n\t}\n]\n~~~\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"responses\": [\n\t\t{\n\t\t\t\"code\": 200000,\n\t\t\t\"info\": \"execute success\"\n\t\t}\n\t]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - UserGroup
+      summary: 删除用户组
+      operationId: DeleteGroups
+      parameters:
+        - description: delete group
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.UserGroup'
+      responses:
+        '200':
+          description: OK
+  /core/v1/users:
+    get:
+      description: "\n根据相关条件对用户列表进行查询\n\n请求示例：\n\n~~~\nGET /core/v1/users?id=xxx&name=xxx&source=xxx&group_id=xxx&offset=xxx&limit=xxx\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n| 参数名   | 类型   | 描述                                   | 是否必填 |\n|----------|--------|--------------------------------------|---------|\n| id       | string | 用户ID                                 | 否       |\n| name     | string | 用户名称, 当前仅提供全模糊搜索         | 否       |\n| source   | string | 用户来源                               | 否       |\n| group_id | string | 用户组ID, 用于查询某个用户组下用户列表 | 否       |\n| offset   | int    | 查询偏移量, 默认为0                    | 否       |\n| limit    | int    | 本次查询条数, 最大为100                | 否       |\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"amount\": 1,\n\t\"size\": 1,\n\t\"users\": [\n\t\t{\n\t\t\t\"id\": \"xxx\",\n\t\t\t\"name\": \"xxx\",\n\t\t\t\"source\": \"\",\n\t\t\t\"auth_token\": \"\",\n\t\t\t\"token_enable\": true,\n\t\t\t\"comment\": \"\",\n\t\t\t\"ctime\": \"2022-02-09 19:48:53\",\n\t\t\t\"mtime\": \"2022-02-09 19:48:53\",\n\t\t}\n\t]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 获取用户
+      operationId: GetUsers
+      parameters:
+        - type: string
+          description: 用户ID
+          name: id
+          in: query
+        - type: string
+          description: 用户名称, 当前仅提供全模糊搜索
+          name: name
+          in: query
+        - type: string
+          description: 用户来源
+          name: source
+          in: query
+        - type: string
+          description: 用户组ID, 用于查询某个用户组下用户列表
+          name: group_id
+          in: query
+        - type: integer
+          default: 0
+          description: 查询偏移量, 默认为0
+          name: offset
+          in: query
+        - type: integer
+          description: 本次查询条数, 最大为100
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    post:
+      description: "\n批量创建用户至北极星\n\n请求示例：\n\n~~~\nPOST /core/v1/users\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n[\n\t{\n\t\"name\": \"polarismesh\",\n\t\"password\": \"polarismesh\",\n\t\"comment\": \"polarismesh\",\n\t\"source\": \"Polaris\"\n\t}\n]\n~~~\n\n| 参数名   | 类型   | 描述     | 是否必填 |\n|----------|--------|--------|---------|\n| name     | string | 用户名   | 是       |\n| password | string | 用户密码 | 是       |\n| comment  | string | 用户备注 | 否       |\n| source   | string | 用户来源 | 否       |\n\n\n应答示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"size\": 1,\n\t\"responses\": [\n\t\t{\n\t\t\t\"code\": 200000,\n\t\t\t\"info\": \"execute success\"\n\t\t}\n\t]\n}\n~~~\n\n数据结构：\n\n> user\n\n| 参数名       | 类型   | 描述                 |\n|--------------|--------|--------------------|\n| id           | string | 用户ID               |\n| name         | string | 用户名称             |\n| password     | string | 用户密码             |\n| source       | string | 用户来源             |\n| auth_token   | string | 用户访问凭据         |\n| token_enable | bool   | 用户访问凭据是否可用 |\n| comment      | string | 用户备注信息         |\n| ctime        | string | 用户创建时间         |\n| mtime        | string | 用户修改时间         |\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 创建用户
+      operationId: CreateUsers
+      parameters:
+        - description: create user
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.User'
+      responses:
+        '200':
+          description: OK
+  /core/v1/users/delete:
+    post:
+      description: "\n批量删除北极星中的用户\n\n请求示例\n\n~~~\nPOST /core/v1/users/delete\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n[\n\t{\n\t\t\"id\": \"xxx\"\n\t}\n]\n~~~\n\n| 参数名 | 类型   | 描述   | 是否必填 |\n|--------|--------|------|---------|\n| id     | string | 用户ID | 是       |\n\n\n响应示例：\n\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"responses\": [\n\t\t{\n\t\t\t\"code\": 200000,\n\t\t\t\"info\": \"execute success\"\n\t\t}\n\t]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Users
+      summary: 删除用户
+      operationId: DeleteUsers
+      parameters:
+        - description: delete user
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.User'
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/apiserver/conn:
+    get:
+      description: |
+
+        请求示例：
+
+        ~~~
+        GET /maintain/v1/apiserver/conn?protocol=xxx&host=xxx
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        | 参数名   | 类型   | 描述                | 是否必填 |
+        |----------|--------|---------------------|----------|
+        | protocol | string | 查看指定协议 server | 是       |
+        | host     | string | 查看指定host        | 否       |
+
+        应答示例：
+
+        ~~~json
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 获取服务端连接数
+      operationId: GetServerConnections
+      parameters:
+        - type: string
+          description: 查看指定协议
+          name: protocol
+          in: query
+          required: true
+        - type: string
+          description: 查看指定host
+          name: host
+          in: query
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/apiserver/conn/close:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /maintain/v1/apiserver/conn?protocol=xxx&host=xxx
+        Header X-Polaris-Token: {访问凭据}
+        Header Content-Type: application/json
+
+        [
+            {
+                "protocol": "someProtocol",
+                "host": "someHost",
+                "amount": "someAmount",
+                "port": "port",
+            } 
+        ]
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 关闭指定client ip的连接
+      operationId: CloseConnections
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/maintain.ConnReq'
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/apiserver/conn/stats:
+    get:
+      description: "\n请求示例：\n~~~\nGET /maintain/v1/apiserver/conn/stats?protocol=xxx&host=xxx\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n| 参数名   \t| 类型   \t| 描述                \t| 是否必填 \t|\n|----------\t|--------\t|---------------------\t|----------\t|\n| protocol \t| string \t| 查看指定协议 server \t| 是       \t|\n| host     \t| string \t| 查看指定host        \t| 否       \t|\n| amount   \t| integer \t| 总量                \t| 否       \t|\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 获取服务端连接统计信息
+      operationId: GetServerConnStats
+      parameters:
+        - type: string
+          description: 查看指定协议
+          name: protocol
+          in: query
+          required: true
+        - type: string
+          description: 查看指定host
+          name: host
+          in: query
+        - type: integer
+          description: 总数
+          name: amount
+          in: query
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/instance/clean:
+    post:
+      description: |+
+
+        请求示例：
+
+        ~~~
+        POST /maintain/v1/instance/clean
+        Header X-Polaris-Token: {访问凭据}
+        Header Content-Type: application/json
+
+        {
+            "service": "tdsql-ops-server",
+            "namespace": "default",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "location": {
+                "region": "ap-guangzhou",
+                "zone": "ap-guangzhou-3",
+                "campus": ""
+            },
+            "enable_health_check": true,
+            "health_check": {
+                "type": 1,
+                "heartbeat": {
+                    "ttl": 10
+                }
+            },
+            "metadata": {
+                "env": "pre"
+            }
+        }
+        ~~~
+
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 彻底清理flag=1的实例
+      operationId: CleanInstance
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/instance/heartbeat:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET /maintain/v1//instance/heartbeat?id=xxx
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        请求参数：
+
+
+        | 参数名              | 类型               |
+        描述                                                              | 是否必填 |
+
+        | ------------------- | ------------------ |
+        ----------------------------------------------------------------- |
+        -------- |
+
+        | id                  | string             | 实例id
+        如果存在id，后面参数可以不填名                                   | 否       |
+
+        | service             | string             |
+        服务名                                                            | 否      
+        |
+
+        | namespace           | string             |
+        命名空间                                                          | 否      
+        |
+
+        | host                | string             |
+        实例的IP                                                          | 否      
+        |
+
+        | port                | string             |
+        实例的端口                                                        | 否       |
+
+        | vpc_id              | string             | VPC
+        ID                                                            | 否      
+        |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 获取上一次心跳的时间
+      operationId: GetLastHeartbeat
+      parameters:
+        - type: string
+          description: 实例ID 如果存在则其它参数可不填
+          name: id
+          in: query
+        - type: string
+          description: 服务名
+          name: service
+          in: query
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+        - type: string
+          description: 主机名
+          name: host
+          in: query
+        - type: integer
+          description: 端口
+          name: port
+          in: query
+        - type: string
+          description: VPC ID
+          name: vpv_id
+          in: query
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/log/outputlevel:
+    get:
+      description: |
+
+        请求示例：
+
+        ~~~
+        GET /maintain/v1/log/outputlevel
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        返回示例：
+        ~~~
+        {
+         "apiserver": "info",
+         "auth": "info",
+         "cache": "info",
+         "config": "info",
+         "default": "info",
+         "healthcheck": "info",
+         "naming": "info",
+         "store": "info",
+         "xdsv3": "info"
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 获取日志输出级别
+      operationId: GetLogOutputLevel
+      responses:
+        '200':
+          description: OK
+    put:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /maintain/v1/log/outputlevel
+        Header X-Polaris-Token: {访问凭据}
+
+        {
+            "scope": "apiserver",
+            "level": "info"
+        }
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 设置日志输出级别
+      operationId: SetLogOutputLevel
+      responses:
+        '200':
+          description: OK
+  /maintain/v1/memory/free:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /maintain/v1/memory/free
+        Header X-Polaris-Token: {访问凭据}
+        Header Content-Type: application/json
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Maintain
+      summary: 释放系统内存
+      operationId: FreeOSMemory
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreaker:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/circuitbreakers?id={参数值}&version={参数值}
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 查询熔断规则
+      operationId: GetCircuitBreaker
+      parameters:
+        - type: string
+          description: 规则ID
+          name: id
+          in: path
+          required: true
+        - type: string
+          description: 版本
+          name: version
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreaker/token:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 查询熔断规则Token
+      operationId: GetCircuitBreakerToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreaker/versions:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/circuitbreaker/versions?id={参数值}
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 查询熔断规则版本
+      operationId: GetCircuitBreakerVersions
+      parameters:
+        - type: string
+          description: 规则ID
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers:
+    put:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/circuitbreakers
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "service":"qweqweqwqe",
+                "namespace":"default",
+                "inbounds":[
+                    {
+                        "sources":[
+                            {
+                                "service":"*",
+                                "namespace":"*"
+                            }
+                        ],
+                        "destinations":[
+                            {
+                                "policy":{
+                                    "errorRate":{
+                                        "enable":true,
+                                        "errorRateToOpen":10,
+                                        "requestVolumeThreshold":10
+                                    }
+                                },
+                                "recover":{
+                                    "sleepWindow":"1s",
+                                    "outlierDetectWhen":"NEVER"
+                                },
+                                "resource":"INSTANCE",
+                                "method":{
+                                    "value":"qweqwe"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "outbounds":[
+
+                ],
+                "id":"xxx",
+                "version":"1647356947061",
+                "name":"xxx"
+            }
+        ]
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 更新熔断规则
+      operationId: UpdateCircuitBreakers
+      parameters:
+        - description: update circuit breakers
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.CircuitBreaker'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: "\n\n- 为服务创建一个熔断规则，以对服务下的故障节点进行剔除。\n- 熔断规则可以分为被调规则和主调规则：\n\t- 被调规则针对所有的指定主调生效，假如不指定则对所有的主调生效。\n\t- 主调规则为当前主调方的规则，假如不指定则针对所有被调生效。\n\t- 被调规则与主调规则同时存在时，被调优先，被调规则生效。\n\n\n请求示例：\n\n~~~\nPOST /naming/v1/circuitbreakers\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n    {\n        \"service\":\"qweqweqwqe\",\n        \"namespace\":\"default\",\n        \"inbounds\":[\n            {\n                \"sources\":[\n                    {\n                        \"service\":\"*\",\n                        \"namespace\":\"*\"\n                    }\n                ],\n                \"destinations\":[\n                    {\n                        \"policy\":{\n                            \"errorRate\":{\n                                \"enable\":true,\n                                \"errorRateToOpen\":10,\n                                \"requestVolumeThreshold\":10\n                            }\n                        },\n                        \"recover\":{\n                            \"sleepWindow\":\"1s\",\n                            \"outlierDetectWhen\":\"NEVER\"\n                        },\n                        \"resource\":\"INSTANCE\",\n                        \"method\":{\n                            \"value\":\"qweqwe\"\n                        }\n                    }\n                ]\n            }\n        ],\n        \"outbounds\":[\n\n        ],\n        \"id\":\"xxx\",\n        \"version\":\"1647356947061\",\n        \"name\":\"xxx\"\n    }\n]\n~~~\n\n应答示例：\n\n~~~json\n{\n    \"code\":200000,\n    \"info\":\"execute success\",\n    \"size\":1,\n    \"responses\":[\n        {\n            \"code\":200000,\n            \"info\":\"execute success\"\n        }\n    ]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 创建熔断规则
+      operationId: CreateCircuitBreakers
+      parameters:
+        - description: create circuit breakers
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.CircuitBreaker'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers/delete:
+    post:
+      description: "\n~~~\nPUT /naming/v1/circuitbreakers/delete\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n\t{\n\t\t\"id\": \"6942526fbac545848cd8fb32a3a55bb6\" //熔断规则id\n\t}\n]\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 删除熔断规则
+      operationId: DeleteCircuitBreakers
+      parameters:
+        - description: delete circuit breakers
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.CircuitBreaker'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers/master:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/circuitbreakers/master?id={参数值}
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 查询熔断规则Master版本
+      operationId: GetMasterCircuitBreakers
+      parameters:
+        - type: string
+          description: 规则ID
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers/release:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/circuitbreakers/release?id={参数值}
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 根据规则id查询已发布的熔断规则
+      operationId: GetReleaseCircuitBreakers
+      parameters:
+        - type: string
+          description: 规则ID
+          name: id
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+    post:
+      description: |
+
+        ~~~
+        POST /naming/v1/circuitbreakers/release
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 发布熔断规则
+      operationId: ReleaseCircuitBreakers
+      parameters:
+        - description: release circuit breakers
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.ConfigRelease'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers/unbind:
+    post:
+      description: |
+
+        ~~~
+        POST /naming/v1/circuitbreakers/unbind
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 解绑熔断规则
+      operationId: UnBindCircuitBreakers
+      parameters:
+        - description: unbind circuit breakers
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.ConfigRelease'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/circuitbreakers/version:
+    post:
+      description: |
+
+        ~~~
+        POST /naming/v1/circuitbreakers/version
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "id": "xxx",
+                "version": "xxx",
+                "inbounds":[
+                    {
+                        "sources":[
+                            {
+                                "service":"*",
+                                "namespace":"*"
+                            }
+                        ],
+                        "destinations":[
+                            {
+                                "policy":{
+                                    "errorRate":{
+                                        "enable":true,
+                                        "errorRateToOpen":10,
+                                        "requestVolumeThreshold":10
+                                    }
+                                },
+                                "recover":{
+                                    "sleepWindow":"1s",
+                                    "outlierDetectWhen":"NEVER"
+                                },
+                                "resource":"INSTANCE",
+                                "method":{
+                                    "value":"qweqwe"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "outbounds":[
+
+                ]
+            }
+        ]
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"execute success"
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - CircuitBreakers
+      summary: 创建熔断规则版本
+      operationId: CreateCircuitBreakerVersions
+      parameters:
+        - description: create circuit breaker versions
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.CircuitBreaker'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances:
+    get:
+      description: >
+
+        请求示例
+
+
+        ~~~
+
+        GET /naming/v1/instances?service=&namespace=&{参数key}={参数值}
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        ~~~
+
+
+        | 参数名      | 类型   | 描述             |
+        是否必填                                                             |
+
+        | ----------- | ------ | ---------------- |
+        -------------------------------------------------------------------- |
+
+        | service     | string | 服务名称         |
+        是                                                                   |
+
+        | namespace   | string | 命名空间         |
+        是                                                                   |
+
+        | host        | string | 实例IP           |
+        是(要么（service，namespace）存在，要么host存在，不然视为参数不完整) |
+
+        | port        | uint   | 实例端口         |
+        否                                                                   |
+
+        | keys        | string | 标签key          |
+        只允许填写一个key                                                    |
+
+        | values      | string | 标签value        |
+        只允许填写一个value                                                  |
+
+        | healthy     | string | 实例健康状态     |
+        否                                                                   |
+
+        | isolate     | string | 实例隔离状态     |
+        否                                                                   |
+
+        | protocol    | string | 实例端口协议状态 |
+        否                                                                   |
+
+        | version     | string | 实例版本         |
+        否                                                                   |
+
+        | cmdb_region | string | 实例region信息   |
+        否                                                                   |
+
+        | cmdb_zone   | string | 实例zone信息     |
+        否                                                                   |
+
+        | cmdb_idc    | string | 实例idc信息      |
+        否                                                                   |
+
+        | offset      | uint   | 查询偏移量       |
+        否                                                                   |
+
+        | limit       | uint   | 查询条数         |
+        否                                                                   |
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 1,
+            "size": 1,
+            "instances": [
+                {
+                    "id": "...",
+                    "host": "...",
+                    "port": 8080,
+                    "weight": 100,
+                    "enableHealthCheck": true,
+                    "healthCheck": {
+                        "type": "HEARTBEAT",
+                        "heartbeat": {
+                            "ttl": 10
+                        }
+                    },
+                    "healthy": true,
+                    "isolate": false,
+                    "location": {
+                        "region": "ap-guangzhou",
+                        "zone": "ap-guangzhou-3",
+                        "campus": ""
+                    },
+                    "metadata": {
+                        "env": "pre"
+                    },
+                    "ctime": "2021-11-23 01:59:31",
+                    "mtime": "2021-11-23 01:59:31",
+                    "revision": "..."
+                }
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 查询服务实例
+      operationId: GetInstances
+      parameters:
+        - type: string
+          description: 服务名称
+          name: service
+          in: path
+          required: true
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: path
+          required: true
+        - type: string
+          description: 实例IP
+          name: host
+          in: path
+          required: true
+        - type: string
+          description: 标签key
+          name: keys
+          in: path
+        - type: string
+          description: 标签value
+          name: values
+          in: path
+        - type: string
+          description: 实例健康状态
+          name: healthy
+          in: path
+        - type: string
+          description: 实例隔离状态
+          name: isolate
+          in: path
+        - type: string
+          description: 实例端口协议状态
+          name: protocol
+          in: path
+        - type: string
+          description: 实例版本
+          name: version
+          in: path
+        - type: string
+          description: 实例region信息
+          name: cmdb_region
+          in: path
+        - type: string
+          description: 实例zone信息
+          name: cmdb_zone
+          in: path
+        - type: string
+          description: 实例idc信息
+          name: cmdb_idc
+          in: path
+        - type: integer
+          description: 查询偏移量
+          name: offset
+          in: path
+        - type: integer
+          description: 查询条数
+          name: limit
+          in: path
+      responses:
+        '200':
+          description: OK
+    put:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        PUT /naming/v1/instances
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+            "service": "tdsql-ops-server",
+            "namespace": "default",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "location": {
+                "region": "ap-guangzhou",
+                "zone": "ap-guangzhou-3",
+                "campus": ""
+            },
+            "enable_health_check": true,
+            "health_check": {
+                "type": 1,
+                "heartbeat": {
+                    "ttl": 10
+                }
+            },
+            "metadata": {
+                "env": "pre"
+            }
+        }
+
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 0
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        > HealthCheck 参数
+
+
+        | 参数名    | 类型         | 描述                        | 是否必填 |
+
+        | --------- | ------------ | --------------------------- | -------- |
+
+        | type      | int          | 0(Unknow)/1(Heartbeat)      | 是       |
+
+        | heartbeat | {"ttl": int} | 心跳间隔(范围为区间(0, 60]) | 是       |
+
+
+        > Location 参数
+
+
+        | 参数名 | 类型   | 描述 | 是否必填 |
+
+        | ------ | ------ | ---- | -------- |
+
+        | region | string | 地区 | 否       |
+
+        | zone   | string | 地域 | 否       |
+
+        | campus | string | 园区 | 否       |
+
+
+        > 主请求参数
+
+
+        | 参数名              | 类型               |
+        描述                                                              | 是否必填 |
+
+        | ------------------- | ------------------ |
+        ----------------------------------------------------------------- |
+        -------- |
+
+        | service             | string             |
+        服务名                                                            | 是      
+        |
+
+        | namespace           | string             |
+        命名空间                                                          | 是      
+        |
+
+        | host                | string             |
+        实例的IP                                                          | 是      
+        |
+
+        | port                | string             |
+        实例的端口                                                        | 是       |
+
+        | vpc_id              | string             | VPC
+        ID                                                            | 否      
+        |
+
+        | protocol            | string             |
+        对应端口的协议                                                    | 否       |
+
+        | version             | string             |
+        版本                                                              |
+        否       |
+
+        | priority            | string             |
+        优先级                                                            | 否      
+        |
+
+        | weight              | string             |
+        权重(默认值100)                                                   | 是       |
+
+        | enable_health_check | bool               |
+        是否开启健康检查                                                  | 是       |
+
+        | health_check        | HealthCheck        |
+        健康检查类别具体描述信息(如果enable_health_check==true，必须填写) | 否       |
+
+        | healthy             | bool               |
+        实例健康标志(默认为健康的)                                        | 是       |
+
+        | isolate             | bool               |
+        实例隔离标志(默认为不隔离的)                                      | 是       |
+
+        | location            | Location           |
+        实例位置信息                                                      | 是       |
+
+        | metadata            | map<string,string> | 实例标签信息，最多只能存储64对
+        *key-value*                         | 否       |
+
+        | service_token       | string             |
+        service的token信息                                                | 是      
+        |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 更新实例
+      operationId: UpdateInstances
+      parameters:
+        - description: update instances
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        POST /naming/v1/instances
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+            "service": "tdsql-ops-server",
+            "namespace": "default",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "location": {
+                "region": "ap-guangzhou",
+                "zone": "ap-guangzhou-3",
+                "campus": ""
+            },
+            "enable_health_check": true,
+            "health_check": {
+                "type": 1,
+                "heartbeat": {
+                    "ttl": 10
+                }
+            },
+            "metadata": {
+                "env": "pre"
+            }
+        }
+
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 1,
+            "responses": [
+                {
+                    "code": 200000,
+                    "info": "execute success",
+                    "instance": {
+                        "id": "...",
+                        "service": "...",
+                        "namespace": "...",
+                        "host": "...",
+                        "port": 8080
+                    }
+                }
+            ]
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        > HealthCheck 参数
+
+
+        | 参数名    | 类型         | 描述                        | 是否必填 |
+
+        | --------- | ------------ | --------------------------- | -------- |
+
+        | type      | int          | 0(Unknow)/1(Heartbeat)      | 是       |
+
+        | heartbeat | {"ttl": int} | 心跳间隔(范围为区间(0, 60]) | 是       |
+
+
+        > Location 参数
+
+
+        | 参数名 | 类型   | 描述 | 是否必填 |
+
+        | ------ | ------ | ---- | -------- |
+
+        | region | string | 地区 | 否       |
+
+        | zone   | string | 地域 | 否       |
+
+        | campus | string | 园区 | 否       |
+
+
+        > 主请求参数
+
+
+        | 参数名              | 类型               |
+        描述                                                              | 是否必填 |
+
+        | ------------------- | ------------------ |
+        ----------------------------------------------------------------- |
+        -------- |
+
+        | service             | string             |
+        服务名                                                            | 是      
+        |
+
+        | namespace           | string             |
+        命名空间                                                          | 是      
+        |
+
+        | host                | string             |
+        实例的IP                                                          | 是      
+        |
+
+        | port                | string             |
+        实例的端口                                                        | 是       |
+
+        | vpc_id              | string             | VPC
+        ID                                                            | 否      
+        |
+
+        | protocol            | string             |
+        对应端口的协议                                                    | 否       |
+
+        | version             | string             |
+        版本                                                              |
+        否       |
+
+        | priority            | string             |
+        优先级                                                            | 否      
+        |
+
+        | weight              | string             |
+        权重(默认值100)                                                   | 是       |
+
+        | enable_health_check | bool               |
+        是否开启健康检查                                                  | 是       |
+
+        | health_check        | HealthCheck        |
+        健康检查类别具体描述信息(如果enable_health_check==true，必须填写) | 否       |
+
+        | healthy             | bool               |
+        实例健康标志(默认为健康的)                                        | 是       |
+
+        | isolate             | bool               |
+        实例隔离标志(默认为不隔离的)                                      | 是       |
+
+        | location            | Location           |
+        实例位置信息                                                      | 是       |
+
+        | metadata            | map<string,string> | 实例标签信息，最多只能存储64对
+        *key-value*                         | 否       |
+
+        | service_token       | string             |
+        service的token信息                                                | 是      
+        |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 创建实例
+      operationId: CreateInstances
+      parameters:
+        - description: create instances
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances/count:
+    get:
+      description: "\n请求示例：\n~~~\nGET /naming/v1/instances/count\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n~~~\n\n返回示例：\n~~~json\n{\n\t\"code\": 200000,\n\t\"info\": \"execute success\",\n\t\"amount\": 97,\n\t\"size\": 0,\n\t\"namespaces\": [],\n\t\"services\": [],\n\t\"instances\": [],\n\t\"routings\": [],\n\t\"aliases\": [],\n\t\"rateLimits\": [],\n\t\"configWithServices\": [],\n\t\"platforms\": [],\n\t\"users\": [],\n\t\"userGroups\": [],\n\t\"authStrategies\": [],\n\t\"clients\": []\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 查询服务实例数量
+      operationId: GetInstancesCount
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances/delete:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/instances/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "id": "...",
+            }
+        ]
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 0
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名    | 类型   | 描述     | 是否必填 |
+        | --------- | ------ | -------- | -------- |
+        | id        | string | 实例ID   | 是       |
+        | service   | string | 服务名称 | 是       |
+        | namespace | string | 命名空间 | 是       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 删除实例(根据实例ID)
+      operationId: DeleteInstances
+      parameters:
+        - description: delete instances
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances/delete/host:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/instances/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "host": "...",
+            }
+        ]
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 0
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名    | 类型   | 描述     | 是否必填 |
+        | --------- | ------ | -------- | -------- |
+        | id        | string | 实例ID   | 是       |
+        | service   | string | 服务名称 | 是       |
+        | namespace | string | 命名空间 | 是       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 删除实例(根据主机)
+      operationId: DeleteInstancesByHost
+      parameters:
+        - description: delete instances
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances/isolate/host:
+    put:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        PUT /instances/isolate/host
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+            "service": "tdsql-ops-server",
+            "namespace": "default",
+            "host": "127.0.0.1",
+            "port": 8080,
+            "location": {
+                "region": "ap-guangzhou",
+                "zone": "ap-guangzhou-3",
+                "campus": ""
+            },
+            "enable_health_check": true,
+            "health_check": {
+                "type": 1,
+                "heartbeat": {
+                    "ttl": 10
+                }
+            },
+            "metadata": {
+                "env": "pre"
+            }
+        }
+
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 0
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        > HealthCheck 参数
+
+
+        | 参数名    | 类型         | 描述                        | 是否必填 |
+
+        | --------- | ------------ | --------------------------- | -------- |
+
+        | type      | int          | 0(Unknow)/1(Heartbeat)      | 是       |
+
+        | heartbeat | {"ttl": int} | 心跳间隔(范围为区间(0, 60]) | 是       |
+
+
+        > Location 参数
+
+
+        | 参数名 | 类型   | 描述 | 是否必填 |
+
+        | ------ | ------ | ---- | -------- |
+
+        | region | string | 地区 | 否       |
+
+        | zone   | string | 地域 | 否       |
+
+        | campus | string | 园区 | 否       |
+
+
+        > 主请求参数
+
+
+        | 参数名              | 类型               |
+        描述                                                              | 是否必填 |
+
+        | ------------------- | ------------------ |
+        ----------------------------------------------------------------- |
+        -------- |
+
+        | service             | string             |
+        服务名                                                            | 是      
+        |
+
+        | namespace           | string             |
+        命名空间                                                          | 是      
+        |
+
+        | host                | string             |
+        实例的IP                                                          | 是      
+        |
+
+        | port                | string             |
+        实例的端口                                                        | 是       |
+
+        | vpc_id              | string             | VPC
+        ID                                                            | 否      
+        |
+
+        | protocol            | string             |
+        对应端口的协议                                                    | 否       |
+
+        | version             | string             |
+        版本                                                              |
+        否       |
+
+        | priority            | string             |
+        优先级                                                            | 否      
+        |
+
+        | weight              | string             |
+        权重(默认值100)                                                   | 是       |
+
+        | enable_health_check | bool               |
+        是否开启健康检查                                                  | 是       |
+
+        | health_check        | HealthCheck        |
+        健康检查类别具体描述信息(如果enable_health_check==true，必须填写) | 否       |
+
+        | healthy             | bool               |
+        实例健康标志(默认为健康的)                                        | 是       |
+
+        | isolate             | bool               |
+        实例隔离标志(默认为不隔离的)                                      | 是       |
+
+        | location            | Location           |
+        实例位置信息                                                      | 是       |
+
+        | metadata            | map<string,string> | 实例标签信息，最多只能存储64对
+        *key-value*                         | 否       |
+
+        | service_token       | string             |
+        service的token信息                                                | 是      
+        |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 修改服务实例的隔离状态
+      operationId: UpdateInstancesIsolate
+      parameters:
+        - description: update instances
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Instance'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/instances/labels:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/instances/labels?service=&namespace=&{参数key}={参数值}
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+        返回示例：
+        ~~~json
+        {
+          "code": 200000,
+          "info": "execute success",
+          "client": null,
+          "namespace": null,
+          "service": null,
+          "instance": null,
+          "routing": null,
+          "alias": null,
+          "rateLimit": null,
+          "circuitBreaker": null,
+          "configRelease": null,
+          "platform": null,
+          "user": null,
+          "userGroup": null,
+          "authStrategy": null,
+          "relation": null,
+          "loginResponse": null,
+          "modifyAuthStrategy": null,
+          "modifyUserGroup": null,
+          "resources": null,
+          "optionSwitch": null,
+          "instanceLabels": {
+            "labels": {
+              "campus": {
+                "values": [
+                  ""
+                ]
+              },
+              "region": {
+                "values": [
+                  ""
+                ]
+              },
+              "zone": {
+                "values": [
+                  ""
+                ]
+              }
+            }
+          }
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Instances
+      summary: 查询某个服务下所有实例的标签信息
+      operationId: GetInstanceLabels
+      parameters:
+        - type: string
+          description: 服务名称
+          name: service
+          in: query
+          required: true
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: query
+          required: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/namespace/token:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 查询命名空间Token
+      operationId: GetNamespaceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 更新命名空间Token
+      operationId: UpdateNamespaceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/namespaces:
+    get:
+      description: >
+
+
+        | 参数名 | 类型   | 描述                                             | 是否必填 |
+
+        | ------ | ------ | ------------------------------------------------ |
+        -------- |
+
+        | name   | string | 命名空间唯一名称                                 | 是       |
+
+        | offset | uint   | 查询偏移量                                       |
+        否       |
+
+        | limit  | uint   | 查询条数，**最多查询100条**                      | 否       |
+
+
+
+        请求示例：
+
+
+        ~~~
+
+        GET /naming/v1/namespaces?name=&offset=&limit=
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "amount": 0,
+            "size": 3,
+            "namespaces": [
+                {
+                    "name": "...",
+                    "comment": "",
+                    "ctime": "2021-11-22 23:50:52",
+                    "mtime": "2021-11-22 23:50:52"
+                },
+                {
+                    "name": "...",
+                    "comment": "",
+                    "ctime": "2021-11-22 23:50:52",
+                    "mtime": "2021-11-22 23:50:52"
+                }
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 获取命名空间列表
+      operationId: GetNamespaces
+      parameters:
+        - type: string
+          description: 命名空间唯一名称
+          name: name
+          in: query
+          required: true
+        - type: integer
+          default: 0
+          description: 查询偏移量
+          name: offset
+          in: query
+        - type: integer
+          description: 查询条数，**最多查询100条**
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    put:
+      description: >
+
+        | 参数名           | 类型     |
+        描述                                                       | 是否必填 |
+
+        | ---------------- | -------- |
+        ---------------------------------------------------------- | -------- |
+
+        | name             | string   |
+        命名空间唯一名称                                           | 是       |
+
+        | comment          | string   |
+        描述                                                       | 否       |
+
+        | token            | string   |
+        命名空间的token，用于权限鉴定                              | 是       |
+
+        | user_ids         | []string | 可以操作该资源的用户，**仅当开启北极星鉴权时生效**         |
+        否       |
+
+        | group_ids        | []string | 可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     |
+        否       |
+
+        | remove_user_ids  | []string | 被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   |
+        否       |
+
+        | remove_group_ids | []string | 被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** |
+        否       |
+
+
+        请求示例：
+
+
+        ~~~
+
+        PUT /naming/v1/namespaces
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name": "...",
+                "comment": "..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 0
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 更新命名空间
+      operationId: UpdateNamespaces
+      parameters:
+        - description: update namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: >
+
+        | 参数名           | 类型     |
+        描述                                                       | 是否必填 |
+
+        | ---------------- | -------- |
+        ---------------------------------------------------------- | -------- |
+
+        | name             | string   |
+        命名空间唯一名称                                           | 是       |
+
+        | comment          | string   |
+        描述                                                       | 否       |
+
+        | user_ids         | []string | 可以操作该资源的用户，**仅当开启北极星鉴权时生效**         |
+        否       |
+
+        | group_ids        | []string | 可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     |
+        否       |
+
+        | remove_user_ids  | []string | 被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   |
+        否       |
+
+        | remove_group_ids | []string | 被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** |
+        否       |
+
+
+
+        请求示例：
+
+
+        ~~~
+
+        POST /naming/v1/namespaces
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name": "...",
+                "comment": "..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"execute success",
+                    "namespace":{
+                        "name":"...",
+                        "token":"..."
+                    }
+                }
+            ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 创建命名空间
+      operationId: CreateNamespaces
+      parameters:
+        - description: create namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/namespaces/delete:
+    post:
+      description: |
+
+        | 参数名 | 类型   | 描述                          | 是否必填 |
+        | ------ | ------ | ----------------------------- | -------- |
+        | name   | string | 命名空间唯一名称              | 是       |
+        | token  | string | 命名空间的token，用于权限鉴定 | 是       |
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/namespaces/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "name": "...",
+            }
+        ]
+        ~~~
+
+        应答示例：
+        ~~~json
+        {
+            "code": 200000,
+            "info": "execute success",
+            "size": 0
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Namespaces
+      summary: 删除命名空间
+      operationId: DeleteNamespaces
+      parameters:
+        - description: delete namespaces
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Namespace'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/ratelimits:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET /naming/v1/ratelimits?参数名=参数值
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        | 参数名    | 类型   |
+        描述                                                         | 是否必填 |
+
+        | --------- | ------ |
+        ------------------------------------------------------------ | --------
+        |
+
+        | id        | string |
+        规则ID                                                       | 否       |
+
+        | name      | string |
+        规则名                                                       | 否       |
+
+        | service   | string |
+        服务名                                                       | 否       |
+
+        | namespace | string |
+        命名空间                                                     | 否       |
+
+        | method    | string | 限流接口名，默认为模糊匹配                                   |
+        否       |
+
+        | disable   | bool   | 规则是否启用，true为不启用，false为启用                      |
+        否       |
+
+        | brief     | bool   |
+        是否只显示概要信息，brief=true时，则不返回规则详情，只返回规则列表概要信息，默认为false | 否       |
+
+        | offset    | int    | 分页的起始位置，默认为0                                     
+        | 否       |
+
+        | limit     | int    |
+        每页行数，默认100                                            | 否       |
+
+
+        应答示例：
+
+
+        ~~~
+
+        {
+         "code": 200000,
+         "info": "execute success",
+         "amount": 2,
+         "size": 2,
+         "rateLimits": [
+          {
+           "id": "e04f201e7b7e4599b42a9b6631a7ba08",
+           "service": "testsvc1",
+           "namespace": "default",
+           "priority": 0,
+           "disable": false,
+           "ctime": "2022-07-26 21:03:50",
+           "mtime": "2022-07-26 21:03:50",
+           "revision": "",
+           "method": {
+            "value": "/getsomething2"
+           },
+           "name": "rule2",
+           "etime": "2022-07-26 21:03:50"
+          },
+          {
+           "id": "6942526fbac545848cd8fb32a3a55bb6",
+           "service": "testsvc1",
+           "namespace": "default",
+           "priority": 0,
+           "disable": false,
+           "ctime": "2022-07-26 10:09:49",
+           "mtime": "2022-07-26 11:46:07",
+           "revision": "",
+           "method": {
+            "value": "/getsomething"
+           },
+           "name": "rule1",
+           "etime": "2022-07-26 11:46:07"
+          }
+         ]
+        }
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RateLimits
+      summary: 查询限流规则
+      operationId: GetRateLimits
+      parameters:
+        - type: string
+          description: 规则ID
+          name: id
+          in: path
+        - type: string
+          description: 规则名称
+          name: name
+          in: path
+        - type: string
+          description: 服务名称
+          name: service
+          in: path
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: path
+        - type: string
+          description: '限流接口名，默认为模糊匹配 '
+          name: method
+          in: path
+        - type: boolean
+          description: 规则是否启用，true为不启用，false为启用
+          name: disable
+          in: path
+        - type: boolean
+          default: false
+          description: 是否只显示概要信息，brief=true时，则不返回规则详情，只返回规则列表概要信息，默认为false
+          name: brief
+          in: path
+        - type: integer
+          default: 0
+          description: 分页的起始位置，默认为0
+          name: offset
+          in: path
+        - type: integer
+          default: 100
+          description: '每页行数，默认100  '
+          name: limit
+          in: path
+      responses:
+        '200':
+          description: OK
+    put:
+      description: "\n更新服务下的限流规则的相关信息\n\n请求示例：\n\n~~~\nPUT /naming/v1/ratelimits\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n\t{\n\t    \"id\":   \"e04f201e7b7e4599b42a9b6631a7ba08\",\n\t\t\"name\": \"rule1\",\n\t\t\"service\": \"testsvc1\",\n\t\t\"namespace\": \"default\",\n\t\t\"method\": {\n\t\t\t\"type\": \"EXACT\",\n\t\t\t\"value\": \"/getsomething\"\n\t\t},\n\t\t\"arguments\": [\n\t\t\t{\n\t\t\t\t\"type\": \"HEADER\",\n\t\t\t\t\"key\": \"host\",\n\t\t\t\t\"value\": {\n\t\t\t\t\t\"type\": \"EXACT\",\n\t\t\t\t\t\"value\": \"www.baidu.com\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"CALLER_SERVICE\",\n\t\t\t\t\"key\": \"default\",\n\t\t\t\t\"value\": {\n\t\t\t\t\t\"type\": \"IN\",\n\t\t\t\t\t\"value\": \"testsvc1,testsvc2\"\n\t\t\t\t}\n\t\t\t}\n\t\t],\n\t\t\"resource\": \"QPS\",\n\t\t\"type\": \"LOCAL\",\n\t\t\"amounts\": [\n\t\t\t{\n\t\t\t\t\"maxAmount\": 1000,\n\t\t\t\t\"validDuration\": \"1s\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"maxAmount\": 2000,\n\t\t\t\t\"validDuration\": \"1m\"\n\t\t\t}\t\n\t\t],\n\t\t\"regex_combine\": false,\n\t\t\"disable\": true,\n\t\t\"failover\": \"FAILOVER_LOCAL\"\n\t}\n]\n~~~\n\n应答示例：\n\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"rateLimit\": {\n    \"id\": \"e04f201e7b7e4599b42a9b6631a7ba08\", //规则ID\n    \"service\": \"testsvc1\",\n    \"namespace\": \"default\",\n    \"name\": \"rule2\"\n   }\n  }\n ]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RateLimits
+      summary: 更新限流规则
+      operationId: UpdateRateLimits
+      parameters:
+        - description: update rate limits
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.RateLimit'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: "\n为服务创建多个限流规则，以对服务进行流量限制，按优先级顺序进行匹配，匹配到一个则执行该规则。\n\n请求示例：\n~~~\nPOST /naming/v1/ratelimits\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n\t{\n\t\t\"name\": \"rule1\",\n\t\t\"service\": \"testsvc1\",\n\t\t\"namespace\": \"default\",\n\t\t\"method\": {\n\t\t\t\"type\": \"EXACT\",\n\t\t\t\"value\": \"/getsomething\"\n\t\t},\n\t\t\"arguments\": [\n\t\t\t{\n\t\t\t\t\"type\": \"HEADER\",\n\t\t\t\t\"key\": \"host\",\n\t\t\t\t\"value\": {\n\t\t\t\t\t\"type\": \"EXACT\",\n\t\t\t\t\t\"value\": \"www.baidu.com\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"type\": \"CALLER_SERVICE\",\n\t\t\t\t\"key\": \"default\",\n\t\t\t\t\"value\": {\n\t\t\t\t\t\"type\": \"IN\",\n\t\t\t\t\t\"value\": \"testsvc1,testsvc2\"\n\t\t\t\t}\n\t\t\t}\n\t\t],\n\t\t\"resource\": \"QPS\",\n\t\t\"type\": \"LOCAL\",\n\t\t\"amounts\": [\n\t\t\t{\n\t\t\t\t\"maxAmount\": 1000,\n\t\t\t\t\"validDuration\": \"1s\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"maxAmount\": 2000,\n\t\t\t\t\"validDuration\": \"1m\"\n\t\t\t}\t\n\t\t],\n\t\t\"regex_combine\": false,\n\t\t\"disable\": false,\n\t\t\"failover\": \"FAILOVER_LOCAL\"\n\t}\n]\n~~~\n回复示例：\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"rateLimit\": {\n    \"id\": \"e04f201e7b7e4599b42a9b6631a7ba08\", //规则ID\n    \"service\": \"testsvc1\",\n    \"namespace\": \"default\",\n    \"name\": \"rule2\"\n   }\n  }\n ]\n}\n~~~\n\n数据结构：\n\n> Ratelimit结构参数\n\n| 参数名          | 类型          | 描述                                                         | 是否必填 |\n| --------------- | ------------- | ------------------------------------------------------------ | -------- |\n| name            | string        | 规则名                                                       | 是       |\n| service         | string        | 规则所属的服务名，创建规则时，如果服务不存在，则会自动创建服务。 | 是       |\n| namespace       | string        | 规则所属的命名空间                                           | 是       |\n| method          | MatchString   | 规则所针对的服务接口                                         | 否       |\n| arguments       | MatchArgument | 请求参数匹配条件，需全匹配才通过                             | 否       |\n| resource        | string        | 限流资源，默认为QPS(针对QPS进行限流)                         | 否       |\n| type            | string        | 限流类型，支持LOCAL（单机限流）, GLOBAL（分布式限流）        | 是       |\n| amounts         | Amount[]      | 限流配额，包含限流周期和配额总数，可配置多个                 | 是       |\n| regex_combine   | bool          | 合并计算配额，对于匹配到同一条正则表达式规则的多个不同的请求进行合并计算，默认为false | 否       |\n| disable         | bool          | 是否启用该限流规则，默认为false（启用）                      | 否       |\n| action          | string        | 限流效果，支持REJECT（直接拒绝）,UNIRATE（匀速排队），默认REJECT | 否       |\n| failover        | string        | 失败降级措施，仅分布式限流有效，当远程token服务出现故障时，本地如何降级。支持FAILOVER_LOCAL（降级到单机限流），FAILOVER_PASS（直接通过）。默认FAILOVER_LOCAL | 否       |\n| max_queue_delay | int           | 最大排队时长，单位秒，仅对匀速排队生效。默认1秒              | 否       |\n\n> Amount结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| maxAmount     | uint32 | 周期内最大配额数                                     | 是       |\n| validDuration | string | 周期描述，支持duration类型的字符串，比如1s, 1m, 1h等 | 是       |\n\n> MatchString结构参数\n\n| 参数名 | 类型   | 描述                                                         | 是否必填 |\n| ------ | ------ | ------------------------------------------------------------ | -------- |\n| type   | string | 匹配类型，枚举，支持：EXACT（全匹配，默认），REGEX（正则表达式匹配），NOT_EQUALS（不等于），IN（包含），NOT_IN（不包含） | 是       |\n| value  | string | 匹配的目标值，如果选择的是包含和不包含，则通过逗号分割多个值 | 是       |\n\n> MatchArgument结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| type   | string      | 参数类型，枚举，支持：CUSTOM（自定义，默认），METHOD（方法），HEADER（请求头），QUERY（请求参数），CALLER_SERVICE（主调方服务），CALLER_IP（主调方IP） | 是       |\n| key    | string      | 参数键，对于HEADER、QUERY、CUSTOM，对应的是key值；对于CALLER_SERVICE，对应的是服务的命名空间值 | 是       |\n| value  | MatchString | 参数值，对于HEADER、QUERY、CUSTOM，对应的是key所关联的value；对于CALLER_SERVICE，对应的是服务名，其他类型则是具体的值，支持多种匹配模式（见MatchString的定义） | 是       |\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RateLimits
+      summary: 创建限流规则
+      operationId: CreateRateLimits
+      parameters:
+        - description: create rate limits
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.RateLimit'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/ratelimits/delete:
+    post:
+      description: "\n请求示例：\n\n~~~\nPOST /naming/v1/ratelimits/delete\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n\t{\n\t\t\"id\": \"6942526fbac545848cd8fb32a3a55bb6\" //规则ID，必填\n\t}\n]\n~~~\n\n应答示例：\n\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"rateLimit\": {\n    \"id\": \"6942526fbac545848cd8fb32a3a55bb6\"\n   }\n  }\n ]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RateLimits
+      summary: 删除限流规则
+      operationId: DeleteRateLimits
+      parameters:
+        - description: delete rate limits
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.RateLimit'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/ratelimits/enable:
+    put:
+      description: "\n请求示例：\n\n~~~\nPUT /naming/v1/ratelimits/enable\n[\n\t{\n\t\t\"id\": \"6942526fbac545848cd8fb32a3a55bb6\", //规则ID，必填\n\t\t\"disable\": true // 是否禁用，true为不启用，false为启用\n\t}\n]\n~~~\n\n应答示例：\n\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"rateLimit\": {\n    \"id\": \"e04f201e7b7e4599b42a9b6631a7ba08\",\n    \"disable\": false\n   }\n  }\n ]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RateLimits
+      summary: 启用限流规则
+      operationId: EnableRateLimits
+      parameters:
+        - description: enable rate limits
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.RateLimit'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/routings:
+    get:
+      description: "\n请求示例：\n\n~~~\nGET /naming/v1/routings?参数名=参数值\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n| 参数名    | 类型   | 描述                    | 是否必填 |\n| --------- | ------ | ----------------------- | -------- |\n| service   | string | 服务名                  | 否       |\n| namespace | string | 命名空间                | 否       |\n| offset    | int    | 分页的起始位置，默认为0 | 否       |\n| limit     | int    | 每页行数，默认100       | 否       |\n\n应答示例：\n\n~~~\n{\n  \t\"code\": ...,\n  \t\"info\": \"...\",\n  \t\"amount\": ...,\n  \t\"size\": ...,\n  \t\"routings\": [\n    \t{\n          \"service\": \"...\",\n          \"namespace\": \"...\",\n          \"inbounds\": [...],\n          \"outbounds\": [...],\n          \"ctime\": \"...\",  // 创建时间\n          \"mtime\": \"...\"   // 修改时间\n    \t}\n  ]\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 查询路由规则
+      operationId: GetRoutings
+      parameters:
+        - type: string
+          description: 服务名称
+          name: service
+          in: path
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: path
+        - type: integer
+          default: 0
+          description: 分页的起始位置，默认为0
+          name: offset
+          in: path
+        - type: integer
+          default: 100
+          description: 每页行数，默认100
+          name: limit
+          in: path
+      responses:
+        '200':
+          description: OK
+    put:
+      description: |
+
+        更新服务下的路由规则的相关信息
+
+        请求示例：
+
+        ~~~
+        PUT /naming/v1/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "service":"...",
+                "namespace":"...",
+                "inbounds":[...],
+                "outbounds":[...],
+                "service_token":"...",
+            }
+        ]
+        ~~~
+
+        回复示例：
+
+        ~~~
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "routing":{
+                        "service":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+        ~~~
+
+        数据结构：
+
+        > routing结构参数
+
+        | 参数名    | 类型   | 描述               | 是否必填 |  |
+        | --------- | ------ | ------------------ | -------- | -------- |
+        | service   | string | 规则所属的服务名   | 是       | 否      |
+        | namespace | string | 规则所属的命名空间 | 是       | 否      |
+        | inbounds  | route[]    | 入流量规则 | 否 | 是 |
+        | outbounds | route[] | 出流量规则 | 否 | 是 |
+        | service_token | string | 鉴权token，当开启鉴权后需要传入 | 否 | 否 |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 更新路由规则
+      operationId: UpdateRoutings
+      parameters:
+        - description: update routing rules
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Routing'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: >
+
+        为服务创建一个路由规则，以对服务进行流量调度，一个服务只能有一个路由规则。
+
+
+        请求示例：
+
+
+        ~~~
+
+        POST /naming/v1/routings
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "service":"...",
+                "namespace":"...",
+                "inbounds":[
+                   {
+                      "sources": [
+                         {
+                           "service": "...",
+                           "namespace": "...",
+                           "metadata": {
+                               "...": {
+                                 "type": "EXACT",
+                                 "value": "..."
+                               }
+                            }
+                         }
+                      ],
+                      "destinations": [
+                          {
+                            "metadata": {
+                               "...": {
+                                 "type": "EXACT",
+                                 "value": "..."
+                               }
+                            }
+                            "weight": ...
+                          }
+                      ]
+                   }
+                ],
+                "outbounds":[
+                    {
+                      "sources": [
+                         {
+                           "metadata": {
+                               "...": {
+                                 "type": "EXACT",
+                                 "value": "..."
+                               }
+                            }
+                         }
+                      ],
+                      "destinations": [
+                          {
+                           "service": "...",
+                           "namespace": "...",                  
+                            "metadata": {
+                               "...": {
+                                 "type": "EXACT",
+                                 "value": "..."
+                               }
+                            }
+                            "weight": ...
+                          }
+                      ]
+                   }
+                ],
+                "service_token":"...",
+            }
+        ]
+
+        ~~~
+
+
+        回复示例：
+
+
+        ~~~
+
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "routing":{
+                        "service":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        > routing结构参数
+
+
+        | 参数名    | 类型   | 描述               | 是否必填 |
+
+        | --------- | ------ | ------------------ | -------- |
+
+        | service   | string | 规则所属的服务名   | 是       |
+
+        | namespace | string | 规则所属的命名空间 | 是       |
+
+        | inbounds  | route[]    | 入流量规则 | 否 |
+
+        | outbounds | route[] | 出流量规则 | 否 |
+
+        | service_token | string | 鉴权token，当开启鉴权后需要传入 | 否 |
+
+
+        > route结构参数
+
+
+        | 参数名       | 类型    | 描述 | 是否必填 |
+
+        | ------------ | ------- | ---- | -------- |
+
+        | sources      | source[] | 请求匹配条件 | 否 |
+
+        | destinations | destination[] | 目标实例分组匹配条件 | 是 |
+
+
+        > source结构参数
+
+
+        | 参数名    | 类型                     | 描述                           | 是否必填
+        |
+
+        | --------- | ------------------------ | ------------------------------
+        | -------- |
+
+        | service   | string                   | 主调方服务名，填*代表全匹配    | 否       |
+
+        | namespace | string                   | 被调方服务名，填*代表全匹配    | 否       |
+
+        | metadata  | map<string, matchString> | 匹配参数，需全匹配所有KV才通过 | 否       |
+
+
+        > destination结构参数
+
+
+        | 参数名    | 类型                     |
+        描述                                                         | 是否必填 |
+
+        | --------- | ------------------------ |
+        ------------------------------------------------------------ | --------
+        |
+
+        | service   | string                   |
+        被调方服务名，填*代表全匹配                                  | 否       |
+
+        | namespace | string                   |
+        被调方命名空间，填*代表全匹配                                | 否       |
+
+        | metadata  | map<string, matchString> |
+        示例标签匹配参数，需全匹配才通过                             | 否       |
+
+        | priority  | int32                    |
+        优先级，数值越小，优先级越高，请求会优先选取优先级最高的实例分组进行路由，只有该分组没有可用实例才会选择次高优先级的分组 | 否       |
+
+        | weight    | int32                    |
+        分组权重，优先级相同的多个分组，按权重比例进行请求分配       | 否       |
+
+
+        > matchString结构参数
+
+
+        | 参数名     | 类型   |
+        描述                                                         | 是否必填 |
+
+        | ---------- | ------ |
+        ------------------------------------------------------------ | --------
+        |
+
+        | type       | string | 匹配类型，枚举值，支持：EXACT（全匹配，默认），REGEX（正则表达式匹配） |
+        否       |
+
+        | value      | string |
+        匹配的目标值                                                 | 是       |
+
+        | value_type | string |
+        值类型，枚举值，支持：TEXT（文本，默认），PARAMETER（参数，路由规则值使用动态参数时用到） | 否       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 创建路由规则
+      operationId: CreateRoutings
+      parameters:
+        - description: create routing rules
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Routing'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/routings/delete:
+    post:
+      description: |
+
+        删除服务下的路由规则
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/routings/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "service_token":"...",
+                "service":"...",
+                "namespace":"..."
+            }
+        ]
+        ~~~
+
+        回复示例：
+
+        ~~~
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "routing":{
+                        "service":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 删除路由规则
+      operationId: DeleteRoutings
+      parameters:
+        - description: delete routing rules
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Routing'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/alias:
+    put:
+      description: |
+
+        请求示例：
+
+        ~~~
+        PUT /naming/v1/service/alias
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        {
+            "service":"...",
+            "namespace":"...",
+            "alias":"...",
+            "alias_namespace":"...",
+            "comment":"..."
+        }
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"...",
+            "alias":{
+                "service":"...",
+                "namespace":"...",
+                "alias":"...",
+                "alias_namespace":"...",
+                "comment":"..."
+            }
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名          | 类型   | 描述                   | 必填 |
+        | --------------- | ------ | ---------------------- | ---- |
+        | alias           | string | 服务别名               | 是   |
+        | alias_namespace | string | 服务别名所属命名空间   | 是   |
+        | service         | string | 指向的服务名           | 是   |
+        | namespace       | string | 指向的服务所属命名空间 | 是   |
+        | comment         | string | 服务别名描述           | 否   |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 更新服务别名
+      operationId: UpdateServiceAlias
+      parameters:
+        - description: update service alias
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ServiceAlias'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: |
+
+        用户可以为服务创建别名，可以通过别名来访问服务的资源数据。
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/service/alias
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        {
+            "service":"...",
+            "namespace":"...",
+            "alias":"...",
+            "alias_namespace":"...",
+            "comment":"..."
+        }
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"...",
+            "alias":{
+                "service":"...",
+                "namespace":"...",
+                "alias":"...",
+                "alias_namespace":"...",
+                "comment":"..."
+            }
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名          | 类型   | 描述                   | 必填 |
+        | --------------- | ------ | ---------------------- | ---- |
+        | alias           | string | 服务别名               | 是   |
+        | alias_namespace | string | 服务别名所属命名空间   | 是   |
+        | service         | string | 指向的服务名           | 是   |
+        | namespace       | string | 指向的服务所属命名空间 | 是   |
+        | comment         | string | 服务别名描述           | 否   |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 创建服务别名
+      operationId: CreateServiceAlias
+      parameters:
+        - description: create service alias
+          name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.ServiceAlias'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/aliases:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET /naming/v1/service/aliases
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        ~~~
+
+
+        应答示例：
+
+
+        | 参数名 | 类型   |
+        描述                                                                                                           
+        |
+
+        | ------ | ------ |
+        ---------------------------------------------------------------------------------------------------------------
+        |
+
+        | size   | uint32 |
+        本次查询返回的服务别名个数，例如查询命名空间为Production的服务别名，总数为1000，本次返回100条，则size为100      |
+
+        | info   | string |
+        返回信息                                                                                                       
+        |
+
+        | code   | uint32 |
+        六位返回码                                                                                                     
+        |
+
+        | amount | uint32 |
+        符合此查询条件的服务别名总数，例如查询命名空间为Production的服务别名，总数为1000，本次返回100条，则amount为1000 |
+
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "amount":1,
+            "size":1,
+            "aliases":[
+                {
+                    "alias":"...",
+                    "alias_namespace":"...",
+                    "namespace":"...",
+                    "service":"...",
+                    "comment":"...",
+                    "ctime":"...",
+                    "mtime":"..."
+                }
+            ]
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        | 参数名          | 类型   | 描述                         | 必填 |
+
+        | --------------- | ------ | ---------------------------- | ---- |
+
+        | alias           | string | 服务别名                     | 否   |
+
+        | alias_namespace | string | 服务别名所属命名空间         | 否   |
+
+        | service         | string | 指向的服务名                 | 否   |
+
+        | namespace       | string | 指向的服务所属命名空间       | 否   |
+
+        | offset          | int    | 分页偏移，默认0              | 否   |
+
+        | limit           | int    | 分页大小，默认为100，最大100 | 否   |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 查询服务别名
+      operationId: GetServiceAliases
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/aliases/delete:
+    post:
+      description: |
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/service/aliases/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "alias":"...",
+                "alias_namespace":"..."
+            }
+        ]
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "alias":{
+                        "alias":"...",
+                        "alias_namespace":"..."
+                    }
+                }
+            ]
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名          | 类型   | 描述                  | 必填 |
+        | --------------- | ------ | --------------------- | ---- |
+        | alias           | string | 服务别名              | 是   |
+        | alias_namespace | string | 服务别名所属命名空间  | 是   |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 删除服务别名
+      operationId: DeleteServiceAliases
+      parameters:
+        - description: delete service aliases
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.ServiceAlias'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/circuitbreaker:
+    get:
+      description: |
+
+        请求示例：
+
+        ~~~
+        GET /naming/v1/service/circuitbreaker?service=xxx&namespace=xxx
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"execute success",
+            "size":1,
+            "configWithServices":[
+                {
+                    "services":[
+
+                    ],
+                    "circuitBreaker": {
+                        "id": "xxx",
+                        "version": "xxx",
+                        "name": "xxx",
+                        "namespace": "xxx",
+                        "service": "xxx",
+                        "service_namespace": "xxx",
+                        "inbounds": [
+                            {
+                                "sources":[
+                                    {
+                                        "service":"*",
+                                        "namespace":"*"
+                                    }
+                                ],
+                                "destinations":[
+                                    {
+                                        "policy":{
+                                            "errorRate":{
+                                                "enable":true,
+                                                "errorRateToOpen":10,
+                                                "requestVolumeThreshold":10
+                                            }
+                                        },
+                                        "recover":{
+                                            "sleepWindow":"1s",
+                                            "outlierDetectWhen":"NEVER"
+                                        },
+                                        "resource":"INSTANCE",
+                                        "method":{
+                                            "value":"qweqwe"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "outbounds":  [
+                            {
+                                "sources":[
+                                    {
+                                        "service":"*",
+                                        "namespace":"*"
+                                    }
+                                ],
+                                "destinations":[
+                                    {
+                                        "policy":{
+                                            "errorRate":{
+                                                "enable":true,
+                                                "errorRateToOpen":10,
+                                                "requestVolumeThreshold":10
+                                            }
+                                        },
+                                        "recover":{
+                                            "sleepWindow":"1s",
+                                            "outlierDetectWhen":"NEVER"
+                                        },
+                                        "resource":"INSTANCE",
+                                        "method":{
+                                            "value":"qweqwe"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 根据服务查询熔断规则
+      operationId: GetCircuitBreakerByService
+      parameters:
+        - type: string
+          description: 服务名
+          name: service
+          in: path
+          required: true
+        - type: string
+          description: 命名空间
+          name: namespace
+          in: path
+          required: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/owner:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 根据服务获取服务负责人
+      operationId: GetServiceOwner
+      responses:
+        '200':
+          description: OK
+  /naming/v1/service/token:
+    get:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 查询服务Token
+      operationId: GetServiceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+    put:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 更新服务Token
+      operationId: UpdateServiceToken
+      deprecated: true
+      responses:
+        '200':
+          description: OK
+  /naming/v1/services:
+    get:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        GET /naming/v1/services?参数名=参数值
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+
+
+        | 参数名     | 类型   |
+        描述                                                               | 是否必填
+        |
+
+        | ---------- | ------ |
+        ------------------------------------------------------------------ |
+        -------- |
+
+        | name       | string |
+        服务名                                                             |
+        否       |
+
+        | namespace  | string |
+        命名空间                                                           | 否      
+        |
+
+        | business   | string |
+        业务，默认模糊查询                                                 | 否       |
+
+        | department | string |
+        部门                                                               |
+        否       |
+
+        | host       | string |
+        实例IP，**多个IP以英文逗号分隔**                                   | 否       |
+
+        | port       | string |
+        **实例端口**，**多个端口以英文逗号分隔**                           | 否       |
+
+        | keys       | string | 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。 | 否      
+        |
+
+        | values     | string | 服务元数据值，keys和values需要同时填写，目前只支持查询一组元数据。 | 否      
+        |
+
+        | offset     | int    |
+        默认为0                                                            |
+        否       |
+
+        | limit      | int    |
+        默认为100，最大100                                                 | 否       |
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "amount":1,
+            "size":1,
+            "services":[
+                {
+                    "name":"...",
+                    "namespace":"...",
+                    "metadata":{
+
+                    },
+                    "ports":"...",
+                    "business":"...",
+                    "department":"...",
+                    "comment":"...",
+                    "ctime":"...",
+                    "mtime":"...",
+                    "total_instance_count": 1,
+                    "healthy_instance_count":1
+                }
+            ]
+        }
+
+        ~~~
+
+
+        | 参数名 | 类型   |
+        描述                                                                                                
+        |
+
+        | ------ | ------ |
+        ----------------------------------------------------------------------------------------------------
+        |
+
+        | code   | uint32 |
+        六位返回码                                                                                          
+        |
+
+        | info   | string |
+        返回信息                                                                                            
+        |
+
+        | amount | uint32 |
+        符合此查询条件的服务总数，例如查询命名空间为default的服务，总数为1000，本次返回100条，则amount为1000 |
+
+        | size   | uint32 |
+        本次查询返回的服务个数，例如查询命名空间为default的服务，总数为1000，本次返回100条，则size为100      |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 获取服务列表
+      operationId: GetServices
+      parameters:
+        - type: string
+          default: demo-service
+          description: 服务名
+          name: name
+          in: query
+        - type: string
+          default: default
+          description: 命名空间
+          name: namespace
+          in: query
+        - type: string
+          description: 业务，默认模糊查询
+          name: business
+          in: query
+        - type: string
+          description: 部门
+          name: department
+          in: query
+        - type: string
+          description: 实例IP，**多个IP以英文逗号分隔**
+          name: host
+          in: query
+        - type: string
+          description: '**实例端口**，**多个端口以英文逗号分隔** '
+          name: port
+          in: query
+        - type: string
+          description: 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。
+          name: keys
+          in: query
+        - type: string
+          description: 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。
+          name: values
+          in: query
+        - type: integer
+          default: 0
+          description: 查询偏移量
+          name: offset
+          in: query
+        - type: integer
+          description: 查询条数，**最多查询100条**
+          name: limit
+          in: query
+      responses:
+        '200':
+          description: OK
+    put:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        PUT /naming/v1/services
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name":"...",
+                "namespace":"...",
+                "token":"...",
+                "metadata":{
+
+                },
+                "ports":"...",
+                "business":"...",
+                "department":"...",
+                "comment":"..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "service":{
+                        "name":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        | 参数名           | 类型               |
+        描述                                                       | 是否必填 | 可否修改 |
+
+        | ---------------- | ------------------ |
+        ---------------------------------------------------------- | -------- |
+        -------- |
+
+        | name             | string             |
+        服务名                                                     | 是       |
+        否       |
+
+        | namespace        | string             |
+        命名空间                                                   | 是       |
+        否       |
+
+        | metadata         | map<string,string> |
+        服务标签/元数据                                            | 否       | 是      
+        |
+
+        | ports            | string             |
+        端口列表，多个port以逗号分隔                               | 否       | 是       |
+
+        | business         | string             |
+        服务所属业务，建议填写。                                   | 否       | 是       |
+
+        | department       | string             |
+        服务所属部门，建议填写。                                   | 否       | 是       |
+
+        | comment          | string             |
+        描述                                                       | 否       |
+        是       |
+
+        | user_ids         | []string           |
+        可以操作该资源的用户，**仅当开启北极星鉴权时生效**         | 否       |
+
+        | group_ids        | []string           |
+        可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     | 否       |
+
+        | remove_user_ids  | []string           |
+        被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   | 否       |
+
+        | remove_group_ids | []string           |
+        被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** | 否       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 更新服务
+      operationId: UpdateServices
+      parameters:
+        - description: update services
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Service'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: >
+
+        请求示例：
+
+
+        ~~~
+
+        POST /naming/v1/services
+
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+
+        Header X-Polaris-Token: {访问凭据}
+
+
+        [
+            {
+                "name":"...",
+                "namespace":"...",
+                "metadata":{
+
+                },
+                "ports":"...",
+                "business":"...",
+                "department":"...",
+                "comment":"..."
+            }
+        ]
+
+        ~~~
+
+
+        应答示例：
+
+
+        ~~~json
+
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "service":{
+                        "name":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+
+        ~~~
+
+
+        数据结构：
+
+
+        | 参数名           | 类型               |
+        描述                                                       | 是否必填 |
+
+        | ---------------- | ------------------ |
+        ---------------------------------------------------------- | -------- |
+
+        | name             | string             |
+        服务名                                                     | 是       |
+
+        | namespace        | string             |
+        命名空间                                                   | 是       |
+
+        | metadata         | map<string,string> |
+        服务标签/元数据                                            | 否       |
+
+        | ports            | string             |
+        端口列表，多个port以逗号分隔                               | 否       |
+
+        | business         | string             |
+        服务所属业务，建议填写。                                   | 否       |
+
+        | department       | string             |
+        服务所属部门，建议填写。                                   | 否       |
+
+        | comment          | string             |
+        描述                                                       | 否       |
+
+        | user_ids         | []string           |
+        可以操作该资源的用户，**仅当开启北极星鉴权时生效**         | 否       |
+
+        | group_ids        | []string           |
+        可以操作该资源的用户组，，**仅当开启北极星鉴权时生效**     | 否       |
+
+        | remove_user_ids  | []string           |
+        被移除的可操作该资源的用户，**仅当开启北极星鉴权时生效**   | 否       |
+
+        | remove_group_ids | []string           |
+        被移除的可操作该资源的用户组，**仅当开启北极星鉴权时生效** | 否       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 创建服务
+      operationId: CreateServices
+      parameters:
+        - description: create services
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Service'
+      responses:
+        '200':
+          description: OK
+  /naming/v1/services/count:
+    get:
+      description: |
+
+        请求示例：
+        ~~~
+        GET /naming/v1/services/count
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+
+        应答示例：
+        ~~~json
+        {
+          "code": 200000,
+          "info": "execute success",
+          "amount": 141,
+          "size": 0,
+          "namespaces": [],
+          "services": [],
+          "instances": [],
+          "routings": [],
+          "aliases": [],
+          "rateLimits": [],
+          "configWithServices": [],
+          "platforms": [],
+          "users": [],
+          "userGroups": [],
+          "authStrategies": [],
+          "clients": []
+        }
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 获取服务数量
+      operationId: GetServicesCount
+      responses:
+        '200':
+          description: OK
+  /naming/v1/services/delete:
+    post:
+      description: |
+
+        删除一个不存在的服务，认为删除成功
+
+        请求示例：
+
+        ~~~
+        POST /naming/v1/services/delete
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        [
+            {
+                "name":"...",
+                "namespace":"..."
+            }
+        ]
+        ~~~
+
+        应答示例：
+
+        ~~~json
+        {
+            "code":200000,
+            "info":"...",
+            "size":1,
+            "responses":[
+                {
+                    "code":200000,
+                    "info":"...",
+                    "service":{
+                        "name":"...",
+                        "namespace":"..."
+                    }
+                }
+            ]
+        }
+        ~~~
+
+        数据结构：
+
+        | 参数名    | 类型   | 描述     | 是否必填 |
+        | --------- | ------ | -------- | -------- |
+        | name      | string | 服务名   | 是       |
+        | namespace | string | 命名空间 | 是       |
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - Services
+      summary: 删除服务
+      operationId: DeleteServices
+      parameters:
+        - description: delete services
+          name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v1.Service'
+      responses:
+        '200':
+          description: OK
+  /naming/v2/routings:
+    get:
+      description: |
+
+        获取路由规则
+
+        ~~~
+        GET /naming/v2/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 获取路由规则
+      operationId: v2GetRoutings
+      responses:
+        '200':
+          description: OK
+    put:
+      description: |
+
+        更新路由规则
+
+        ~~~
+        PUT /naming/v2/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 更新路由规则
+      operationId: v2UpdateRoutings
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v2.Routing'
+      responses:
+        '200':
+          description: OK
+    post:
+      description: |
+
+        创建路由规则
+
+        ~~~
+        POST /naming/v2/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 创建路由规则
+      operationId: v2CreateRoutings
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/v2.Routing'
+      responses:
+        '200':
+          description: OK
+  /naming/v2/routings/delete:
+    post:
+      description: |
+
+        删除路由规则
+
+        ~~~
+        DELETE /naming/v2/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 删除路由规则
+      operationId: v2DeleteRoutings
+      responses:
+        '200':
+          description: OK
+  /naming/v2/routings/enable:
+    put:
+      description: |
+
+        更新路由规则
+
+        ~~~
+        PUT /naming/v2/routings
+
+        # 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RoutingRules
+      summary: 启用路由规则
+      operationId: v2EnableRoutings
+      responses:
+        '200':
+          description: OK
+  /v1/DeregisterInstance:
+    post:
+      description: |
+
+        请求示例
+
+        ~~~
+        POST /v1/DeRegisterInstance
+
+        # 开启北极星客户端接口鉴权开关后，需要添加下面的 header
+        Header X-Polaris-Token: {访问凭据}
+        ~~~
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 注销实例
+      operationId: DeregisterInstance
+      responses:
+        '200':
+          description: OK
+  /v1/Discover:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 服务发现
+      operationId: Discover
+      responses:
+        '200':
+          description: OK
+  /v1/Heartbeat:
+    post:
+      description: "\n\n请求示例\n\n~~~\nPOST /v1/Heartbeat\n\n# 开启北极星客户端接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n{\n    \"namespace\": \"\", // 命名空间，必填；string\n    \"service\": \"\",\t// 服务名称，必填；string\n    \"host\":\"\",\t\t// 实例 host 信息，必填；string\n    \"port\": 80\t\t// 实例 port 信息，必填；int\n}\n~~~\n\n\n应答示例：\n\n- 正常心跳上报结果。\n\n~~~json\n{\n    \"code\": 200000,\n    \"info\": \"execute success\",\n    \"instance\": {\n        \"service\": \"BootEchoServer\",\n        \"namespace\": \"default\",\n        \"host\": \"127.0.0.1\",\n        \"port\": 28888\n    }\n}\n~~~\n\n- 若实例不存在或者实例未开启心跳上报\n\n~~~json\n{\n    \"code\": 400141,\n    \"info\": \"heartbeat on disabled instance\",\n    \"instance\": {\n        \"service\": \"BootEchoServer\",\n        \"namespace\": \"default\",\n        \"vpc_id\": null,\n        \"host\": \"127.0.0.1\",\n        \"port\": 28881\n    }\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 上报心跳
+      operationId: Heartbeat
+      responses:
+        '200':
+          description: OK
+  /v1/RegisterInstance:
+    post:
+      description: "\n请求示例\n\n~~~\nPOST /v1/RegisterInstance\n\n# 开启北极星客户端接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n{\n    \"service\": \"xxxx\",\n    \"namespace\": \"xxx\",\n    \"host\": \"xxx\",\n    \"port\": 8080,\n\t\"protocol\": \"xx\",\n\t\"version\": \"xx\",\n    \"location\": {\n        \"region\": \"xxx\",\n        \"zone\": \"xxx\",\n        \"campus\": \"\"\n    },\n    \"metadata\": {\n        \"key\": \"value\"\n    }\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 注册实例
+      operationId: RegisterInstance
+      responses:
+        '200':
+          description: OK
+  /v1/ReportClient:
+    post:
+      description: "\n请求示例\n\n~~~\nPOST /v1/ReportClient\n\n# 开启北极星客户端接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n{\n\t\"host\": \"xxx\",\n\t\"type\": \"xxx\",\n\t\"version\": \"xx\",\n\t\"location\": {\n\t\t\"region\": \"xxx\",\n\t\t\"zone\": \"xxx\",\t\n\t\t\"campus\": \"\"\n\t}\n}\n~~~\n"
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 上报客户端
+      operationId: ReportClient
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/v1.Client'
+      responses:
+        '200':
+          description: OK
+  /v2/Discover:
+    post:
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      tags:
+        - RegisterInstance
+      summary: 服务发现
+      operationId: v2Discover
+      responses:
+        '200':
+          description: OK
+definitions:
+  anypb.Any:
+    properties:
+      type_url:
+        type: string
+      value:
+        type: string
+  durationpb.Duration:
+    properties:
+      nanos:
+        type: integer
+        format: int32
+      seconds:
+        type: integer
+        format: int64
+  maintain.ConnReq:
+    required:
+      - Protocol
+      - Host
+      - Port
+      - Amount
+    properties:
+      Amount:
+        type: integer
+        format: int32
+      Host:
+        type: string
+      Port:
+        type: integer
+        format: int32
+      Protocol:
+        type: string
+  v1.Amount:
+    properties:
+      maxAmount:
+        type: integer
+        format: integer
+      minAmount:
+        type: integer
+        format: integer
+      precision:
+        type: integer
+        format: integer
+      startAmount:
+        type: integer
+        format: integer
+      validDuration:
+        $ref: '#/definitions/durationpb.Duration'
+  v1.AmountAdjuster:
+    properties:
+      climb:
+        $ref: '#/definitions/v1.ClimbConfig'
+  v1.AuthStrategy:
+    properties:
+      action:
+        type: integer
+        format: int32
+      auth_token:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      default_strategy:
+        type: boolean
+        format: boolean
+      id:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      owner:
+        type: string
+        format: string
+      principals:
+        $ref: '#/definitions/v1.Principals'
+      resources:
+        $ref: '#/definitions/v1.StrategyResources'
+  v1.CbPolicy:
+    properties:
+      consecutive:
+        $ref: '#/definitions/v1.CbPolicy_ConsecutiveErrConfig'
+      errorRate:
+        $ref: '#/definitions/v1.CbPolicy_ErrRateConfig'
+      judgeDuration:
+        $ref: '#/definitions/durationpb.Duration'
+      maxEjectionPercent:
+        type: integer
+        format: integer
+      slowRate:
+        $ref: '#/definitions/v1.CbPolicy_SlowRateConfig'
+  v1.CbPolicy_ConsecutiveErrConfig:
+    properties:
+      consecutiveErrorToOpen:
+        type: integer
+        format: integer
+      consecutiveErrorToPreserved:
+        type: integer
+        format: integer
+      enable:
+        type: boolean
+        format: boolean
+  v1.CbPolicy_ErrRateConfig:
+    properties:
+      enable:
+        type: boolean
+        format: boolean
+      errorRateToOpen:
+        type: integer
+        format: integer
+      errorRateToPreserved:
+        type: integer
+        format: integer
+      requestVolumeThreshold:
+        type: integer
+        format: integer
+      specials:
+        type: array
+        items:
+          $ref: '#/definitions/v1.CbPolicy_ErrRateConfig_SpecialConfig'
+  v1.CbPolicy_ErrRateConfig_SpecialConfig:
+    properties:
+      errorCodes:
+        type: array
+        items:
+          $ref: '#/definitions/wrapperspb.Int64Value'
+      errorRateToOpen:
+        type: integer
+        format: integer
+      errorRateToPreserved:
+        type: integer
+        format: integer
+      type:
+        type: string
+        format: string
+  v1.CbPolicy_SlowRateConfig:
+    properties:
+      enable:
+        type: boolean
+        format: boolean
+      maxRt:
+        $ref: '#/definitions/durationpb.Duration'
+      slowRateToOpen:
+        type: integer
+        format: integer
+      slowRateToPreserved:
+        type: integer
+        format: integer
+  v1.CbRule:
+    properties:
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/v1.DestinationSet'
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/v1.SourceMatcher'
+  v1.CircuitBreaker:
+    properties:
+      business:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      department:
+        type: string
+        format: string
+      id:
+        type: string
+        format: string
+      inbounds:
+        type: array
+        items:
+          $ref: '#/definitions/v1.CbRule'
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      outbounds:
+        type: array
+        items:
+          $ref: '#/definitions/v1.CbRule'
+      owners:
+        type: string
+        format: string
+      revision:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+      service_namespace:
+        type: string
+        format: string
+      token:
+        type: string
+        format: string
+      version:
+        type: string
+        format: string
+  v1.Client:
+    properties:
+      ctime:
+        type: string
+        format: string
+      host:
+        type: string
+        format: string
+      id:
+        type: string
+        format: string
+      location:
+        $ref: '#/definitions/v1.Location'
+      mtime:
+        type: string
+        format: string
+      stat:
+        type: array
+        items:
+          $ref: '#/definitions/v1.StatInfo'
+      type:
+        type: integer
+        format: int32
+      version:
+        type: string
+        format: string
+  v1.ClientConfigFileInfo:
+    properties:
+      content:
+        type: string
+        format: string
+      file_name:
+        type: string
+        format: string
+      group:
+        type: string
+        format: string
+      md5:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      version:
+        type: integer
+        format: integer
+  v1.ClientWatchConfigFileRequest:
+    properties:
+      client_ip:
+        type: string
+        format: string
+      service_name:
+        type: string
+        format: string
+      watch_files:
+        type: array
+        items:
+          $ref: '#/definitions/v1.ClientConfigFileInfo'
+  v1.ClimbConfig:
+    properties:
+      enable:
+        type: boolean
+        format: boolean
+      metric:
+        $ref: '#/definitions/v1.ClimbConfig_MetricConfig'
+      policy:
+        $ref: '#/definitions/v1.ClimbConfig_TriggerPolicy'
+      throttling:
+        $ref: '#/definitions/v1.ClimbConfig_ClimbThrottling'
+  v1.ClimbConfig_ClimbThrottling:
+    properties:
+      coldAboveTuneDownRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      coldAboveTuneUpRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      coldBelowTuneDownRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      coldBelowTuneUpRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      judgeDuration:
+        $ref: '#/definitions/durationpb.Duration'
+      limitThresholdToTuneUp:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      tuneDownPeriod:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      tuneUpPeriod:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+  v1.ClimbConfig_MetricConfig:
+    properties:
+      precision:
+        type: integer
+        format: integer
+      reportInterval:
+        $ref: '#/definitions/durationpb.Duration'
+      window:
+        $ref: '#/definitions/durationpb.Duration'
+  v1.ClimbConfig_TriggerPolicy:
+    properties:
+      errorRate:
+        $ref: '#/definitions/v1.ClimbConfig_TriggerPolicy_ErrorRate'
+      slowRate:
+        $ref: '#/definitions/v1.ClimbConfig_TriggerPolicy_SlowRate'
+  v1.ClimbConfig_TriggerPolicy_ErrorRate:
+    properties:
+      enable:
+        type: boolean
+        format: boolean
+      errorRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      requestVolumeThreshold:
+        type: integer
+        format: integer
+      specials:
+        type: array
+        items:
+          $ref: '#/definitions/v1.ClimbConfig_TriggerPolicy_ErrorRate_SpecialConfig'
+  v1.ClimbConfig_TriggerPolicy_ErrorRate_SpecialConfig:
+    properties:
+      errorCodes:
+        type: array
+        items:
+          $ref: '#/definitions/wrapperspb.Int64Value'
+      errorRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+      type:
+        type: string
+        format: string
+  v1.ClimbConfig_TriggerPolicy_SlowRate:
+    properties:
+      enable:
+        type: boolean
+        format: boolean
+      maxRt:
+        $ref: '#/definitions/durationpb.Duration'
+      slowRate:
+        $ref: '#/definitions/wrapperspb.Int32Value'
+  v1.ConfigFile:
+    properties:
+      comment:
+        type: string
+        format: string
+      content:
+        type: string
+        format: string
+      create_by:
+        type: string
+        format: string
+      create_time:
+        type: string
+        format: string
+      format:
+        type: string
+        format: string
+      group:
+        type: string
+        format: string
+      id:
+        type: integer
+        format: integer
+      modify_by:
+        type: string
+        format: string
+      modify_time:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      release_by:
+        type: string
+        format: string
+      release_time:
+        type: string
+        format: string
+      status:
+        type: string
+        format: string
+      tags:
+        type: array
+        items:
+          $ref: '#/definitions/v1.ConfigFileTag'
+  v1.ConfigFileGroup:
+    properties:
+      comment:
+        type: string
+        format: string
+      create_by:
+        type: string
+        format: string
+      create_time:
+        type: string
+        format: string
+      editable:
+        type: boolean
+        format: boolean
+      fileCount:
+        type: integer
+        format: integer
+      group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      id:
+        type: integer
+        format: integer
+      modify_by:
+        type: string
+        format: string
+      modify_time:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      owner:
+        type: string
+        format: string
+      remove_group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      remove_user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+  v1.ConfigFileRelease:
+    properties:
+      comment:
+        type: string
+        format: string
+      content:
+        type: string
+        format: string
+      create_by:
+        type: string
+        format: string
+      create_time:
+        type: string
+        format: string
+      file_name:
+        type: string
+        format: string
+      group:
+        type: string
+        format: string
+      id:
+        type: integer
+        format: integer
+      md5:
+        type: string
+        format: string
+      modify_by:
+        type: string
+        format: string
+      modify_time:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      version:
+        type: integer
+        format: integer
+  v1.ConfigFileTag:
+    properties:
+      key:
+        type: string
+        format: string
+      value:
+        type: string
+        format: string
+  v1.ConfigRelease:
+    properties:
+      circuitBreaker:
+        $ref: '#/definitions/v1.CircuitBreaker'
+      ctime:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      service:
+        $ref: '#/definitions/v1.Service'
+  v1.Destination:
+    properties:
+      isolate:
+        type: boolean
+        format: boolean
+      metadata:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      namespace:
+        type: string
+        format: string
+      priority:
+        type: integer
+        format: integer
+      service:
+        type: string
+        format: string
+      transfer:
+        type: string
+        format: string
+      weight:
+        type: integer
+        format: integer
+  v1.DestinationSet:
+    properties:
+      errorCodes:
+        type: array
+        items:
+          $ref: '#/definitions/wrapperspb.Int64Value'
+      metadata:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      method:
+        $ref: '#/definitions/v1.MatchString'
+      metricPrecision:
+        type: integer
+        format: integer
+      metricWindow:
+        $ref: '#/definitions/durationpb.Duration'
+      namespace:
+        type: string
+        format: string
+      policy:
+        $ref: '#/definitions/v1.CbPolicy'
+      recover:
+        $ref: '#/definitions/v1.RecoverConfig'
+      resource:
+        type: integer
+        format: int32
+      scope:
+        type: integer
+        format: int32
+      service:
+        type: string
+        format: string
+      type:
+        type: integer
+        format: int32
+      updateInterval:
+        $ref: '#/definitions/durationpb.Duration'
+  v1.HealthCheck:
+    properties:
+      heartbeat:
+        $ref: '#/definitions/v1.HeartbeatHealthCheck'
+      type:
+        type: integer
+        format: int32
+  v1.HeartbeatHealthCheck:
+    properties:
+      ttl:
+        type: integer
+        format: integer
+  v1.Instance:
+    properties:
+      ctime:
+        type: string
+        format: string
+      enable_health_check:
+        type: boolean
+        format: boolean
+      health_check:
+        $ref: '#/definitions/v1.HealthCheck'
+      healthy:
+        type: boolean
+        format: boolean
+      host:
+        type: string
+        format: string
+      id:
+        type: string
+        format: string
+      isolate:
+        type: boolean
+        format: boolean
+      location:
+        $ref: '#/definitions/v1.Location'
+      logic_set:
+        type: string
+        format: string
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      mtime:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      port:
+        type: integer
+        format: integer
+      priority:
+        type: integer
+        format: integer
+      protocol:
+        type: string
+        format: string
+      revision:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+      service_token:
+        type: string
+        format: string
+      version:
+        type: string
+        format: string
+      vpc_id:
+        type: string
+        format: string
+      weight:
+        type: integer
+        format: integer
+  v1.Location:
+    properties:
+      campus:
+        type: string
+        format: string
+      region:
+        type: string
+        format: string
+      zone:
+        type: string
+        format: string
+  v1.LoginRequest:
+    properties:
+      name:
+        type: string
+        format: string
+      owner:
+        type: string
+        format: string
+      password:
+        type: string
+        format: string
+  v1.MatchArgument:
+    properties:
+      key:
+        type: string
+      type:
+        type: integer
+        format: int32
+      value:
+        $ref: '#/definitions/v1.MatchString'
+  v1.MatchString:
+    properties:
+      type:
+        type: integer
+        format: int32
+      value:
+        type: string
+        format: string
+      value_type:
+        type: integer
+        format: int32
+  v1.ModifyUserPassword:
+    properties:
+      id:
+        type: string
+        format: string
+      new_password:
+        type: string
+        format: string
+      old_password:
+        type: string
+        format: string
+  v1.Namespace:
+    properties:
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      editable:
+        type: boolean
+        format: boolean
+      group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      id:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      owners:
+        type: string
+        format: string
+      remove_group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      remove_user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      token:
+        type: string
+        format: string
+      total_health_instance_count:
+        type: integer
+        format: integer
+      total_instance_count:
+        type: integer
+        format: integer
+      total_service_count:
+        type: integer
+        format: integer
+      user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+  v1.Principal:
+    properties:
+      id:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+  v1.Principals:
+    properties:
+      groups:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Principal'
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Principal'
+  v1.RateLimit:
+    properties:
+      revision:
+        type: string
+        format: string
+      rules:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Rule'
+  v1.RateLimitCluster:
+    properties:
+      namespace:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+  v1.RecoverConfig:
+    properties:
+      maxRetryAfterHalfOpen:
+        type: integer
+        format: integer
+      outlierDetectWhen:
+        type: integer
+        format: int32
+      requestCountAfterHalfOpen:
+        type: integer
+        format: integer
+      requestRateAfterHalfOpen:
+        type: array
+        items:
+          type: integer
+          format: integer
+      sleepWindow:
+        $ref: '#/definitions/durationpb.Duration'
+      successRateToClose:
+        type: integer
+        format: integer
+  v1.Report:
+    properties:
+      amountPercent:
+        type: integer
+        format: integer
+      interval:
+        $ref: '#/definitions/durationpb.Duration'
+  v1.Route:
+    properties:
+      destinations:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Destination'
+      extendInfo:
+        type: object
+        additionalProperties:
+          type: string
+      sources:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Source'
+  v1.Routing:
+    properties:
+      ctime:
+        type: string
+        format: string
+      inbounds:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Route'
+      mtime:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      outbounds:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Route'
+      revision:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+      service_token:
+        type: string
+        format: string
+  v1.Rule:
+    properties:
+      action:
+        type: string
+        format: string
+      adjuster:
+        $ref: '#/definitions/v1.AmountAdjuster'
+      amount_mode:
+        type: integer
+        format: int32
+      amounts:
+        type: array
+        items:
+          $ref: '#/definitions/v1.Amount'
+      arguments:
+        type: array
+        items:
+          $ref: '#/definitions/v1.MatchArgument'
+      cluster:
+        $ref: '#/definitions/v1.RateLimitCluster'
+      ctime:
+        type: string
+        format: string
+      disable:
+        type: boolean
+        format: boolean
+      etime:
+        type: string
+        format: string
+      failover:
+        type: integer
+        format: int32
+      id:
+        type: string
+        format: string
+      labels:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      max_queue_delay:
+        type: integer
+        format: integer
+      method:
+        $ref: '#/definitions/v1.MatchString'
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      priority:
+        type: integer
+        format: integer
+      regex_combine:
+        type: boolean
+        format: boolean
+      report:
+        $ref: '#/definitions/v1.Report'
+      resource:
+        type: integer
+        format: int32
+      revision:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+      service_token:
+        type: string
+        format: string
+      subset:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      type:
+        type: integer
+        format: int32
+  v1.Service:
+    properties:
+      business:
+        type: string
+        format: string
+      cmdb_mod1:
+        type: string
+        format: string
+      cmdb_mod2:
+        type: string
+        format: string
+      cmdb_mod3:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      department:
+        type: string
+        format: string
+      editable:
+        type: boolean
+        format: boolean
+      group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      healthy_instance_count:
+        type: integer
+        format: integer
+      id:
+        type: string
+        format: string
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      owners:
+        type: string
+        format: string
+      platform_id:
+        type: string
+        format: string
+      ports:
+        type: string
+        format: string
+      remove_group_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      remove_user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+      revision:
+        type: string
+        format: string
+      token:
+        type: string
+        format: string
+      total_instance_count:
+        type: integer
+        format: integer
+      user_ids:
+        type: array
+        items:
+          type: string
+          format: string
+  v1.ServiceAlias:
+    properties:
+      alias:
+        type: string
+        format: string
+      alias_namespace:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      editable:
+        type: boolean
+        format: boolean
+      id:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+      owners:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+      service_token:
+        type: string
+        format: string
+      type:
+        type: integer
+        format: int32
+  v1.Source:
+    properties:
+      metadata:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      namespace:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+  v1.SourceMatcher:
+    properties:
+      labels:
+        type: object
+        additionalProperties:
+          $ref: '#/definitions/v1.MatchString'
+      namespace:
+        type: string
+        format: string
+      service:
+        type: string
+        format: string
+  v1.StatInfo:
+    properties:
+      path:
+        type: string
+        format: string
+      port:
+        type: integer
+        format: integer
+      protocol:
+        type: string
+        format: string
+      target:
+        type: string
+        format: string
+  v1.StrategyResourceEntry:
+    properties:
+      id:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      namespace:
+        type: string
+        format: string
+  v1.StrategyResources:
+    properties:
+      config_groups:
+        type: array
+        items:
+          $ref: '#/definitions/v1.StrategyResourceEntry'
+      namespaces:
+        type: array
+        items:
+          $ref: '#/definitions/v1.StrategyResourceEntry'
+      services:
+        type: array
+        items:
+          $ref: '#/definitions/v1.StrategyResourceEntry'
+      strategy_id:
+        type: string
+        format: string
+  v1.User:
+    properties:
+      auth_token:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      email:
+        type: string
+        format: string
+      id:
+        type: string
+        format: string
+      mobile:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      owner:
+        type: string
+        format: string
+      password:
+        type: string
+        format: string
+      source:
+        type: string
+        format: string
+      token_enable:
+        type: boolean
+        format: boolean
+      user_type:
+        type: string
+        format: string
+  v1.UserGroup:
+    properties:
+      auth_token:
+        type: string
+        format: string
+      comment:
+        type: string
+        format: string
+      ctime:
+        type: string
+        format: string
+      id:
+        type: string
+        format: string
+      mtime:
+        type: string
+        format: string
+      name:
+        type: string
+        format: string
+      owner:
+        type: string
+        format: string
+      relation:
+        $ref: '#/definitions/v1.UserGroupRelation'
+      token_enable:
+        type: boolean
+        format: boolean
+      user_count:
+        type: integer
+        format: integer
+  v1.UserGroupRelation:
+    properties:
+      group_id:
+        type: string
+        format: string
+      users:
+        type: array
+        items:
+          $ref: '#/definitions/v1.User'
+  v2.Routing:
+    properties:
+      ctime:
+        type: string
+      description:
+        type: string
+      enable:
+        type: boolean
+      etime:
+        type: string
+      extendInfo:
+        type: object
+        additionalProperties:
+          type: string
+      id:
+        type: string
+      mtime:
+        type: string
+      name:
+        type: string
+      namespace:
+        type: string
+      priority:
+        type: integer
+        format: integer
+      revision:
+        type: string
+      routing_config:
+        $ref: '#/definitions/anypb.Any'
+      routing_policy:
+        type: integer
+        format: int32
+  wrapperspb.Int32Value:
+    properties:
+      value:
+        type: integer
+        format: int32
+  wrapperspb.Int64Value:
+    properties:
+      value:
+        type: integer
+        format: int64
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: X-Polaris-Token
+    in: header
+security:
+  - api_key: []
+tags:
+  - description: 鉴权管理
+    name: Auth
+  - description: 客户端API接口
+    name: ConfigClient
+  - description: 服务端接口
+    name: ConfigConsole
+  - description: 熔断限流
+    name: CircuitBreakers
+  - description: 实例管理
+    name: Instances
+  - description: 运维接口
+    name: Maintain
+  - description: 命名空间管理
+    name: Namespaces
+  - description: 路由规则管理
+    name: RoutingRules
+  - description: 限流规则管理
+    name: RateLimits
+  - description: 服务发现
+    name: RegisterInstance
+  - description: 服务管理
+    name: Services
+  - description: 用户管理
+    name: Users
+  - description: 用户组
+    name: UserGroup
