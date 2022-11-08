@@ -1,15 +1,11 @@
-{{ $cover := and (.HasShortcode "blocks/cover") (not .Site.Params.ui.navbar_translucent_over_cover_disable) }}
-<nav
-    class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }}flex-column flex-md-row td-navbar">
-    <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}">
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="/">
         <span class="navbar-logo">
             <img src="/img/logo.png" />
         </span>
     </a>
     <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
         <ul class="navbar-nav mt-2 mt-lg-0">
-            {{ $p := . }}
-            {{ range .Site.Menus.main }}
             <li class="nav-item mr-4 mb-2 mb-lg-0">
                 <a class="nav-link" href="/" target="_blank"><span>首页</span></a>
             </li>
@@ -22,7 +18,6 @@
             <li class="nav-item mr-4 mb-2 mb-lg-0">
                 <a class="nav-link" href="http://14.116.241.63:8080/#/login" target="_blank"><span>体验版</span></a>
             </li>
-            {{ end }}
             <!--             
             {{ if (gt (len .Site.Home.Translations) 0) }}
             <li class="nav-item dropdown mr-4 d-none d-lg-block">
