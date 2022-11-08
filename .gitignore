@@ -1,9 +1,5 @@
-.DS_Store
-/mainsite
-/node_modules
-/docs/.vuepress/dist
-/docs/.vuepress/vuepress
-/dist
-/vuepress
-/doc-build.tar.gz
-.idea
+public/
+resources/
+node_modules/
+package-lock.json
+.hugo_build.lock
