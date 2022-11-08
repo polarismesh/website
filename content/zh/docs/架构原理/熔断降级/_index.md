@@ -1,5 +1,5 @@
 ---
 title: "熔断降级"
 linkTitle: "熔断降级"
-weight: 250
+weight: 5
 ---

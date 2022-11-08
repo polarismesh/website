@@ -104,23 +104,27 @@ html {
   background: #ffffff;
   color: #000000;
 }
+
 .polaris-main-link-btn-group .btn-black {
   border-radius: 3px;
   background: rgba(38, 47, 62, 1);
   color: #ffffff;
 }
+
 .polaris-main-link-btn-group .btn-black:hover,
 .polaris-main-link-btn-group .btn-black:focus {
   background: #fff !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #000 !important;
 }
+
 .polaris-main-link-btn-group .btn-black:active {
   background: #fff !important;
   border: 1px solid rgba(209, 209, 209, 1) !important;
   color: #000 !important;
   outline: none;
 }
+
 .polaris-main-link-btn-group .btn:hover,
 .polaris-main-link-btn-group .btn:focus {
   background: #000 !important;
@@ -313,6 +317,7 @@ html {
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 1000% 0;
   }
@@ -322,6 +327,7 @@ html {
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 1000% 0;
   }
@@ -331,6 +337,7 @@ html {
   0% {
     background-position: 0 0;
   }
+
   100% {
     background-position: 1000% 0;
   }
@@ -341,11 +348,13 @@ html {
     margin: auto;
     display: block;
   }
+
   .function-desc-title {
     font-size: 24px;
     padding: 20px;
     text-align: center;
   }
+
   .function-desc-text {
     padding: 20px;
     font-size: 14px;
@@ -372,6 +381,7 @@ html {
   .high-resolution {
     display: none;
   }
+
   .who-is-using-logo {
     width: 100%;
     height: 100px;
@@ -419,12 +429,15 @@ html {
 .td-page-meta--project-issue {
   display: none !important;
 }
+
 #TableOfContents .active {
   color: #72a1e5 !important;
 }
+
 .project-container {
   padding: 0 15vw;
 }
+
 @media screen and (max-width: 1000px) {
   .project-container {
     padding: 0 2.5vw;
@@ -580,4 +593,11 @@ html {
 }
 .td-sidebar__search .td-search-input {
   max-width: 100%;
+}
+
+.swagger-ui .info .title small pre {
+  margin: 0;
+  padding: 0;
+  /* font-family: sans-serif; */
+  color: #060606;
 }

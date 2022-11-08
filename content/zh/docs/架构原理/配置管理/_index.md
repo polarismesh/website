@@ -1,5 +1,5 @@
 ---
-title: "配置管理"
-linkTitle: "配置管理"
-weight: 260
+title: "熔断降级"
+linkTitle: "熔断降级"
+weight: 6
 ---
