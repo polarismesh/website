@@ -13,7 +13,7 @@ Spring Cloud 是 Java 语言生态下的分布式微服务架构的一站式解�
 
 ### 前提条件
 
-您需要先下载 Polaris Server，具体操作参见 [Polaris 服务端安装](../快速入门/安装服务端/%E5%AE%89%E8%A3%85%E5%8D%95%E6%9C%BA%E7%89%88.md)
+您需要先下载 Polaris Server，具体操作参见 [Polaris 服务端安装](/docs/快速入门/安装服务端/安装单机版)
 
 ### 确定 Spring Cloud 版本
 
