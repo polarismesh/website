@@ -1,0 +1,262 @@
++++
+
++++
+<div>
+    <script>
+        const categories = [
+            // {
+            //   name: "标准",
+            //   projects: [
+            //     {
+            //       name: "specification",
+            //       description: "",
+            //       githubLink: "",
+            //     },
+            //   ],
+            // },
+            {
+                name: "服务端",
+                projects: [
+                    {
+                        name: "polaris",
+                        description:
+                            "Service Discovery and Governance Center for Distributed and Microservice Architecture.",
+                        githubLink: "https://github.com/polarismesh/polaris",
+                    },
+                    {
+                        name: "polaris-console",
+                        description: "Console for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-console",
+                    },
+                    {
+                        name: "polaris-controller",
+                        description:
+                            "K8s Controller for Automatic Injection of K8s Service and Polaris Sidecar.",
+                        githubLink: "https://github.com/polarismesh/polaris-controller",
+                    },
+                ],
+            },
+            {
+                name: "Java 应用开发",
+                projects: [
+                    {
+                        name: "polaris-java",
+                        description: "Java Client for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-java",
+                    },
+                    {
+                        name: "grpc-java-polaris",
+                        description: "grpc-java integrates with polaris-java.",
+                        githubLink: "https://github.com/polarismesh/grpc-java-polaris",
+                    },
+                    {
+                        name: "spring-cloud-tencent",
+                        description:
+                            "an integration solution for spring cloud and tencent open source middleware.",
+                        githubLink: "https://github.com/tencent/spring-cloud-tencent",
+                    },
+                    {
+                        name: "spring-boot-polaris",
+                        description: "spring-boot integrates with polaris-java.",
+                        githubLink: "https://github.com/polarismesh/spring-boot-polaris",
+                    },
+                    {
+                        name: "polaris-java-agent",
+                        description: "inject polaris-java into spring cloud and dubbo.",
+                        githubLink: "https://github.com/polarismesh/polaris-java-agent",
+                    },
+                ],
+            },
+            {
+                name: "Go 应用开发",
+                projects: [
+                    {
+                        name: "polaris-go",
+                        description: "Go Client for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-go",
+                    },
+                    {
+                        name: "grpc-go-polaris",
+                        description: "grpc-go integrates with polaris-go.",
+                        githubLink: "https://github.com/polarismesh/grpc-go-polaris",
+                    },
+                    {
+                        name: "go-kratos",
+                        description: "go-kratos integrates with polaris-go.",
+                        githubLink:
+                            "https://github.com/go-kratos/kratos/tree/main/contrib/registry/polaris",
+                    },
+                    {
+                        name: "go-zero",
+                        description: "go-zero integrates with polaris-go.",
+                        githubLink:
+                            "https://github.com/zeromicro/zero-contrib/tree/main/zrpc/registry/polaris",
+                    },
+                    {
+                        name: "go-frame",
+                        description: "go-frame integrates with polaris-go.",
+                        githubLink: "https://github.com/gogf/polaris",
+                    },
+                    {
+                        name: "dubbo-go",
+                        description: "dubbo-go integrates with polaris-go.",
+                        githubLink:
+                            "https://github.com/apache/dubbo-go/tree/master/registry/polaris",
+                    },
+                    {
+                        name: "kitex",
+                        description: "kitex integrates with polaris-go.",
+                        githubLink: "https://github.com/kitex-contrib/registry-polaris",
+                    },
+                ],
+            },
+            {
+                name: "C/C++ 应用开发",
+                projects: [
+                    {
+                        name: "polaris-cpp",
+                        description: "C++ Client for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-cpp",
+                    },
+                ],
+            },
+            {
+                name: "其他语言应用开发",
+                projects: [
+                    {
+                        name: "polaris-php",
+                        description: "PHP Client based on C++ for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-php",
+                    },
+                    {
+                        name: "polaris-lua",
+                        description: "Lua Client based on C++ for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-lua",
+                    },
+                ],
+            },
+            {
+                name: "DNS 和 Proxy",
+                projects: [
+                    {
+                        name: "polaris-sidecar",
+                        description:
+                            "Enhanced DNS Agent and Proxy Service Mesh Solution for Polaris.",
+                        githubLink: "https://github.com/polarismesh/polaris-sidecar",
+                    },
+                ],
+            },
+            {
+                name: "网关接入",
+                projects: [
+                    {
+                        name: "nginx-polaris",
+                        description: "nginx integrates with polaris-cpp.",
+                        githubLink: "https://github.com/polarismesh/nginx-polaris",
+                    },
+                ],
+            },
+        ]
+        const badgeType = categories.map((item) => item.name);
+        document.addEventListener("DOMContentLoaded", function () {
+            const badgeContainer = document.getElementById("badge-container")
+            const badgeString = badgeType.map(item => {
+                return `<a class="badge categories-badge"
+                        href="#${item}">
+                        ${item}
+                    </a> `
+            }).join('')
+            badgeContainer.innerHTML = badgeString
+            const projectContainer = document.getElementById("project-container")
+            projectContainer.innerHTML = categories.map(item => {
+                const projectInnerHtml = item.projects.map(project => {
+                    return `
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-4" style="margin-bottom: 20px">
+                            <div class="project-card mb-2 card">
+                                <div class="card-logo ${project.name.indexOf('polaris') === -1 ? 'color2' : project.name.indexOf('polaris') === 0 ? 'color1' : 'color3'}">
+                                    <img src="/img/small-logo.png" class="small-logo" alt="Polaris" />
+                                </div>
+                                <h5 class="project-title card-title">${project.name}</h5>
+                                <p class="project-description card-text">${project.description}</p>
+                                <button type="button" class="project-github-btn btn" href="${project.githubLink}" target="_blank">
+                                    <img src="/img/github-icon.png" class="small-logo" alt="github" /> Github
+                                </button>
+                            </div>
+                        </div>
+                    `
+                }).join('')
+                return `
+                    <div class="categories">
+                        <div class="scroll-anchor" id="${item.name}"></div>
+                        <div class="categories-header">${item.name}</div>
+                        <div class="row">
+                            ${projectInnerHtml}
+                        </div>
+                    </div>
+            `
+            }).join('')
+        })
+    </script>
+    <div class="polaris-background">
+        <div class="animated-background"></div>
+    </div>
+    <div class="project-banner">
+        <div class="row" align-v="center" style="padding: 12vh 0 5px 0">
+            <div class="col" style="
+            color: #000;
+            font-size: 24px;
+            font-weight: 500;
+            text-align: center;
+          ">项目和生态</div>
+        </div>
+        <div class="row" align-v="center" style="padding: 0 0 3vw 0px">
+            <div class="col-12 description-header">为分布式或者微服务架构提供标准化的服务发现和治理方案，支持多语言、多框架和服务网格
+            </div>
+            <div class="col-12 description-header">注册发现、故障容错、流量调度、访问控制、可观测性
+            </div>
+        </div>
+    </div>
+    <div class="project-container categories-container">
+        <div class="row" align-v="center" style="padding: 20px 0 20px 0">
+            <div class="col" id="badge-container">
+                <!-- <a href="#" class="badge badge-light categories-badge">{{ item }}</a> -->
+                <!-- <b-badge variant="light" class="categories-badge" v-for="item in badgeType" :key="item"
+                    :href="`#${item}`">
+                    {{ item }}
+                </b-badge> -->
+            </div>
+        </div>
+    </div>
+    <div class="project-container" id="project-container">
+        <!-- <div v-for="item in categories" :key="item.name" class="categories">
+            <div class="scroll-anchor" :id="item.name"></div>
+            <div class="categories-header">{{ item.name }}</div>
+            <div class="row">
+                <div class="col" v-for="project in item.projects" :key="project.name" cols="12" sm="12" md="12" lg="6"
+                    xl="4" style="margin-bottom: 20px">
+                    <b-card class="project-card mb-2">
+                        <div :class="`card-logo ${
+                  project.name.indexOf('polaris') === -1
+                    ? 'color2'
+                    : project.name.indexOf('polaris') === 0
+                    ? 'color1'
+                    : 'color3'
+                }`">
+                            <img src="../assets/image/small-polaris-logo.png" class="small-logo" alt="Polaris" />
+                        </div>
+                        <b-card-title class="project-title">{{
+                            project.name
+                            }}</b-card-title>
+                        <b-card-text class="project-description">{{
+                            project.description
+                            }}</b-card-text>
+                        <b-button variant="outline-secondary" class="project-github-btn" :href="project.githubLink"
+                            target="_blank"><img src="../assets/image/github-icon.png" class="small-logo"
+                                alt="github" />
+                            Github</b-button>
+                    </b-card>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
