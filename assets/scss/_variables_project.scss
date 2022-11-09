@@ -4,7 +4,8 @@ Add styles or override variables from the theme here.
 
 */
 
-html {
+html,
+#doc-outer {
   scroll-behavior: smooth;
 }
 
@@ -22,8 +23,8 @@ html {
 
 .navbar {
   background-color: #e3e7ec !important;
-  padding-left: 3% !important;
-  padding-right: 3% !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }
 
 .navbar-logo img {
@@ -44,8 +45,17 @@ html {
   padding: 40px 0;
   color: #999;
   text-align: center;
+  position: relative;
 }
-
+.polaris-footer-background {
+  width: calc(100% + 300px);
+  height: 100%;
+  position: absolute;
+  background-color: #f8f8f8;
+  top: 0;
+  left: -150px;
+  z-index: -1;
+}
 .polaris-footer a {
   color: #999;
   text-decoration: none;
@@ -80,25 +90,26 @@ html {
 .polaris-main-link-btn-group {
   margin-top: 30px;
 }
-
-.polaris-main-link-btn-group .btn {
-  border-radius: 3px;
-  background: #ffffff;
-  width: 174px;
-  height: 56px;
+.polaris-main-link-btn-group button {
+  width: 9vw;
+  height: 3vw;
+  min-width: 130px;
+  min-height: 40px;
+  max-width: 174px;
+  max-height: 56px;
   margin-left: 24px;
-  color: #000000;
+  border-radius: 3px;
   border: 1px solid rgba(209, 209, 209, 1);
+}
+.polaris-main-link-btn-group .btn {
+  background: #ffffff;
+  color: #000000;
 }
 
 .polaris-main-link-btn-group .btn-black {
   border-radius: 3px;
   background: rgba(38, 47, 62, 1);
-  width: 174px;
-  height: 56px;
-  margin-left: 24px;
   color: #ffffff;
-  border: 1px solid rgba(209, 209, 209, 1);
 }
 
 .polaris-main-link-btn-group .btn-black:hover,
@@ -131,14 +142,16 @@ html {
 
 .polaris-background {
   opacity: 1;
-  background: linear-gradient(180deg,
-      rgba(226, 231, 236, 1) 0%,
-      rgba(226, 231, 236, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(226, 231, 236, 1) 0%,
+    rgba(226, 231, 236, 0) 100%
+  );
   height: 894px;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: -25px;
+  width: calc(100% + 50px);
   z-index: -1;
 }
 
@@ -182,13 +195,12 @@ html {
   /* -webkit-animation: leftScroll 60s linear infinite;
     -moz-animation: leftScroll 60s linear infinite;
     animation: leftScroll 60s linear infinite; */
-  background-size: contain;
+  background-size: cover;
   background-repeat: repeat-x;
 }
 
 .structure-diagram {
-  margin-top: 10vw;
-  overflow-x: scroll;
+  margin-top: 7vw;
 }
 
 .structure-diagram img {
@@ -234,12 +246,13 @@ html {
 .who-is-using {
   width: 62.5vw;
   max-width: 1200px;
-  margin: 6.25vw auto 0 auto;
+  margin: 6.25vw auto 6.25vw auto;
 }
 
 .who-is-using-title {
   font-size: 36px;
   font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .who-is-using-container {
@@ -248,7 +261,6 @@ html {
 }
 
 .who-is-using-logo {
-  width: 14.42em;
   max-width: 220px;
   height: 150px;
   border-radius: 3px;
@@ -269,7 +281,7 @@ html {
 }
 
 .who-is-using-logo img {
-  width: 150px;
+  width: 100%;
   margin: auto;
 }
 
@@ -571,10 +583,45 @@ html {
   }
 }
 
+@media screen and (min-width: 768px) {
+  .td-sidebar,
+  .td-sidebar-toc {
+    max-width: 250px !important;
+  }
+  .td-sidebar .td-sidebar__inner {
+    position: static;
+  }
+  .td-sidebar-toc {
+    position: sticky !important;
+    height: calc(100% - 4rem) !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .structure-diagram {
+    overflow-x: scroll;
+  }
+}
+@media screen and (min-width: 2000px) {
+  .doc-main {
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+  }
+}
+
+.td-sidebar__search .td-search-input {
+  max-width: 100%;
+}
 
 .swagger-ui .info .title small pre {
   margin: 0;
   padding: 0;
   /* font-family: sans-serif; */
   color: #060606;
+}
+.td-outer {
+  overflow-x: hidden;
+}
+.td-main {
+  position: relative;
 }
