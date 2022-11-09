@@ -47,12 +47,12 @@ html {
   position: relative;
 }
 .polaris-footer-background {
-  width: calc(100% + 30px);
+  width: calc(100% + 300px);
   height: 100%;
   position: absolute;
   background-color: #f8f8f8;
   top: 0;
-  left: -15px;
+  left: -150px;
   z-index: -1;
 }
 .polaris-footer a {
@@ -584,7 +584,7 @@ html {
 @media screen and (min-width: 768px) {
   .td-sidebar,
   .td-sidebar-toc {
-    max-width: 300px !important;
+    max-width: 250px !important;
   }
   .td-sidebar .td-sidebar__inner {
     position: static;
@@ -595,6 +595,13 @@ html {
     overflow-x: scroll;
   }
 }
+@media screen and (min-width: 2000px) {
+  .doc-main {
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+  }
+}
+
 .td-sidebar__search .td-search-input {
   max-width: 100%;
 }
@@ -604,4 +611,7 @@ html {
   padding: 0;
   /* font-family: sans-serif; */
   color: #060606;
+}
+.td-outer {
+  overflow-x: hidden;
 }
