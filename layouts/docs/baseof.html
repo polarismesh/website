@@ -13,29 +13,35 @@
       }
     }
   }
-  window.onscroll = throttle(function () {
-    const currentTitle = document.querySelectorAll(".td-content h1,.td-content h2,.td-content h3,.td-content h4,.td-content h5,.td-content h6")
-    const currentTop = document.documentElement.scrollTop
-    let topicArray = []
-    for (let index = 0; index < currentTitle.length; index++) {
-      const element = currentTitle[index]
-      if (element) {
-        topicArray.push({ id: element.id, top: element.getBoundingClientRect().top })
+  window.addEventListener('load', function () {
+    document.getElementById("doc-outer").onscroll = throttle(function () {
+      const currentTitle = document.querySelectorAll(".td-content h1,.td-content h2,.td-content h3,.td-content h4,.td-content h5,.td-content h6")
+      const currentTop = document.documentElement.scrollTop
+      let topicArray = []
+      for (let index = 0; index < currentTitle.length; index++) {
+        const element = currentTitle[index]
+        if (element) {
+          topicArray.push({ id: element.id, top: element.getBoundingClientRect().top })
+        }
       }
-    }
-    topicArray = topicArray.filter(item => item.top > 0).sort((a, b) => a.top - b.top)
-    const mostToppedElement = topicArray[0]
-    const currentSidebarArray = Array.from(document.getElementById('TableOfContents').getElementsByTagName("a"))
-    currentSidebarArray.forEach(item => item.classList.remove("active"))
-    const correspondElement = currentSidebarArray.find(item => {
-      const name = window.decodeURIComponent(item.href).split('#')[1]
-      if (name) return name === mostToppedElement.id
-      return false
-    })
-    if (correspondElement) {
+      topicArray = topicArray.filter(item => item.top > 0).sort((a, b) => a.top - b.top)
+      let mostToppedElement = topicArray[0]
+      if (!document.getElementById('TableOfContents')) { return }
+      const currentSidebarArray = Array.from(document.getElementById('TableOfContents').getElementsByTagName("a"))
+      currentSidebarArray.forEach(item => item.classList.remove("active"))
+      if (!mostToppedElement) mostToppedElement = { id: currentSidebarArray[0].id }
+      let correspondElement = currentSidebarArray.find(item => {
+        const name = window.decodeURIComponent(item.href).split('#')[1]
+        if (name) return name === mostToppedElement.id
+        return false
+      })
+      if (!correspondElement) {
+        correspondElement = currentSidebarArray[0]
+      }
       correspondElement.classList.add("active")
-    }
-  }, 50)
+
+    }, 50)
+  })
 </script>
 
 <head>
@@ -46,7 +52,7 @@
   <header>
     {{ partial "navbar.html" . }}
   </header>
-  <div class="container-fluid td-outer">
+  <div class="container-fluid td-outer" id="doc-outer">
     <div class="td-main">
       <div class="row flex-xl-nowrap">
         <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">

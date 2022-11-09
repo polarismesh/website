@@ -4,7 +4,8 @@ Add styles or override variables from the theme here.
 
 */
 
-html {
+html,
+#doc-outer {
   scroll-behavior: smooth;
 }
 
@@ -149,8 +150,8 @@ html {
   height: 894px;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: -25px;
+  width: calc(100% + 50px);
   z-index: -1;
 }
 
@@ -194,7 +195,7 @@ html {
   /* -webkit-animation: leftScroll 60s linear infinite;
     -moz-animation: leftScroll 60s linear infinite;
     animation: leftScroll 60s linear infinite; */
-  background-size: contain;
+  background-size: cover;
   background-repeat: repeat-x;
 }
 
@@ -251,6 +252,7 @@ html {
 .who-is-using-title {
   font-size: 36px;
   font-weight: 700;
+  margin-bottom: 30px;
 }
 
 .who-is-using-container {
@@ -589,7 +591,12 @@ html {
   .td-sidebar .td-sidebar__inner {
     position: static;
   }
+  .td-sidebar-toc {
+    position: sticky !important;
+    height: calc(100% - 4rem) !important;
+  }
 }
+
 @media screen and (max-width: 600px) {
   .structure-diagram {
     overflow-x: scroll;
@@ -614,4 +621,7 @@ html {
 }
 .td-outer {
   overflow-x: hidden;
+}
+.td-main {
+  position: relative;
 }
