@@ -200,7 +200,6 @@ html {
 
 .structure-diagram {
   margin-top: 7vw;
-  overflow-x: scroll;
 }
 
 .structure-diagram img {
@@ -589,6 +588,11 @@ html {
   }
   .td-sidebar .td-sidebar__inner {
     position: static;
+  }
+}
+@media screen and (max-width: 600px) {
+  .structure-diagram {
+    overflow-x: scroll;
   }
 }
 .td-sidebar__search .td-search-input {
