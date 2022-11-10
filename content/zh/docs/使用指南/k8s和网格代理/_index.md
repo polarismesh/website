@@ -1,5 +1,5 @@
 ---
-title: "K8S和网格代理"
-linkTitle: "K8S和网格代理"
+title: "K8s 和网格代理"
+linkTitle: "K8s 和网格代理"
 weight: 6
 ---
