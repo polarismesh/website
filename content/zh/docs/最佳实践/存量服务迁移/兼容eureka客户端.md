@@ -15,7 +15,7 @@ Polaris服务端通过暴露8761端口，支持eureka客户端的接入
 
 ###  修改 demo 中的注册中心地址
 
-在下载到本地的 [demo 源码目录](https://github.com/polarismesh/examples/tree/main/eureka/eureka-java) 下，分别找到`eureka/eureka-java/consumer/src/main/resourcesapplication.yml`和`eureka/eureka-java/provider/src/main/resources/application.yml`两个文件。
+在下载到本地的 [demo 源码目录](https://github.com/polarismesh/examples/tree/main/servicediscovery/eureka/eureka-java) 下，分别找到`eureka/eureka-java/consumer/src/main/resourcesapplication.yml`和`eureka/eureka-java/provider/src/main/resources/application.yml`两个文件。
 
 添加北极星服务端的 eureka 协议地址到项目配置文件中（以`eureka/eureka-java/consumer/src/main/resources/application.yml`为例）。
   ```yaml
