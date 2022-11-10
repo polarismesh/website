@@ -1,7 +1,21 @@
 {{ $original := .Get "src" }}
 <div id="ohpen_swagger_ui"></div>
 <script>
+
   window.onload = function () {
+    // Begin Swagger UI call region
+    const DisableTryItOutPlugin = function() {
+      return {
+        statePlugins: {
+          spec: {
+            wrapSelectors: {
+              allowTryItOutFor: () => () => false
+            }
+          }
+        }
+      }
+    }
+
     const ui = SwaggerUIBundle({
       url: {{ $original | relURL }},
       dom_id: '#ohpen_swagger_ui',
