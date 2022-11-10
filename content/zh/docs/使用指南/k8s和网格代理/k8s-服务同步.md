@@ -1,6 +1,6 @@
 ---
-title: "使用 K8s 服务同步"
-linkTitle: "使用 K8s 服务同步"
+title: "K8s 服务同步"
+linkTitle: "K8s 服务同步"
 weight: 2
 ---
 
