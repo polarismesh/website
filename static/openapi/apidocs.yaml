@@ -6886,13 +6886,6 @@ definitions:
       value:
         type: integer
         format: int64
-securityDefinitions:
-  api_key:
-    type: apiKey
-    name: X-Polaris-Token
-    in: header
-security:
-  - api_key: []
 tags:
   - description: 鉴权管理
     name: Auth
