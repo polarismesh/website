@@ -1,5 +1,5 @@
 ---
-title: "存量兼容"
-linkTitle: "存量兼容"
+title: "存量服务迁移"
+linkTitle: "存量服务迁移"
 weight: 3
 ---
