@@ -31,14 +31,6 @@ html,
   height: 32px;
 }
 
-.td-search-input {
-  background-color: #fff !important;
-}
-
-.td-search-input::placeholder {
-  color: #495057 !important;
-}
-
 .polaris-footer {
   width: 100%;
   background-color: #f8f8f8;
@@ -419,18 +411,6 @@ html,
   }
 }
 
-.td-page-meta--view {
-  display: none !important;
-}
-
-.td-page-meta--child {
-  display: none !important;
-}
-
-.td-page-meta--project-issue {
-  display: none !important;
-}
-
 #TableOfContents .active {
   color: #72a1e5 !important;
 }
@@ -583,20 +563,6 @@ html,
   }
 }
 
-@media screen and (min-width: 768px) {
-  .td-sidebar,
-  .td-sidebar-toc {
-    max-width: 250px !important;
-  }
-  .td-sidebar .td-sidebar__inner {
-    position: static;
-  }
-  .td-sidebar-toc {
-    position: sticky !important;
-    height: calc(100% - 4rem) !important;
-  }
-}
-
 @media screen and (max-width: 600px) {
   .structure-diagram {
     overflow-x: scroll;
@@ -609,19 +575,9 @@ html,
   }
 }
 
-.td-sidebar__search .td-search-input {
-  max-width: 100%;
-}
-
 .swagger-ui .info .title small pre {
   margin: 0;
   padding: 0;
   /* font-family: sans-serif; */
   color: #060606;
-}
-.td-outer {
-  overflow-x: hidden;
-}
-.td-main {
-  position: relative;
 }
