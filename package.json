@@ -19,7 +19,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.12",
     "postcss": "^8.3.7",
-    "postcss-cli": "^9.1.0"
+    "postcss-cli": "^10.0.0"
   },
   "dependencies": {
     "@babel/cli": "^7.19.3",
