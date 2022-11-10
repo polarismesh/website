@@ -2,63 +2,108 @@
 // Right side toc
 //
 .td-sidebar-toc {
-    // border-left: 1px solid $border-color;
+  // border-left: 1px solid $border-color;
 
-    @supports (position: sticky) {
-        position: sticky;
-        top: 0.2rem;
-        height: calc(100vh - 4rem);
-        overflow-y: auto;
-    }
+  @supports (position: sticky) {
+    position: sticky;
+    top: 0.2rem;
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
 
-    order: 2;
-    padding-top: 4.75rem;
-    padding-bottom: 1.5rem;
-    vertical-align: top;
+  order: 2;
+  padding-top: 4.75rem;
+  padding-bottom: 1.5rem;
+  vertical-align: top;
 }
 
 .td-page-meta {
-    padding-top: 1.5rem;
+  padding-top: 1.5rem;
 
-    a {
-        display: block;
-        font-weight: $font-weight-light;
-        padding-bottom: 0.5rem;
-    }
+  a {
+    display: block;
+    font-weight: $font-weight-light;
+    padding-bottom: 0.5rem;
+  }
 }
 
 .td-toc {
+  a {
+    display: block;
+    font-weight: $font-weight-light;
+    padding-bottom: 0.25rem;
+  }
+
+  li {
+    list-style: none;
+    display: block;
+  }
+
+  li li {
+    margin-left: 0.5rem;
+  }
+
+  #TableOfContents {
+    padding-top: 1rem;
+
+    > ul > li > ul > li > a {
+    }
+
     a {
-        display: block;
-        font-weight: $font-weight-light;
-        padding-bottom: .25rem;
+      color: $gray-600;
+
+      &:hover {
+        color: $blue;
+        text-decoration: none;
+      }
     }
+  }
 
-    li {
-        list-style: none;
-        display: block;
-    }
+  ul {
+    padding-left: 0;
+  }
+}
+.td-sidebar__search .td-search-input {
+  max-width: 100%;
+}
+.td-outer {
+  overflow-x: hidden;
+}
+.td-main {
+  position: relative;
+}
+.td-page {
+  overflow-y: overlay;
+}
+@media screen and (min-width: 768px) {
+  .td-sidebar,
+  .td-sidebar-toc {
+    max-width: 250px !important;
+  }
+  .td-sidebar .td-sidebar__inner {
+    position: static;
+  }
+  .td-sidebar-toc {
+    position: sticky !important;
+    height: 0 !important;
+    overflow: visible !important;
+  }
+}
+.td-search-input {
+  background-color: #fff !important;
+}
 
-    li li {
-        margin-left: 0.5rem;
-    }
+.td-search-input::placeholder {
+  color: #495057 !important;
+}
+.td-page-meta--view {
+  display: none !important;
+}
 
-    #TableOfContents {
-        padding-top: 1rem;
+.td-page-meta--child {
+  display: none !important;
+}
 
-        >ul>li>ul>li>a {}
-
-        a {
-            color: $gray-600;
-
-            &:hover {
-                color: $blue;
-                text-decoration: none;
-            }
-        }
-    }
-
-    ul {
-        padding-left: 0;
-    }
+.td-page-meta--project-issue {
+  display: none !important;
 }
