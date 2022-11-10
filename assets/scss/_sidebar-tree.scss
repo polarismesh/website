@@ -145,6 +145,7 @@
     }
   }
 }
-nav.foldable-nav .without-child {
-  padding-left: 1rem;
+nav.foldable-nav .without-child,
+nav.foldable-nav .with-child {
+  padding-left: 1.1em;
 }
