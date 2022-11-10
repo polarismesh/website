@@ -1,6 +1,6 @@
 ---
-title: "Envoy网格接入"
-linkTitle: "Envoy网格接入"
+title: "使用 Envoy 代理"
+linkTitle: "使用 Envoy 代理"
 weight: 3
 ---
 

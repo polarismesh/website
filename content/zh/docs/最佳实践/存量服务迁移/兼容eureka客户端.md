@@ -1,6 +1,6 @@
 ---
-title: "兼容eureka客户端"
-linkTitle: "兼容eureka客户端"
+title: "兼容 Eureka 协议"
+linkTitle: "兼容 Eureka 协议"
 weight: 2
 ---
 
