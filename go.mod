@@ -1,4 +1,4 @@
-module github.com/google/docsy-example
+module github.com/polarismesh/website
 
 go 1.12
 
