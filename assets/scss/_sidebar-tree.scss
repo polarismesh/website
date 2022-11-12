@@ -7,8 +7,8 @@
   margin-left: -15px;
   @include media-breakpoint-up(md) {
     @supports (position: sticky) {
-      // max-height: calc(100vh - 10rem);
-      // overflow-y: auto;
+       max-height: calc(100vh - 7rem);
+       overflow-y: auto;
     }
   }
   @include media-breakpoint-up(md) {
@@ -120,12 +120,13 @@
         position: sticky;
         top: 4rem;
         z-index: 10;
-        //height: calc(100vh + 30rem);
+        height: calc(100vh - 40rem);
       }
     }
     @include media-breakpoint-up(xl) {
       flex: 0 1 320px;
     }
+
     .td-search-box {
       width: 100%;
     }
