@@ -15,23 +15,26 @@ Polaris服务端通过暴露8761端口，支持eureka客户端的接入
 
 ###  修改 demo 中的注册中心地址
 
-在下载到本地的 [demo 源码目录](https://github.com/polarismesh/examples/tree/main/servicediscovery/eureka/eureka-java) 下，分别找到`eureka/eureka-java/consumer/src/main/resourcesapplication.yml`和`eureka/eureka-java/provider/src/main/resources/application.yml`两个文件。
+在下载到本地的 [demo 源码目录](https://github.com/polarismesh/examples/tree/main/servicediscovery/eureka/eureka-java) 下，
+分别找到`eureka/eureka-java/consumer/src/main/resourcesapplication.yml`和`eureka/eureka-java/provider/src/main/resources/application.yml`两个文件。
 
-添加北极星服务端的 eureka 协议地址到项目配置文件中（以`eureka/eureka-java/consumer/src/main/resources/application.yml`为例）。
-  ```yaml
-  eureka:
-      client:
-      serviceUrl:
-        defaultZone: http://127.0.0.1:8761/eureka/
-  ```
+添加北极星服务端的 eureka 协议地址到项目配置文件中
+
+（以`eureka/eureka-java/consumer/src/main/resources/application.yml`为例）。
+```yaml
+eureka:
+  client:
+  serviceUrl:
+    defaultZone: http://127.0.0.1:8761/eureka/
+```
 
 如果期望使用`Eureka`的安全认证体系, 则按照如下进行配置
-  ```yaml
-  eureka:
-      client:
-      serviceUrl:
-        defaultZone: http://{任意用户名称}:{北极星鉴权Token}@127.0.0.1:8761/eureka/
-  ```
+```yaml
+eureka:
+  client:
+  serviceUrl:
+    defaultZone: http://{任意用户名称}:{北极星鉴权Token}@127.0.0.1:8761/eureka/
+```
 
 ### 打包 demo 源码成 jar 包
 
@@ -58,8 +61,8 @@ Polaris服务端通过暴露8761端口，支持eureka客户端的接入
 调用 consumer 的 HTTP 接口
 - 执行 http 调用，其中`${app.port}`替换为 consumer 的监听端口（默认为20002），`${add.address}`则替换为 consumer 暴露的地址。
 ```shell
-    curl -L -X GET 'http://${add.address}:${app.port}/echo?value=hello_world''
-    预期返回值：echo: hello_world
+curl -L -X GET 'http://${add.address}:${app.port}/echo?value=hello_world''
+预期返回值：echo: hello_world
 ```
 
 
