@@ -5,10 +5,10 @@ other = "所有"
 # UI strings. Buttons and similar.
 
 [ui_pager_prev]
-other = "上一页"
+other = "上一篇"
 
 [ui_pager_next]
-other = "下一页"
+other = "下一篇"
 
 [ui_read_more]
 other = "更多"
