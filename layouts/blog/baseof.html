@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+<script>
+  var throttle = function (func, delay) {
+    var prev = Date.now();
+    return function () {
+      var context = this;   //this指向window
+      var args = arguments;
+      var now = Date.now();
+      if (now - prev >= delay) {
+        func.apply(context, args);
+        prev = Date.now();
+      }
+    }
+  }
+  window.addEventListener('load', function () {
+    document.getElementById("doc-outer").onscroll = throttle(function () {
+      const currentTitle = document.querySelectorAll(".td-content h1,.td-content h2,.td-content h3,.td-content h4,.td-content h5,.td-content h6")
+      const currentTop = document.documentElement.scrollTop
+      let topicArray = []
+      for (let index = 0; index < currentTitle.length; index++) {
+        const element = currentTitle[index]
+        if (element) {
+          topicArray.push({ id: element.id, top: element.getBoundingClientRect().top })
+        }
+      }
+      topicArray = topicArray.filter(item => item.top > 0).sort((a, b) => a.top - b.top)
+      let mostToppedElement = topicArray[0]
+      if (!document.getElementById('TableOfContents')) { return }
+      const currentSidebarArray = Array.from(document.getElementById('TableOfContents').getElementsByTagName("a"))
+      currentSidebarArray.forEach(item => item.classList.remove("active"))
+      if (!mostToppedElement) mostToppedElement = { id: currentSidebarArray[0].id }
+      let correspondElement = currentSidebarArray.find(item => {
+        const name = window.decodeURIComponent(item.href).split('#')[1]
+        if (name) return name === mostToppedElement.id
+        return false
+      })
+      if (!correspondElement) {
+        correspondElement = currentSidebarArray[0]
+      }
+      correspondElement.classList.add("active")
+
+    }, 50)
+  })
+</script>
+<head>
+  {{ partial "head.html" . }}
+</head>
+
+<body class="td-{{ .Kind }}{{ with .Page.Params.body_class }} {{ . }}{{ end }}">
+  <header>
+    {{ partial "navbar.html" . }}
+  </header>
+  <div class="container-fluid td-outer" id="doc-outer">
+    <div class="td-main">
+      <div class="row flex-xl-nowrap" style="height: 100%;">
+        <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          {{ partial "sidebar.html" . }}
+        </aside>
+        <aside class="d-none d-xl-block col-xl-3 td-sidebar-toc d-print-none">
+          {{ partial "page-meta-links.html" . }}
+          {{ partial "toc.html" . }}
+          {{ partial "taxonomy_terms_clouds.html" . }}
+        </aside>
+        <main class="col-12 col-md-9 col-xl-8 doc-main pl-md-5" role="main">
+          {{ partial "version-banner.html" . }}
+          {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+          {{ block "main" . }}{{ end }}
+        </main>
+      </div>
+    </div>
+    {{ partial "footer.html" . }}
+  </div>
+  {{ partial "scripts.html" . }}
+</body>
+
+</html>

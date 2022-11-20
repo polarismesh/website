@@ -6,6 +6,8 @@ Add styles or override variables from the theme here.
 
 html,
 #doc-outer {
+  height: 100%;
+  overflow-y: auto !important;
   scroll-behavior: smooth;
 }
 
