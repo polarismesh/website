@@ -1,0 +1,37 @@
+Start building sites … 
+hugo v0.104.3-58b824581360148f2d91f5cc83f69bd22c1aa331+extended linux/amd64 BuildDate=2022-10-04T14:25:23Z VendorInfo=gohugoio
+
+                   | ZH-CN | EN  
+-------------------+-------+-----
+  Pages            |   165 |  7  
+  Paginator pages  |     0 |  0  
+  Non-page files   |   194 |  0  
+  Static files     |    73 | 73  
+  Processed images |     0 |  0  
+  Aliases          |     4 |  0  
+  Sitemaps         |     2 |  1  
+  Cleaned          |     0 |  0  
+
+Built in 1011 ms
+Watching for changes in /data/Github/polaris-website/{assets,babel.config.js,content,i18n,layouts,package.json,static}
+Watching for config changes in /data/Github/polaris-website/config.toml, /data/Github/polaris-website/go.mod
+Environment: "development"
+Serving pages from memory
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at //localhost:1313/ (bind address 0.0.0.0)
+Press Ctrl+C to stop
+
+Change detected, rebuilding site.
+2022-11-24 18:49:52.606 +0800
+Source changed "/data/Github/polaris-website/content/zh-cn/docs/最佳实践/存量服务迁移/nacos/配置迁移.md": WRITE
+Total in 63 ms
+
+Change detected, rebuilding site.
+2022-11-24 18:49:54.105 +0800
+Source changed "/data/Github/polaris-website/content/zh-cn/docs/最佳实践/存量服务迁移/nacos/配置迁移.md": WRITE
+Total in 65 ms
+
+Change detected, rebuilding site.
+2022-11-24 18:49:55.104 +0800
+Source changed "/data/Github/polaris-website/content/zh-cn/docs/最佳实践/存量服务迁移/nacos/配置迁移.md": WRITE
+Total in 60 ms
