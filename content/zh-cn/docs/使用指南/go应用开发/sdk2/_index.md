@@ -1,5 +1,5 @@
 ---
-title: "polaris x dubbogo 的使用指南"
-linkTitle: "polaris x dubbogo 的使用指南"
+title: "polaris 使用dubbogo 的使用指南"
+linkTitle: "polaris 使用dubbogo 的使用指南"
 weight: 1
 ---
