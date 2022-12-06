@@ -1,7 +1,7 @@
 ---
 title: "在dubbogo 中快速体验北极星的服务限流能力"
 linkTitle: "在dubbogo 中快速体验北极星的服务限流能力"
-weight: 2
+weight: 4
 ---
 # Dubbo Go & Polaris TpsLimiter Example
 
