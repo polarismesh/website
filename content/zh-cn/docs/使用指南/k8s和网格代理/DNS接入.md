@@ -4,11 +4,26 @@ linkTitle: "DNS 接入"
 weight: 4
 ---
 
-在 `Polaris` 的DNS 接入方案中，`Polaris` 是您的控制平面，`Polaris Sidecar` 作为本地 DNS 服务器实现服务发现以及服务路由。
+## 技术原理
+
+在 `Polaris` 的DNS 接入方案中，`Polaris` 是您的控制平面，`Polaris Sidecar` 作为本地 DNS 服务器实现服务发现以及动态路由。
 
 ![](../images/dns/架构图.png)
 
-## Sidecar 配置
+> Kubernetes 场景
+
+- polaris-server: 北极星服务端，处理服务注册以及服务发现请求。
+- polaris-controller: 完成 polaris-sidecar 容器注入到业务 POD 中，并下发 iptables 指令拦截业务容器的 DNS 请求，将其转发到 polaris-sidecar 中
+- polaris-sidecar: 作为本地 DNS 服务器，将 DNS 域名解析为北极星中的服务，实现服务发现。
+
+
+> 虚拟机场景
+
+- polaris-server: 北极星服务端，处理服务注册以及服务发现请求。
+- polaris-sidecar: 作为本地 DNS 服务器，将 DNS 域名解析为北极星中的服务，实现服务发现。
+
+
+## 相关配置解读
 
 #### polaris-sidecar 配置
 
@@ -53,7 +68,7 @@ global:
     addresses:
       - 127.0.0.1:8091      # 设置北极星服务端 gRPC 服务发现接入地址
   location:                 # 用于就近接入
-    provider: env
+    provider: env           # 默认从环境变量中读取地理位置信息
 ```
 
 ## 快速接入
@@ -88,6 +103,15 @@ polaris支持在kubernetes环境中进行部署，注意必须保证暴露HTTP�
         - {北极星服务端IP}:8091
   ```
 
+- 关闭系统自身的 dns resolve 进程
+  ```bash
+  # 关闭 systemd-resolved 进程
+  systemctl stop systemd-resolved
+
+  # 如果想恢复原本的 systemd-resolved，执行下面命令
+  # systemctl start systemd-resolved
+  ```
+
 - 进入解压后的目录，执行tool/start.sh进行启动，然后执行tool/p.sh查看进程是否启动成功。
 
   ```bash
@@ -109,7 +133,7 @@ polaris支持在kubernetes环境中进行部署，注意必须保证暴露HTTP�
 使用格式为```<service>.<namespace>```的域名进行访问，可以获得服务的IP地址。
 
 ```bash
-# dig polaris.checker
+# dig polaris.checker.polaris
 
 ...
 ;; QUESTION SECTION:
@@ -129,17 +153,15 @@ polaris.checker.polaris. 10 IN AAAA ::ffff:127.0.0.1
 #### 部署 polaris-controller
 
 - [controller 部署](/docs/使用指南/k8s和网格代理/安装polaris-controller/)
-
-部署`polaris-controller`之后，通过 `polaris-controller` 的 Sidecar 注入能力，将 Polaris Sidecar 注入到用户 POD 中后，Polaris Sidecar 会自动从 Polaris 服务端同步服务信息，并通过 iptables 将用户容器的 DNS 请求转发到 Polaris Sidecar 容器中，Polaris Sidecar 进行域名解析后进行执行服务发现，将发现后的服务实例IP返回给用户容器。
 #### 启用 sidecar 注入功能
 
-- 为 `default` 命名空间启用注入：
+- 为某个 kubernetes 命名空间启用 sidecar 注入：
   
   ```bash
-  # 为 default 命名空间开启 polaris sidecar 的注入
-  kubectl label namespace default polaris-injection=enabled
+  # 为某个 kubernetes 命名空间开启 polaris sidecar 的注入
+  kubectl label namespace ${kubernetes namespace} polaris-injection=enabled
   # 设置注入的 polaris sidecar 以 dns 模式运行
-  kubectl label namespace default polaris-sidecar-mode=dns 
+  kubectl label namespace ${kubernetes namespace} polaris-sidecar-mode=dns 
   ```
 
 #### 部署样例
@@ -185,14 +207,26 @@ kubectl describe pods -l k8s-app=polaris-dns-provider --namespace=default
 在使用高级功能时，先创建一个测试服务，用于接下来的功能测试
 
 - 创建测试服务 `test.echoserver`
+  
   ![](../images/dns/test_service.png)
 
 ### 使用就近路由
 
 可以通过设置环境变量，指定 polaris-sidecar 实例所处的地理位置信息，当 polaris-sidecar 执行 DNS 服务发现时，会根据自身的地域信息，对目标服务实例进行就近匹配。
 
-#### 虚拟机接入
 
+假定一个场景：
+
+- 存在以下三个地域
+  - region=region-1、zone=zone-1、campus=campus-1 
+  - region=region-2、zone=zone-2、campus=campus-2 
+  - region=region-3、zone=zone-3、campus=campus-3
+- polaris-sidecar 如果处于 region=region-1、zone=zone-1、campus=campus-1，则优先选择相同地域的实例
+
+#### 接入
+
+{{< tabs >}}
+{{% tab name="虚拟机" %}}
 - 设置地域信息环境变量
   ```bash
   export POLARIS_INSTANCE_REGION=${ REGION 信息 }
@@ -205,27 +239,14 @@ kubectl describe pods -l k8s-app=polaris-dns-provider --namespace=default
   bash tool/start.sh
   ```
 
-#### Kubernetes 接入
-
+{{% /tab %}}
+{{% tab name="Kubernetes" %}}
 - 调整 polaris-sidecar container 的 ENV 信息
   ```yaml
   containers:
   - image: polarismesh/polaris-sidecar:${sidecar 的版本}
     name: polaris-sidecar
-    securityContext:
-      allowPrivilegeEscalation: true
-      capabilities:
-        add:
-        - NET_ADMIN
-        - NET_RAW
-        drop:
-        - ALL
-      privileged: true
-      readOnlyRootFilesystem: false
-      runAsGroup: 1337
-      runAsNonRoot: false
-      runAsUser: 1337
-    imagePullPolicy: Always
+  ...
     env:
       - name: POLARIS_INSTANCE_REGION
         value: "{ REGION 信息 }"
@@ -239,39 +260,38 @@ kubectl describe pods -l k8s-app=polaris-dns-provider --namespace=default
   ```bash
   kubectl delete pod {POD 名称} --namespace {命名空间}
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### 验证
 
 ```bash
-# export POLARIS_INSTANCE_REGION=region-1, export POLARIS_INSTANCE_ZONE=zone-1, export POLARIS_INSTANCE_CAMPUS=campus-1
+# export POLARIS_INSTANCE_REGION=region-1
+# export POLARIS_INSTANCE_ZONE=zone-1
+# export POLARIS_INSTANCE_CAMPUS=campus-1
 ➜ dig test.echoserver.default     
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       1.1.1.1
 ...
 
-# export POLARIS_INSTANCE_REGION=region-2, export POLARIS_INSTANCE_ZONE=zone-2, export POLARIS_INSTANCE_CAMPUS=campus-2
+# export POLARIS_INSTANCE_REGION=region-2
+# export POLARIS_INSTANCE_ZONE=zone-2
+# export POLARIS_INSTANCE_CAMPUS=campus-2
 ➜ dig test.echoserver.default     
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       2.2.2.2
 ...
 
-# export POLARIS_INSTANCE_REGION=region-3, export POLARIS_INSTANCE_ZONE=zone-3, export POLARIS_INSTANCE_CAMPUS=campus-3
+# export POLARIS_INSTANCE_REGION=region-3
+# export POLARIS_INSTANCE_ZONE=zone-3
+# export POLARIS_INSTANCE_CAMPUS=campus-3
 ➜ dig test.echoserver.default
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       3.3.3.3
 ...
@@ -291,7 +311,12 @@ test.echoserver.default. 10     IN      A       3.3.3.3
 当前 DNS 服务发现仅支持静态标签动态路由，暂不支持请求级别的动态路由
 {{< /note >}}
 
-#### 虚拟机接入
+
+
+#### 接入
+
+{{< tabs >}}
+{{% tab name="虚拟机" %}}
 
 - 调整 polaris-sidecar 配置文件
   ```yaml
@@ -310,28 +335,15 @@ test.echoserver.default. 10     IN      A       3.3.3.3
   bash tool/start.sh
   ```
 
-#### Kubernetes 接入
-
+{{% /tab %}}
+{{% tab name="Kubernetes" %}}
 
 - 调整 polaris-sidecar container 的 ENV 信息
   ```yaml
   containers:
   - image: polarismesh/polaris-sidecar:${sidecar 的版本}
     name: polaris-sidecar
-    securityContext:
-      allowPrivilegeEscalation: true
-      capabilities:
-        add:
-        - NET_ADMIN
-        - NET_RAW
-        drop:
-        - ALL
-      privileged: true
-      readOnlyRootFilesystem: false
-      runAsGroup: 1337
-      runAsNonRoot: false
-      runAsUser: 1337
-    imagePullPolicy: Always
+  ...
     env:
       - name: SIDECAR_DNS_ROUTE_LABELS
         value: "key:value,key:value"   # 设置 sidecar 的静态路由标签
@@ -341,6 +353,8 @@ test.echoserver.default. 10     IN      A       3.3.3.3
   ```bash
   kubectl delete pod {POD 名称} --namespace {命名空间}
   ```
+{{% /tab %}}
+{{< /tabs >}}
 
 #### 验证
 
@@ -351,9 +365,6 @@ test.echoserver.default. 10     IN      A       3.3.3.3
 ➜ dig test.echoserver.default     
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       1.1.1.1
 ...
@@ -362,21 +373,14 @@ test.echoserver.default. 10     IN      A       1.1.1.1
 ➜ dig test.echoserver.default     
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       2.2.2.2
 ...
-
 
 # 设置 route_labels: ""
 ➜ dig test.echoserver.default
 
 ...
-;; QUESTION SECTION:
-;test.echoserver.default.       IN      A
-
 ;; ANSWER SECTION:
 test.echoserver.default. 10     IN      A       3.3.3.3
 ...
