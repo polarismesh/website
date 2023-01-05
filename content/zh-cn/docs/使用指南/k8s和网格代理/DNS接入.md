@@ -4,15 +4,74 @@ linkTitle: "DNS 接入"
 weight: 4
 ---
 
+## 技术原理
 
-在 `Polaris` 的服务网格方案中，`Polaris` 是您的控制平面，`Polaris Sidecar` 代理是您的数据平面。
+在 `Polaris` 的DNS 接入方案中，`Polaris` 是您的控制平面，`Polaris Sidecar` 作为本地 DNS 服务器实现服务发现以及动态路由。
 
 ![](../images/dns/架构图.png)
 
-- 服务数据同步：`polaris-controller` 安装在用户的Kubernetes集群中，可以同步集群上的 Namespace，Service，Endpoints 等资源到 `polaris` 中，同时 `polaris-controller` 提供了 `Polaris Sidecar` 注入器功能，可以轻松地将 `Polaris Sidecar` 注入到您的 Kubernetes Pod 中，Polaris Sidecar 会自动去 Polaris 同步服务信息，并作为 POD 的默认 DNS 解析服务器，提供 DNS 协议的服务发现能力。
+> Kubernetes 场景
+
+- polaris-server: 北极星服务端，处理服务注册以及服务发现请求。
+- polaris-controller: 完成 polaris-sidecar 容器注入到业务 POD 中，并下发 iptables 指令拦截业务容器的 DNS 请求，将其转发到 polaris-sidecar 中
+- polaris-sidecar: 作为本地 DNS 服务器，将 DNS 域名解析为北极星中的服务，实现服务发现。
 
 
-## 环境准备
+> 虚拟机场景
+
+- polaris-server: 北极星服务端，处理服务注册以及服务发现请求。
+- polaris-sidecar: 作为本地 DNS 服务器，将 DNS 域名解析为北极星中的服务，实现服务发现。
+
+
+## 相关配置解读
+
+#### polaris-sidecar 配置
+
+```yaml
+bind: 0.0.0.0             # DNS 服务器监听IP
+port: 53                  # DNS 服务器监听端口
+namespace: default        # polaris-sidecar 所在的命名空间
+recurse:                  # 递归解析，当 polaris-sidecar 自己无法解析域名时，会转发给上一级 DNS 服务器继续解析
+  enable: false
+  timeoutSec: 1
+logger:                   # 日志配置
+  output_paths:           # 标准输出打印
+    - stdout
+  error_output_paths:     # 错误日志通过标准错误输出打印
+    - stderr
+  rotate_output_path: logs/polaris-sidecar.log              # 日志持久化输出
+  error_rotate_output_path: logs/polaris-sidecar-error.log  # 错误日志持久化输出
+  rotation_max_size: 100            # 单个日志文件最大大小，单位 MB
+  rotation_max_backups: 10          # 最多保存多少个日志文件
+  rotation_max_age: 7               # 单个日志文件最大保存时间，单位天
+  output_level: info                # 日志级别
+resolvers:                          # DNS 解析插件
+  - name: dnsagent                  # 普通的 DNS 解析
+    dns_ttl: 10                     # dns 记录的 TTL
+    enable: true                    # 插件是否启用
+    suffix: "."                      # 决定哪些域名解析会先通过 polaris-sidecar，默认为全部域名，用户可以设置改配置来控制需要经过 polaris-sidecar 解析域名
+    option: 
+      route_labels: "key: value"    # 当前 polaris-sidecar 的静态标签信息，用于服务路由
+  - name: meshproxy                 # 工作在 kubernetes 下的 mesh 模式
+    dns_ttl: 120
+    enable: false
+    option:
+      reload_interval_sec: 30       # 定时与北极星服务端进行同步服务列表
+      dns_answer_ip: 10.4.4.4       # 返回给 envoy 的 IP 信息
+```
+
+#### polaris-go SDK 配置
+
+```yaml
+global:
+  serverConnector:
+    addresses:
+      - 127.0.0.1:8091      # 设置北极星服务端 gRPC 服务发现接入地址
+  location:                 # 用于就近接入
+    provider: env           # 默认从环境变量中读取地理位置信息
+```
+
+## 快速接入
 
 ### 部署polaris
 
@@ -23,105 +82,306 @@ polaris支持在kubernetes环境中进行部署，注意必须保证暴露HTTP�
 - [单机版部署指南](/docs/使用指南/服务端安装/单机版安装/)
 - [集群版部署指南](/docs/使用指南/服务端安装/集群版安装/)
 
-### 部署 polaris-controller 
+### 虚拟机接入
 
-您需要在应用所在的 Kubernetes 集群部署 `polaris-controller` ，用于将集群中的服务数据接入到`polaris` （如果已经部署可忽略）。如果您有多个 Kubernetes 集群需要接入 `polaris` ，需要在每个集群都部署 `polaris-controller`。
+#### 安装 polaris-sidecar
 
-#### 部署包下载
+- 虚拟机安装过程需要使用root用户或者具有超级管理员权限的用户来执行，并且确保53（udp/tcp）端口没有被占用。
+- 需要从[Releases](https://github.com/polarismesh/polaris-sidecar/releases)下载最新版本的安装包。
+- 上传安装包到虚拟机环境中，并进行解压，进入解压后的目录。
 
-到`polaris-controller`的下载页面，根据您这边的kubernetes版本号（版本号小于等于1.21.x，选择k8s1.21.zip；版本号为1.22.x，选择k8s1.22.zip），下载最新版本polaris-controller安装包。
+  ```bash
+  unzip polaris-sidecar-release_$version.$os.$arch.zip
+  ```
 
-- [github下载](https://github.com/polarismesh/polaris-controller/releases)
+- 修改polaris.yaml，写入部署好的北极星服务端的地址，端口号使用8091（GRPC端口）。
 
-#### 部署包安装
+  ```yaml
+  global:
+    serverConnector:
+      addresses:
+        - {北极星服务端IP}:8091
+  ```
 
-安装前，需确保kubectl命令已经加入环境变量Path中，并且可以访问kubernetes的APIServer。
+- 关闭系统自身的 dns resolve 进程
+  ```bash
+  # 关闭 systemd-resolved 进程
+  systemctl stop systemd-resolved
 
-以```polaris-controller-release_v1.3.0-beta.0.k8s1.21.zip```为例：
+  # 如果想恢复原本的 systemd-resolved，执行下面命令
+  # systemctl start systemd-resolved
+  ```
 
-解压并进入部署包：
+- 进入解压后的目录，执行tool/start.sh进行启动，然后执行tool/p.sh查看进程是否启动成功。
 
+  ```bash
+  # bash tool/start.sh
+  # bash ./tool/p.sh
+  root     15318     1  0 Jan22 ?        00:07:50 ./polaris-sidecar start
+  ```
+
+- 使用 **root** 权限修改/etc/resolv.conf，在文件中添加```nameserver 127.0.0.1```，并且添加到所有的nameserver记录前面，如下：
+
+  ```conf
+  ; generated by /usr/sbin/dhclient-script
+  nameserver 127.0.0.1
+  nameserver x.x.x.x
+  ```
+
+#### 验证
+
+使用格式为```<service>.<namespace>```的域名进行访问，可以获得服务的IP地址。
+
+```bash
+# dig polaris.checker.polaris
+
+...
+;; QUESTION SECTION:
+;polaris.checker.polaris. IN        A
+
+;; ANSWER SECTION:
+polaris.checker.polaris. 10 IN AAAA ::ffff:127.0.0.1
+...
 ```
-unzip polaris-controller-release_v1.3.0-beta.0.k8s1.21.zip
-cd polaris-controller-release_v1.3.0-beta.0.k8s1.21
-```
 
-查询用户token，由于controller需要直接访问polaris的控制台OpenAPI，因此需要填写token。
+{{< note >}}
+如果使用 DNS 进行服务发现，则必须保证命名空间和服务名在北极星上都是以全小写字母进行注册，否则会寻址失败。
+{{< /note >}}
 
-- 打开北极星控制台，选择用户->用户列表->选择polaris用户->查看token，即可获取到token。
+### Kubernetes 接入
 
-![](../images/envoy/查看token.png)
+#### 部署 polaris-controller
 
-修改variables.txt文件，填写polaris的地址（只填IP或者域名，无需端口），如果在同一个集群中，则可以填写集群内域名，同时需要填写上一步所查询到的token
+- [controller 部署](/docs/使用指南/k8s和网格代理/安装polaris-controller/)
+#### 启用 sidecar 注入功能
 
-```
-#polaris地址，只填IP或者域名，无需端口
-POLARIS_HOST:polaris.polaris-system
-#polaris的用户token
-POLARIS_TOKEN:4azbewS+pdXvrMG1PtYV3SrcLxjmYd0IVNaX9oYziQygRnKzjcSbxl+Reg7zYQC1gRrGiLzmMY+w+aCxOYI=
-```
-
-执行安装部署。
-
-```
-./install.sh
-```
-
-## 快速接入
-
-### 启用 sidecar 自动注入功能
-
-- 为 `default` 命名空间启用注入：
+- 为某个 kubernetes 命名空间启用 sidecar 注入：
   
-```
-kubectl label namespace default polaris-injection=enabled 
-kubectl label namespace default polaris-sidecar-mode=dns 
-```
+  ```bash
+  # 为某个 kubernetes 命名空间开启 polaris sidecar 的注入
+  kubectl label namespace ${kubernetes namespace} polaris-injection=enabled
+  # 设置注入的 polaris sidecar 以 dns 模式运行
+  kubectl label namespace ${kubernetes namespace} polaris-sidecar-mode=dns 
+  ```
 
-### 部署样例
+#### 部署样例
 
 - 下载样例部署文件
-  - [dns provider](https://github.com/polarismesh/examples/blob/main/dns/providuer/deployment.yaml)
-  - [dns consumer](https://github.com/polarismesh/examples/blob/main/dns/consumer/deployment.yaml)
-
+  - [服务提供者](https://github.com/polarismesh/examples/blob/main/dns/providuer/deployment.yaml)
+  - [验证容器](https://github.com/polarismesh/examples/blob/main/dns/consumer/deployment.yaml)
 - 执行部署：```kubectl create -f deployment.yaml```
-
 - 查看容器注入是否注入成功
 
 启动自动注入后，`polaris-controller` 会将 `Polaris Sidecar` 容器注入到在此命名空间下创建的 pod 中。
 
 可以看到运行起来的 pod 均包含两个容器，其中第一个容器是用户的业务容器，第二个容器是由 Polaris Controller 注入器注入的 Polaris Sidecar 容器。您可以通过下面的命令来获取有关 pod 的更多信息：
 
-```
+```bash
 kubectl describe pods -l k8s-app=polaris-dns-provider --namespace=default
 ```
 
-## 验证
+#### 验证
 
-- 进入 consumer POD, 执行 curl 命令
+{{< note >}}
+如果使用 DNS 进行服务发现，则必须保证命名空间和服务名在北极星上都是以全小写字母进行注册，否则会寻址失败。
+{{< /note >}}
 
-```bash
-kubectl exec -it polaris-dns-consumer-xxx -n default -- /bin/bash
 
-# 方式 1
-curl http://127.0.0.1:20000/echo
+- 进入验证 POD, 执行 curl 命令
 
-# 方式 2
-curl http://echoserver.default:10000/echo
-```
+  ```bash
+  kubectl exec -it polaris-dns-consumer-xxx -n default -- /bin/bash
+
+  curl http://echoserver.default:10000/echo
+  ```
 
 - 返回结果
 
-```log
-bash-5.1# curl http://127.0.0.1:20000/echo -w "\n";
-Hello, I'm DiscoverEchoServer Provider, My host : 10.1.0.111:10000
+  ```log
+  bash-5.1# curl http://echoserver.default:10000/echo -w "\n";
+  Hello, I'm DiscoverEchoServer Provider, My host : 10.1.0.111:10000
+  ```
 
-bash-5.1# curl http://127.0.0.1:20000/echo -w "\n";
-Hello, I'm DiscoverEchoServer Provider, My host : 10.1.0.111:10000
+## 使用高级功能
 
-bash-5.1# curl http://echoserver.default:10000/echo -w "\n";
-Hello, I'm DiscoverEchoServer Provider, My host : 10.1.0.111:10000
+在使用高级功能时，先创建一个测试服务，用于接下来的功能测试
 
-bash-5.1# curl http://echoserver.default:10000/echo -w "\n";
-Hello, I'm DiscoverEchoServer Provider, My host : 10.1.0.111:10000
+- 创建测试服务 `test.echoserver`
+  
+  ![](../images/dns/test_service.png)
+
+### 使用就近路由
+
+可以通过设置环境变量，指定 polaris-sidecar 实例所处的地理位置信息，当 polaris-sidecar 执行 DNS 服务发现时，会根据自身的地域信息，对目标服务实例进行就近匹配。
+
+
+假定一个场景：
+
+- 存在以下三个地域
+  - region=region-1、zone=zone-1、campus=campus-1 
+  - region=region-2、zone=zone-2、campus=campus-2 
+  - region=region-3、zone=zone-3、campus=campus-3
+- polaris-sidecar 如果处于 region=region-1、zone=zone-1、campus=campus-1，则优先选择相同地域的实例
+
+#### 接入
+
+{{< tabs >}}
+{{% tab name="虚拟机" %}}
+- 设置地域信息环境变量
+  ```bash
+  export POLARIS_INSTANCE_REGION=${ REGION 信息 }
+  export POLARIS_INSTANCE_ZONE=${ ZONE 信息 }
+  export POLARIS_INSTANCE_CAMPUS=${ CAMPUS 信息 }
+  ```
+- 重启 polaris-sidecar
+  ```bash
+  bash tool/stop.sh
+  bash tool/start.sh
+  ```
+
+{{% /tab %}}
+{{% tab name="Kubernetes" %}}
+- 调整 polaris-sidecar container 的 ENV 信息
+  ```yaml
+  containers:
+  - image: polarismesh/polaris-sidecar:${sidecar 的版本}
+    name: polaris-sidecar
+  ...
+    env:
+      - name: POLARIS_INSTANCE_REGION
+        value: "{ REGION 信息 }"
+      - name: POLARIS_INSTANCE_ZONE
+        value: "{ ZONE 信息 }"
+      - name: POLARIS_INSTANCE_CAMPUS
+        value: "{ CAMPUS 信息 }"
+  ...
+  ```
+- 重建 POD
+  ```bash
+  kubectl delete pod {POD 名称} --namespace {命名空间}
+  ```
+{{% /tab %}}
+{{< /tabs >}}
+
+#### 验证
+
+```bash
+# export POLARIS_INSTANCE_REGION=region-1
+# export POLARIS_INSTANCE_ZONE=zone-1
+# export POLARIS_INSTANCE_CAMPUS=campus-1
+➜ dig test.echoserver.default     
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       1.1.1.1
+...
+
+# export POLARIS_INSTANCE_REGION=region-2
+# export POLARIS_INSTANCE_ZONE=zone-2
+# export POLARIS_INSTANCE_CAMPUS=campus-2
+➜ dig test.echoserver.default     
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       2.2.2.2
+...
+
+# export POLARIS_INSTANCE_REGION=region-3
+# export POLARIS_INSTANCE_ZONE=zone-3
+# export POLARIS_INSTANCE_CAMPUS=campus-3
+➜ dig test.echoserver.default
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       3.3.3.3
+...
+```
+
+### 使用动态路由
+
+假定一个场景：
+
+- 希望 env 为 dev 的请求，路由到 env 标签为 dev 的实例上
+- 希望 env 为 pre 的请求，路由到 env 标签为 pre 的实例上
+- 其他则路由到 env 标签为 prod 的实例上
+
+这里动态路由规则设置请求参数的类型均为 **自定义参数**，动态路由相关规则配置请参考: [控制台使用-动态路由](/docs/使用指南/控制台使用/服务网格/动态路由/)
+
+{{< note >}}
+当前 DNS 服务发现仅支持静态标签动态路由，暂不支持请求级别的动态路由
+{{< /note >}}
+
+
+
+#### 接入
+
+{{< tabs >}}
+{{% tab name="虚拟机" %}}
+
+- 调整 polaris-sidecar 配置文件
+  ```yaml
+  ...
+  resolvers:                      # DNS 解析插件
+    - name: dnsagent              # 普通的 DNS 解析
+      dns_ttl: 10                 # dns 记录的 TTL
+      enable: true                # 插件是否启用
+      suffix: "."                  # 决定哪些域名解析会先通过 polaris-sidecar，默认为全部域名，用户可以设置改配置来控制需要经过 polaris-sidecar 解析域名
+      option: 
+        route_labels: "env: dev"  # 当前 polaris-sidecar 的静态标签信息，用于服务路由
+  ```
+- 重启 polaris-sidecar
+  ```bash
+  bash tool/stop.sh
+  bash tool/start.sh
+  ```
+
+{{% /tab %}}
+{{% tab name="Kubernetes" %}}
+
+- 调整 polaris-sidecar container 的 ENV 信息
+  ```yaml
+  containers:
+  - image: polarismesh/polaris-sidecar:${sidecar 的版本}
+    name: polaris-sidecar
+  ...
+    env:
+      - name: SIDECAR_DNS_ROUTE_LABELS
+        value: "key:value,key:value"   # 设置 sidecar 的静态路由标签
+  ...
+  ```
+- 重建 POD
+  ```bash
+  kubectl delete pod {POD 名称} --namespace {命名空间}
+  ```
+{{% /tab %}}
+{{< /tabs >}}
+
+#### 验证
+
+执行 dig 命令验证
+
+```bash
+# 设置 route_labels: "env: dev"
+➜ dig test.echoserver.default     
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       1.1.1.1
+...
+
+# 设置 route_labels: "env: pre"
+➜ dig test.echoserver.default     
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       2.2.2.2
+...
+
+# 设置 route_labels: ""
+➜ dig test.echoserver.default
+
+...
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       3.3.3.3
+...
 ```
