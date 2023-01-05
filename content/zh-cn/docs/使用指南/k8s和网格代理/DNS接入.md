@@ -195,7 +195,97 @@ kubectl describe pods -l k8s-app=polaris-dns-provider --namespace=default
   curl http://echoserver.default:10000/echo
   ```
 
-- 返回结果
+### 使用动态路由
+
+假定一个场景：
+
+- 希望 env 为 dev 的请求，路由到 env 标签为 dev 的实例上
+- 希望 env 为 pre 的请求，路由到 env 标签为 pre 的实例上
+- 其他则路由到 env 标签为 prod 的实例上
+
+这里动态路由规则设置请求参数的类型均为 **自定义参数**，动态路由相关规则配置请参考: [控制台使用-动态路由](/docs/使用指南/控制台使用/服务网格/动态路由/)
+
+{{< note >}}
+当前 DNS 服务发现仅支持静态标签动态路由，暂不支持请求级别的动态路由
+{{< /note >}}
+
+#### 虚拟机接入
+
+- 调整 polaris-sidecar 配置文件
+  ```yaml
+  ...
+  resolvers:                      # DNS 解析插件
+    - name: dnsagent              # 普通的 DNS 解析
+      dns_ttl: 10                 # dns 记录的 TTL
+      enable: true                # 插件是否启用
+      suffix: "."                  # 决定哪些域名解析会先通过 polaris-sidecar，默认为全部域名，用户可以设置改配置来控制需要经过 polaris-sidecar 解析域名
+      option: 
+        route_labels: "env: dev"  # 当前 polaris-sidecar 的静态标签信息，用于服务路由
+  ```
+- 重启 polaris-sidecar
+  ```bash
+  bash tool/stop.sh
+  bash tool/start.sh
+  ```
+
+#### Kubernetes 接入
+
+
+- 调整 polaris-sidecar container 的 ENV 信息
+  ```yaml
+  containers:
+  - image: polarismesh/polaris-sidecar:${sidecar 的版本}
+    name: polaris-sidecar
+    securityContext:
+      allowPrivilegeEscalation: true
+      capabilities:
+        add:
+        - NET_ADMIN
+        - NET_RAW
+        drop:
+        - ALL
+      privileged: true
+      readOnlyRootFilesystem: false
+      runAsGroup: 1337
+      runAsNonRoot: false
+      runAsUser: 1337
+    imagePullPolicy: Always
+    env:
+      - name: SIDECAR_DNS_ROUTE_LABELS
+        value: "key:value,key:value"   # 设置 sidecar 的静态路由标签
+  ...
+  ```
+- 重建 POD
+  ```bash
+  kubectl delete pod {POD 名称} --namespace {命名空间}
+  ```
+
+#### 验证
+
+执行 dig 命令验证
+
+```bash
+# 设置 route_labels: "env: dev"
+➜ dig test.echoserver.default     
+
+...
+;; QUESTION SECTION:
+;test.echoserver.default.       IN      A
+
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       1.1.1.1
+...
+
+# 设置 route_labels: "env: pre"
+➜ dig test.echoserver.default     
+
+...
+;; QUESTION SECTION:
+;test.echoserver.default.       IN      A
+
+;; ANSWER SECTION:
+test.echoserver.default. 10     IN      A       2.2.2.2
+...
 
   ```log
   bash-5.1# curl http://echoserver.default:10000/echo -w "\n";
