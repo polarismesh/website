@@ -194,20 +194,18 @@ polaris.checker.polaris. 10 IN AAAA ::ffff:127.0.0.1
   curl http://echoserver.default:10000/echo
   ```
 
-### 使用动态路由
 
-假定一个场景：
+## 使用高级功能
+
+在使用高级功能时，先创建一个测试服务，用于接下来的功能测试
 
 - 创建测试服务 `test.echoserver`
-  
+
   ![](../images/dns/test_service.png)
 
-这里动态路由规则设置请求参数的类型均为 **自定义参数**，动态路由相关规则配置请参考: [控制台使用-动态路由](/docs/使用指南/控制台使用/服务网格/动态路由/)
+### 使用就近路由
 
-{{< note >}}
-当前 DNS 服务发现仅支持静态标签动态路由，暂不支持请求级别的动态路由
-{{< /note >}}
-
+可以通过设置环境变量，指定 polaris-sidecar 实例所处的地理位置信息，当 polaris-sidecar 执行 DNS 服务发现时，会根据自身的地域信息，对目标服务实例进行就近匹配。
 
 假定一个场景：
 
@@ -242,8 +240,12 @@ polaris.checker.polaris. 10 IN AAAA ::ffff:127.0.0.1
     name: polaris-sidecar
   ...
     env:
-      - name: SIDECAR_DNS_ROUTE_LABELS
-        value: "key:value,key:value"   # 设置 sidecar 的静态路由标签
+      - name: POLARIS_INSTANCE_REGION
+        value: "{ REGION 信息 }"
+      - name: POLARIS_INSTANCE_ZONE
+        value: "{ ZONE 信息 }"
+      - name: POLARIS_INSTANCE_CAMPUS
+        value: "{ CAMPUS 信息 }"
   ...
   ```
 - 重建 POD
