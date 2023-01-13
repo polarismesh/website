@@ -65,6 +65,8 @@ bash tool/start.cmd
 
 ## 修改 L5Agent 配置
 
+修改 L5Agent 安装目录下的 `conf/l5_config.ini` 配置文件
+
 ```conf
 [L5CONFIG]
 ServerIp={北极星服务端IP}
@@ -73,7 +75,7 @@ ServerPort=7779
 
 修改完上述配置之后，重启 L5Agent。在重启前需要删除 **/data/L5Backup/l5server_list.backup**
 
-## 测试
+## 验证
 
 ### SID 规范以及注意
 
