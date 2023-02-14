@@ -7,7 +7,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigClient
+        - Client
       summary: 拉取配置
       operationId: getConfigFile
       parameters:
@@ -41,7 +41,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigClient
+        - Client
       summary: 监听配置
       operationId: watchConfigFile
       parameters:
@@ -61,7 +61,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 搜索配置文件组
       operationId: QueryConfigFileGroups
       parameters:
@@ -97,7 +97,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 更新配置文件组
       operationId: UpdateConfigFileGroup
       parameters:
@@ -126,7 +126,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 创建配置文件组
       operationId: CreateConfigFileGroup
       parameters:
@@ -155,7 +155,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 删除配置文件
       operationId: DeleteConfigFileGroup
       parameters:
@@ -179,7 +179,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 拉取配置
       operationId: GetConfigFile
       parameters:
@@ -207,7 +207,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 创建配置文件
       operationId: UpdateConfigFile
       parameters:
@@ -239,7 +239,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 创建配置文件
       operationId: CreateConfigFile
       parameters:
@@ -271,7 +271,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 创建配置文件
       operationId: DeleteConfigFile
       parameters:
@@ -304,7 +304,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 批量删除配置文件
       operationId: BatchDeleteConfigFile
       parameters:
@@ -338,7 +338,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 搜索配置文件
       operationId: QueryConfigFilesByGroup
       parameters:
@@ -371,7 +371,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 获取配置文件最后一次全量发布信息
       operationId: GetConfigFileRelease
       parameters:
@@ -399,7 +399,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 发布配置文件
       operationId: PublishConfigFile
       parameters:
@@ -430,7 +430,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 获取配置文件发布历史记录
       operationId: GetConfigFileReleaseHistory
       parameters:
@@ -468,7 +468,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 搜索配置文件
       operationId: SearchConfigFile
       parameters:
@@ -509,7 +509,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 获取配置模板
       operationId: GetAllConfigFileTemplates
       responses:
@@ -521,7 +521,7 @@ paths:
       produces:
         - application/json
       tags:
-        - ConfigConsole
+        - ConfigFile
       summary: 创建配置模板
       operationId: CreateConfigFileTemplate
       responses:
@@ -1400,33 +1400,6 @@ paths:
       responses:
         '200':
           description: OK
-  /core/v1/namespaces/token:
-    get:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Namespaces
-      summary: 查询命名空间Token
-      operationId: CoreGetNamespaceToken
-      deprecated: true
-      responses:
-        '200':
-          description: OK
-    put:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Namespaces
-      summary: 更新命名空间Token
-      operationId: CoreUpdateNamespaceToken
-      deprecated: true
-      responses:
-        '200':
-          description: OK
   /core/v1/user:
     put:
       description: "\n更新用户的备注信息数据\n\n请求示例：\n\n~~~\nPUT /core/v1/user\nHeader X-Polaris-Token: {访问凭据}\n~~~\n\n~~~json\n{\n\t\"id\": \"xxx\",\n\t\"comment\": \"polarismesh\"\n}\n~~~\n\n| 参数名  | 类型   | 描述     | 是否必填 |\n|---------|--------|--------|---------|\n| id      | string | 用户ID   | 是       |\n| comment | string | 用户备注 | 否       |\n"
@@ -2168,20 +2141,6 @@ paths:
           name: version
           in: path
           required: true
-      responses:
-        '200':
-          description: OK
-  /naming/v1/circuitbreaker/token:
-    get:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - CircuitBreakers
-      summary: 查询熔断规则Token
-      operationId: GetCircuitBreakerToken
-      deprecated: true
       responses:
         '200':
           description: OK
@@ -3447,33 +3406,6 @@ paths:
           name: namespace
           in: query
           required: true
-      responses:
-        '200':
-          description: OK
-  /naming/v1/namespace/token:
-    get:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Namespaces
-      summary: 查询命名空间Token
-      operationId: GetNamespaceToken
-      deprecated: true
-      responses:
-        '200':
-          description: OK
-    put:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Namespaces
-      summary: 更新命名空间Token
-      operationId: UpdateNamespaceToken
-      deprecated: true
       responses:
         '200':
           description: OK
@@ -4847,33 +4779,6 @@ paths:
       responses:
         '200':
           description: OK
-  /naming/v1/service/token:
-    get:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Services
-      summary: 查询服务Token
-      operationId: GetServiceToken
-      deprecated: true
-      responses:
-        '200':
-          description: OK
-    put:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - Services
-      summary: 更新服务Token
-      operationId: UpdateServiceToken
-      deprecated: true
-      responses:
-        '200':
-          description: OK
   /naming/v1/services:
     get:
       description: >
@@ -5548,7 +5453,7 @@ paths:
       produces:
         - application/json
       tags:
-        - RegisterInstance
+        - Client
       summary: 注销实例
       operationId: DeregisterInstance
       responses:
@@ -5561,7 +5466,7 @@ paths:
       produces:
         - application/json
       tags:
-        - RegisterInstance
+        - Client
       summary: 服务发现
       operationId: Discover
       responses:
@@ -5575,7 +5480,7 @@ paths:
       produces:
         - application/json
       tags:
-        - RegisterInstance
+        - Client
       summary: 上报心跳
       operationId: Heartbeat
       responses:
@@ -5589,7 +5494,7 @@ paths:
       produces:
         - application/json
       tags:
-        - RegisterInstance
+        - Client
       summary: 注册实例
       operationId: RegisterInstance
       responses:
@@ -5603,7 +5508,7 @@ paths:
       produces:
         - application/json
       tags:
-        - RegisterInstance
+        - Client
       summary: 上报客户端
       operationId: ReportClient
       parameters:
@@ -5612,19 +5517,6 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/v1.Client'
-      responses:
-        '200':
-          description: OK
-  /v2/Discover:
-    post:
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      tags:
-        - RegisterInstance
-      summary: 服务发现
-      operationId: v2Discover
       responses:
         '200':
           description: OK
@@ -6887,28 +6779,26 @@ definitions:
         type: integer
         format: int64
 tags:
-  - description: 鉴权管理
-    name: Auth
-  - description: 客户端API接口
-    name: ConfigClient
-  - description: 服务端接口
-    name: ConfigConsole
-  - description: 熔断限流
-    name: CircuitBreakers
-  - description: 实例管理
-    name: Instances
-  - description: 运维接口
-    name: Maintain
   - description: 命名空间管理
     name: Namespaces
+  - description: 配置管理
+    name: ConfigFile
+  - description: 熔断规则管理
+    name: CircuitBreakers
   - description: 路由规则管理
     name: RoutingRules
   - description: 限流规则管理
     name: RateLimits
-  - description: 服务发现
-    name: RegisterInstance
   - description: 服务管理
     name: Services
+  - description: 实例管理
+    name: Instances
+  - description: 客户端API接口
+    name: Client
+  - description: 运维接口
+    name: Maintain
+  - description: 鉴权管理
+    name: Auth
   - description: 用户管理
     name: Users
   - description: 用户组
