@@ -20,6 +20,22 @@ weight: 1
 
 需要先安装北极星集群版，可参考 [集群版安装](/docs/使用指南/服务端安装/集群版安装)
 
+*** 迁移相关的参数说明 ***
+
+北极星通过eureka-apiserver实现了与开源标准eureka接口全兼容，用户如果对eureka进行了一些定制，需要手动调整eurekaeureka-apiserver的相关参数。
+
+所有的eureka相关的参数都在polaris.yaml中，在apiservers.option下面进行配置：
+
+| 参数名              | 含义                                                         | 示例             |
+| ------------------- | ------------------------------------------------------------ | ---------------- |
+| listenIP            | eureka兼容的服务端监听IP                                     | 0.0.0.0          |
+| listenPort          | eureka兼容的服务端监听端口                                   | 8761             |
+| namespace           | 通过eureka接口注册及发现的服务节点的命名空间，由于eureka本身没有命名空间的概念，所以针对eureka的服务管理操作必须在北极星某个命名空间下进行 | default          |
+| refreshInterval     | 全量服务实例缓存的刷新间隔，单位秒                           | 10               |
+| deltaExpireInterval | 增量实例缓存的刷新间隔，单位秒                               | 60               |
+| peersToReplicate    | 需要进行复制的对端eureka服务端节点列表                       | - 9.15.15.5:8761 |
+| customValues        | 自定义配置，用户如果对eureka服务端进行了定制并影响了参数，则可以把相关的参数填上，比如定制了dataCenterInfo，则可以将新的dci信息填入，北极星服务端会按照配置的信息进行下发 | 见" 定制dataCenterInfo"           |
+
 *** 往北极星服务端添加eureka地址 ***
 
 - 进入北极星集群中的其中一个节点，找到polaris.yaml配置文件，在```apiservers.service-eureka.option```下面，添加eureka服务端地址信息，用于做数据复制：
@@ -48,6 +64,20 @@ eureka:
 ```
 
 - 重启Eureka服务端。
+
+***  定制dataCenterInfo ***
+
+如果用户对eureka-server进行了定制，比如定制了```<dataCenterInfo class="com.netflix.appinfo.AmazonInfo">```，那么可以在北极星把这个配置项加入，即可下发带有定制后的DCI相关的服务数据。
+
+```
+apiservers:
+  - name: service-eureka
+    option:
+      ... // 其他配置
+      customValues:
+        dataCenterInfoClass: "com.netflix.appinfo.AmazonInfo"
+        dataCenterInfoName: "myOwn"
+```
 
 ### 迁移完成
 
