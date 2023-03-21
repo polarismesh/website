@@ -45,28 +45,38 @@ polaris-controller-545df9775c-48cqt   1/1     Running   0          2d9h
 
 ### 全量同步服务
 
-以全量同步服务的模式启动 polaris-controller，将 K8s Service 全部同步到北极星，启动配置如下：
+以全量同步服务的模式启动 polaris-controller，将 K8s Service 全部同步到北极星，则 polaris-controller 的启动配置如下：
+
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 data:
-  mesh:
+  mesh: |-
+    ...
     serviceSync
       mode: "all"
+    ...
 ```
+
+
 
 ### 按需同步服务
 
-以按需同步服务的模式启动 polaris-controller，默认不会将 K8s Service 同步到北极星，启动配置如下：
+以按需同步服务的模式启动 polaris-controller，默认不会将 K8s Service 同步到北极星，则 polaris-controller 的启动配置如下：
+
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
 
 ```yaml
 apiVersion: v1
 kind: ConfigMap
 data:
-  mesh:
+  mesh: |-
+    ...
     serviceSync
       mode: "demand"
+    ...
 ```
 
 如果需要将某个 Namespace 中的全部 Service 同步到北极星，请在 Namespace 上添加北极星的 annotation，配置方式如下： 
