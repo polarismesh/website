@@ -1,0 +1,98 @@
+---
+title: "版本升级"
+linkTitle: "版本升级"
+weight: 5
+---
+
+
+## 服务端与控制台版本对应表
+
+[北极星服务端](https://github.com/polarismesh/polaris) 与 [北极星控制台](https://github.com/polarismesh/polaris-console) 版本的对应关系
+
+| Polaris-Server Version | Polaris-Console Version |
+|:-----------------------|:------------------------|
+| v1.15.x                | v1.12.x                 |
+| v1.14.x                | v1.11.x                 |
+| v1.13.x                | v1.10.x                 |
+| v1.12.x                | v1.9.x                  |
+| v1.11.x                | v1.8.x                  |
+| v1.10.0                | v1.7.3                  |
+| v1.9.0                 | v1.6.1                  |
+| v1.8.0                 | v1.6.0                  |
+| v1.7.0                 | v1.5.8                  |
+| v1.6.0                 | v1.4.0                  |
+| v1.5.0                 | v1.3.2                  |
+| v1.4.0                 | v1.3.1                  |
+| v1.3.2                 | v1.3.1                  |
+| v1.3.1                 | v1.3.0                  |
+| v1.3.0                 | v1.2.1                  |
+| v1.2.2                 | v1.2.1                  |
+| v1.2.1                 | v1.2.1                  |
+| v1.2.0                 | v1.2.0                  |
+| v1.0.0                 | v1.0.0                  |
+
+
+## 1.10.x 版本升级至 1.11.x
+
+> polaris-server 升级
+
+- 执行数据库增量脚本：[v1_8_0-v1_11_0.sql](https://github.com/polarismesh/polaris/blob/release-v1.11.0/store/sqldb/scripts/delta/v1_8_0-v1_11_0.sql)
+
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+## 1.11.x 版本升级至 1.12.x
+
+>  polaris-server 升级
+
+- 执行数据库增量脚本：[v1_11_0-v1_12_0.sql](https://github.com/polarismesh/polaris/blob/release-v1.12.0/store/sqldb/scripts/delta/v1_11_0-v1_12_0.sql)
+- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.12.0/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+## 1.12.x 版本升级至 1.13.x
+
+>  polaris-server 升级
+
+- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.13.0/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+## 1.13.x 版本升级至 1.14.x
+
+>  polaris-server 升级
+
+- 执行数据库增量脚本：[v1_12_0-v1_14_0.sql](https://github.com/polarismesh/polaris/blob/release-v1.14.0/store/mysql/scripts/delta/v1_12_0-v1_14_0.sql)
+- 执行升级工具：[circuitbreaker_rule_transform](https://github.com/polarismesh/polaris/blob/release-v1.14.0/release/upgrade/circuitbreaker_rule_transform/README.md)
+- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.14.0/release/conf/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+## 1.14.x 版本升级至 1.15.x
+
+>  polaris-server 升级
+
+- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.15.0/release/conf/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+## 1.15.x 版本升级至 1.16.x
+
+>  polaris-server 升级
+
+- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.15.0/release/conf/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
