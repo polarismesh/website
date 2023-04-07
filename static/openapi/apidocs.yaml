@@ -1,4 +1,18 @@
 swagger: '2.0'
+info:
+  description: |+
+    一个支持多语言、多框架的云原生服务发现和治理中心
+
+    提供高性能SDK和无侵入Sidecar两种接入方式
+
+  title: Polaris Server
+  contact:
+    name: Polaris Mesh
+    url: https://polarismesh.cn/
+  license:
+    name: BSD 3-Clause
+    url: https://github.com/polarismesh/polaris/blob/main/LICENSE
+  version: v0.1.0
 paths:
   /config/v1/GetConfigFile:
     get:
@@ -2403,7 +2417,7 @@ paths:
         '200':
           description: OK
     post:
-      description: "\n创建一条或多条熔断规则。\n\n请求示例：\n~~~\nPOST /naming/v1/circuitbreaker/rules\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n   {\n      \"name\": \"xxxx\"\n      \"enable\": true,\n      \"description\": \"abc\",\n      \"level\": SERVICE,\n      \"rule_matcher\": {\n      \t\"source\": {    \n      \t  \"service\": \"srcSvc\",\n      \t  \"namespace\": \"default\"\n      \t},\n      \t\"destination\": {\n      \t  \"service\": \"dstSvc\",\n      \t  \"namespace\": \"default\"\n      \t  \"method\": {\n      \t    \"type\": \"EXACT\",\n      \t    \"value\": \"test\"\n      \t  }\n      \t}\n      }, \n      \"error_conditions\": [          \n        {          \n          \"input_type\": \"RET_CODE\",  \n          \"condition\": {             \n             \"type\": \"EXACT\",       \n      \t     \"value\": \"200\"\n          }\n        }\n      ],     \n      \"trigger_condition\": [         \n       {        \t\n      \t\t\"trigger_type\": \"ERROR_RATE\", \n      \t\t\"error_count\": 10,          \n      \t\t\"error_percent\": 50,          \n      \t\t\"interval\": 30,             \n      \t\t\"minimum_request\": 5 \n      \t}\n      ],\n      \"recoverCondition\": {\n      \t\"sleep_window\": 60\n      \t\"consecutiveSuccess\": 3\n      },      \n      \"faultDetectConfig\": {\n      \t\"enable\": true\n      }\n      \"fallbackConfig”: {\n        \"enable\": false,\n        \"response\": {\n        \t\"code\": 500,\n        \t\"headers\": [\n        \t  {\n        \t\t\"key\": \"uin\",\n        \t\t\"value\": \"12345\"\n        \t  }\n        \t],\n        \t\"body\": \"request blocked\"\n        }\n      }\n   }\n]\n~~~\n回复示例：\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"data\": [\n   {\n      \"@type\": \"type.googleapis.com/v1.CircuitBreakerRule\",\n      \"id\": \"be97bc73ae444b0095a379f56ec98efd\",\n      \n   }\n  }\n ]\n}\n~~~\n\n数据结构：\n\n> CircuitBreakerRule结构参数\n\n| 参数名          | 类型          | 描述                                                         | 是否必填 |\n| --------------- | ------------- | ------------------------------------------------------------ | -------- |\n| name            | string        | 规则名                                                       | 是       |\n| namespace       | string        | 规则所属的命名空间                                           | 是       |\n| enable          | string        | 是否启用该限流规则，默认为false（不启用）                    | 是       |\n| description     | string        | 规则描述                                                     | 否       |\n| level           | enum          | 限流级别：SERVICE, METHOD, GROUP, INSTANCE                   | 是       |\n| rule_matcher    | RuleMatcher   | 规则的服务匹配条件                                           | 是       |\n| error_conditions       | ErrorCondition        | 错误匹配条件                                  | 否       |\n| trigger_condition      | TriggerCondition      | 限流触发条件                                  | 是       |\n| max_ejection_percent   | uint32                | 最大熔断比例，防雪崩                          | 否       |\n| recoverCondition       | RecoverCondition      | 熔断恢复条件                                  | 是       |\n| faultDetectConfig      | FaultDetectConfig     | 故障探测配置                                  | 否       |\n| fallbackConfig         | FallbackConfig        | 降级配置                                      | 否       |\n\n> RuleMatcher结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| source        | SourceService      | 来源服务信息                             | 是       |\n| destination   | DestinationService | 目标服务信息                             | 是       |\n\n> SourceService结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| service       | string | 服务名                                               | 是       |\n| namespace     | string | 命名空间                                             | 是       |\n\n> DestinationService结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| service       | string | 服务名                                               | 是       |\n| namespace     | string | 命名空间                                             | 是       |\n| method        | MatchString结构参数 | 接口匹配条件                            | 否       |\n\n> MatchString结构参数\n\n| 参数名 | 类型   | 描述                                                         | 是否必填 |\n| ------ | ------ | ------------------------------------------------------------ | -------- |\n| type   | string | 匹配类型，枚举，支持：EXACT（全匹配，默认），REGEX（正则表达式匹配），NOT_EQUALS（不等于），IN（包含），NOT_IN（不包含） | 是       |\n| value  | string | 匹配的目标值，如果选择的是包含和不包含，则通过逗号分割多个值 | 是       |\n\n> ErrorCondition结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| input_type   | enum      | 参数类型，枚举，支持：RET_CODE（返回码），DELAY（时延）  | 是       |\n| condition  | MatchString | 参数值匹配条件，匹配上了，该请求被认定为失败请求         | 是       |\n\n> TriggerCondition结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| trigger_type   | enum      | 触发条件，枚举，支持：ERROR_RATE（一段时间错误率），CONSECUTIVE_ERROR（连续错误数）  | 是       |\n| error_count  | uint32 | 连续错误数阈值                                                                            | 否       |\n| error_percent  | uint32 | 错误率百分比阈值                                                                        | 否       |\n| interval  | uint32 | 错误率统计时长，单位秒                                                                       | 否       |\n| minimum_request  | uint32 | 错误率统计的最小请求数起始阈值                                                        | 否       |\n\n> RecoverCondition结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| sleep_window   | uint32      | 熔断时长，单位秒                                     | 是       |\n| consecutiveSuccess  | uint32 | 恢复所需的连续成功数                                 | 是       |\n\n> FaultDetectConfig结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| enable   | bool      | 是否启用故障探测，默认否                                     | 否       |\n\n> FallbackConfig结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| enable   | bool      | 是否启用降级，默认否                                         | 否       |\n| response   | FallbackResponse      | 降级应答                                       | 否       |\n\n\n> FallbackResponse结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| code   | int32       | 降级返回码                                                   | 是       |\n| headers   | MessageHeader      | 降级应答的消息头                                   | 否       |\n| body   | string      | 降级应答的消息体                                             | 否       |\n\n> MessageHeader结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| key    | string       | 降级应答的消息头的Key                                       | 是       |\n| value   | string      | 降级应答的消息头的Value                                     | 是       |\n\n"
+      description: "\n创建一条或多条熔断规则。\n\n请求示例：\n~~~\nPOST /naming/v1/circuitbreaker/rules\n\n# 开启北极星服务端针对控制台接口鉴权开关后，需要添加下面的 header\nHeader X-Polaris-Token: {访问凭据}\n\n[\n   {\n      \"name\": \"xxxx\"\n      \"enable\": true,\n      \"description\": \"abc\",\n      \"level\": SERVICE,\n      \"rule_matcher\": {\n      \t\"source\": {    \n      \t  \"service\": \"srcSvc\",\n      \t  \"namespace\": \"default\"\n      \t},\n      \t\"destination\": {\n      \t  \"service\": \"dstSvc\",\n      \t  \"namespace\": \"default\"\n      \t  \"method\": {\n      \t    \"type\": \"EXACT\",\n      \t    \"value\": \"test\"\n      \t  }\n      \t}\n      }, \n      \"error_conditions\": [          \n        {          \n          \"input_type\": \"RET_CODE\",  \n          \"condition\": {             \n             \"type\": \"EXACT\",       \n      \t     \"value\": \"200\"\n          }\n        }\n      ],     \n      \"trigger_condition\": [         \n       {        \t\n      \t\t\"trigger_type\": \"ERROR_RATE\", \n      \t\t\"error_count\": 10,          \n      \t\t\"error_percent\": 50,          \n      \t\t\"interval\": 30,             \n      \t\t\"minimum_request\": 5 \n      \t}\n      ],\n      \"recoverCondition\": {\n      \t\"sleep_window\": 60\n      \t\"consecutiveSuccess\": 3\n      },      \n      \"faultDetectConfig\": {\n      \t\"enable\": true\n      }\n      \"fallbackConfig”: {\n        \"enable\": false,\n        \"response\": {\n        \t\"code\": 500,\n        \t\"headers\": [\n        \t  {\n        \t\t\"key\": \"uin\",\n        \t\t\"value\": \"12345\"\n        \t  }\n        \t],\n        \t\"body\": \"request blocked\"\n        }\n      }\n   }\n]\n~~~\n回复示例：\n~~~\n{\n \"code\": 200000,\n \"info\": \"execute success\",\n \"size\": 1,\n \"responses\": [\n  {\n   \"code\": 200000,\n   \"info\": \"execute success\",\n   \"data\": [\n   {\n      \"@type\": \"type.googleapis.com/v1.CircuitBreakerRule\",\n      \"id\": \"be97bc73ae444b0095a379f56ec98efd\",\n      \n   }\n  }\n ]\n}\n~~~\n\n数据结构：\n\n> CircuitBreakerRule结构参数\n\n| 参数名          | 类型          | 描述                                                         | 是否必填 |\n| --------------- | ------------- | ------------------------------------------------------------ | -------- |\n| name            | string        | 规则名                                                       | 是       |\n| namespace       | string        | 规则所属的命名空间                                           | 是       |\n| enable          | string        | 是否启用该限流规则，默认为false（不启用）                    | 是       |\n| description     | string        | 规则描述                                                     | 否       |\n| level           | enum          | 限流级别：SERVICE, METHOD, GROUP, INSTANCE                   | 是       |\n| rule_matcher    | RuleMatcher   | 规则的服务匹配条件                                           | 是       |\n| error_conditions       | ErrorCondition        | 错误匹配条件                                  | 否       |\n| trigger_condition      | TriggerCondition      | 限流触发条件                                  | 是       |\n| max_ejection_percent   | uint32                | 最大熔断比例，防雪崩                          | 否       |\n| recoverCondition       | RecoverCondition      | 熔断恢复条件                                  | 是       |\n| faultDetectConfig      | FaultDetectConfig     | 故障探测配置                                  | 否       |\n| fallbackConfig         | FallbackConfig        | 降级配置                                      | 否       |\n\n> RuleMatcher结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| source        | SourceService      | 来源服务信息                             | 是       |\n| destination   | DestinationService | 目标服务信息                             | 是       |\n\n> SourceService结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| service       | string | 服务名                                               | 是       |\n| namespace     | string | 命名空间                                             | 是       |\n\n> DestinationService结构参数\n\n| 参数名        | 类型   | 描述                                                 | 是否必填 |\n| ------------- | ------ | ---------------------------------------------------- | -------- |\n| service       | string | 服务名                                               | 是       |\n| namespace     | string | 命名空间                                             | 是       |\n| method        | MatchString结构参数 | 接口匹配条件                            | 否       |\n\n> MatchString结构参数\n\n| 参数名 | 类型   | 描述                                                         | 是否必填 |\n| ------ | ------ | ------------------------------------------------------------ | -------- |\n| type   | string | 匹配类型，枚举，支持：EXACT（全匹配，默认），REGEX（正则表达式匹配），NOT_EQUALS（不等于），IN（包含），NOT_IN（不包含） | 是       |\n| value  | string | 匹配的目标值，如果选择的是包含和不包含，则通过逗号分割多个值 | 是       |\n\n> ErrorCondition结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| input_type   | enum      | 参数类型，枚举，支持：RET_CODE（返回码），DELAY（时延）  | 是       |\n| condition  | MatchString | 参数值匹配条件，匹配上了，该请求被认定为失败请求         | 是       |\n\n> TriggerCondition结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| trigger_type   | enum      | 触发条件，枚举，支持：ERROR_RATE（一段时间错误率），CONSECUTIVE_ERROR（连续错误数）  | 是       |\n| error_count  | uint32 | 连续错误数阈值                                                                            | 否       |\n| error_percent  | uint32 | 错误率百分比阈值                                                                        | 否       |\n| interval  | uint32 | 错误率统计时长，单位秒                                                                       | 否       |\n| minimum_request  | uint32 | 错误率统计的最小请求数起始阈值                                                        | 否       |\n\n> RecoverCondition结构参数\n\n| �数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| sleep_window   | uint32      | 熔断时长，单位秒                                     | 是       |\n| consecutiveSuccess  | uint32 | 恢复所需的连续成功数                                 | 是       |\n\n> FaultDetectConfig结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| enable   | bool      | 是否启用故障探测，默认否                                     | 否       |\n\n> FallbackConfig结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| enable   | bool      | 是否启用降级，默认否                                         | 否       |\n| response   | FallbackResponse      | 降级应答                                       | 否       |\n\n\n> FallbackResponse结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| code   | int32       | 降级返回码                                                   | 是       |\n| headers   | MessageHeader      | 降级应答的消息头                                   | 否       |\n| body   | string      | 降级应答的消息体                                             | 否       |\n\n> MessageHeader结构参数\n\n| 参数名 | 类型        | 描述                                                         | 是否必填 |\n| ------ | ----------- | ------------------------------------------------------------ | -------- |\n| key    | string       | 降级应答的消息头的Key                                       | 是       |\n| value   | string      | 降级应答的消息头的Value                                     | 是       |\n\n"
       consumes:
         - application/json
       produces:
@@ -2995,24 +3009,6 @@ paths:
 
         ~~~
 
-        | 参数名      | 类型   | 描述             | 是否必填                                                        |
-        | ----------- | ------ | ---------------- | ----------------------------------------------------------- |
-        | service     | string | 服务名称         | 是                                                            |
-        | namespace   | string | 命名空间         | 是                                                            |
-        | host        | string | 实例IP           | 是(要么（service，namespace）存在，要么host存在，不然视为参数不完整) |
-        | port        | uint   | 实例端口         | 否                                                            |
-        | keys        | string | 标签key          | 只允许填写一个key                                               |
-        | values      | string | 标签value        | 只允许填写一个value                                              |
-        | healthy     | string | 实例健康状态     | 否                                                             |
-        | isolate     | string | 实例隔离状态     | 否                                                            |
-        | protocol    | string | 实例端口协议状态 | 否                                                             |
-        | version     | string | 实例版本         | 否                                                            |
-        | cmdb_region | string | 实例region信息   | 否                                                            |
-        | cmdb_zone   | string | 实例zone信息     | 否                                                           |
-        | cmdb_idc    | string | 实例idc信息      | 否                                                          |
-        | offset      | uint   | 查询偏移量       | 否                                                        |
-        | limit       | uint   | 查询条数         | 否                                                           |
-
         应答示例：
         ~~~json
         {
@@ -3060,64 +3056,61 @@ paths:
       operationId: GetInstances
       parameters:
         - type: string
-          description: 服务名称
+          description: 'service namespace host 三个必须最少传一个,  前缀查询: name*; 后缀查询: *name; 全模糊查询: *name*'
           name: service
-          in: path
-          required: true
+          in: query
         - type: string
-          description: 命名空间
+          description: 'service namespace host 三个必须最少传一个,  前缀查询: name*; 后缀查询: *name; 全模糊查询: *name*'
           name: namespace
-          in: path
-          required: true
+          in: query
         - type: string
-          description: 实例IP
+          description: service namespace host 三个必须最少传一个
           name: host
-          in: path
-          required: true
+          in: query
         - type: string
           description: 标签key
           name: keys
-          in: path
+          in: query
         - type: string
           description: 标签value
           name: values
-          in: path
+          in: query
         - type: string
           description: 实例健康状态
           name: healthy
-          in: path
+          in: query
         - type: string
           description: 实例隔离状态
           name: isolate
-          in: path
+          in: query
         - type: string
           description: 实例端口协议状态
           name: protocol
-          in: path
+          in: query
         - type: string
           description: 实例版本
           name: version
-          in: path
+          in: query
         - type: string
           description: 实例region信息
           name: cmdb_region
-          in: path
+          in: query
         - type: string
           description: 实例zone信息
           name: cmdb_zone
-          in: path
+          in: query
         - type: string
           description: 实例idc信息
           name: cmdb_idc
-          in: path
+          in: query
         - type: integer
           description: 查询偏移量
           name: offset
-          in: path
+          in: query
         - type: integer
           description: 查询条数
           name: limit
-          in: path
+          in: query
       responses:
         '200':
           description: OK
@@ -3189,22 +3182,22 @@ paths:
 
         | 参数名              | 类型                 | 描述                                                   | 是否必填  |
         | ------------------- | ------------------ | ----------------------------------------------------- | -------- |
-        | service             | string             | 服务名                                                    | 是     |
-        | namespace           | string             | 命名空间                                                   | 是     |
-        | host                | string             | 实例的IP                                                   | 是     |
-        | port                | string             | 实例的端口                                                  | 是     |
+        | id             | string             | 实例ID        | 如果不填写，则必须填写 serivce、namespace、host、port     |
+        | service             | string             | 服务名   | 如果不填写，则必须填 ID     |
+        | namespace           | string             | 命名空间 | 如果不填写，则必须填 ID     |
+        | host                | string             | 实例的IP          | 如果不填写，则必须填 ID     |
+        | port                | string             | 实例的端口     | 如果不填写，则必须填 ID     |
         | vpc_id              | string             | VPC ID                                                    | 否     |
         | protocol            | string             | 对应端口的协议                                               | 否     |
         | version             | string             | 版本                                                       | 否     |
         | priority            | string             | 优先级                                                      | 否     |
-        | weight              | string             | 权重(默认值100)                                              | 是     |
-        | enable_health_check | bool               | 是否开启健康检查                                             | 是      |
+        | weight              | string             | 权重(默认值100)                                              | 否     |
+        | enable_health_check | bool               | 是否开启健康检查                                             | 否      |
         | health_check        | HealthCheck        | 健康检查类别具体描述信息(如果enable_health_check==true，必须填写) | 否     |
-        | healthy             | bool               | 实例健康标志(默认为健康的)                                     | 是     |
-        | isolate             | bool               | 实例隔离标志(默认为不隔离的)                                   | 是     |
-        | location            | Location           | 实例位置信息                                                 | 是     |
+        | healthy             | bool               | 实例健康标志(默认为健康的)                                     | 否     |
+        | isolate             | bool               | 实例隔离标志(默认为不隔离的)                                   | 否     |
+        | location            | Location           | 实例位置信息                                                 | 否     |
         | metadata            | map<string,string> | 实例标签信息，最多只能存储64对 *key-value*                      | 否     |
-        | service_token       | string             | service的token信息                                          | 是     |
       consumes:
         - application/json
       produces:
@@ -3950,7 +3943,7 @@ paths:
         | namespace | string | 命名空间                                                     | 否       |
         | method    | string | 限流接口名，默认为模糊匹配                                   | 否       |
         | disable   | bool   | 规则是否启用，true为不启用，false为启用                      | 否       |
-        | brief     | bool   | 是否只显示概要信息，brief=true时，则不返回规则详情，只返回规则列表概要信息，默认为false | 否       |
+        | brief     | bool   | 是否只显示概要信息，brief=true时，�不返回规则详情，只返回规则列表概要信息，默认为false | 否       |
         | offset    | int    | 分页的起始位置，默认为0                                      | 否       |
         | limit     | int    | 每页行数，默认100                                            | 否       |
 
@@ -4902,19 +4895,6 @@ paths:
         Header X-Polaris-Token: {访问凭据}
         ~~~
 
-        | 参数名     | 类型   | 描述                                                               | 是否必填 |
-        | ---------- | ------ | ------------------------------------------------------------------ | -------- |
-        | name       | string | 服务名                                                             | 否       |
-        | namespace  | string | 命名空间                                                           | 否       |
-        | business   | string | 业务，默认模糊查询                                                 | 否       |
-        | department | string | 部门                                                               | 否       |
-        | host       | string | 实例IP，**多个IP以英文逗号分隔**                                   | 否       |
-        | port       | string | **实例端口**，**多个端口以英文逗号分隔**                           | 否       |
-        | keys       | string | 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。 | 否       |
-        | values     | string | 服务元数据值，keys和values需要同时填写，目前只支持查询一组元数据。 | 否       |
-        | offset     | int    | 默认为0                                                            | 否       |
-        | limit      | int    | 默认为100，最大100                                                 | 否       |
-
         应答示例：
 
         ~~~json
@@ -4960,12 +4940,12 @@ paths:
       parameters:
         - type: string
           default: demo-service
-          description: 服务名
+          description: '服务名, 前缀查询: name*; 后缀查询: *name; 全模糊查询: *name*'
           name: name
           in: query
         - type: string
           default: default
-          description: 命名空间
+          description: '命名空间, 前缀查询: name*; 后缀查询: *name; 全模糊查询: *name*'
           name: namespace
           in: query
         - type: string
@@ -4977,23 +4957,30 @@ paths:
           name: department
           in: query
         - type: string
-          description: 实例IP，**多个IP以英文逗号分隔**
+          description: 实例IP, **多个IP以英文逗号分隔**
           name: host
           in: query
         - type: string
-          description: '**实例端口**，**多个端口以英文逗号分隔** '
+          description: '**实例端口**, **多个端口以英文逗号分隔** '
           name: port
           in: query
         - type: string
-          description: 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。
+          description: 服务元数据名, keys和values需要同时填写,目前只支持查询一组元数据。
           name: keys
           in: query
         - type: string
-          description: 服务元数据名，keys和values需要同时填写，目前只支持查询一组元数据。
+          description: 服务元数据名, keys和values需要同时填写,目前只支持查询一组元数据。
           name: values
           in: query
+        - type: string
+          description: 实例标签key, key-1,key-2, instance_keys 和  instance_values 需要同时填写且必须元素个数一致
+          name: instance_keys
+          in: query
+        - type: string
+          description: 实例标签value, value-1,value-2,  instance_keys 和 instance_values 需要同时填写且必须元素个数一致
+          name: instance_values
+          in: query
         - type: integer
-          default: 0
           description: 查询偏移量
           name: offset
           in: query
@@ -7008,7 +6995,6 @@ definitions:
         format: int64
 securityDefinitions:
   api_key:
-    description: 当开启服务端OpenAPI接口鉴权时需要设置
     type: apiKey
     name: X-Polaris-Token
     in: header
