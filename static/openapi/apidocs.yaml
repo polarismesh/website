@@ -1,18 +1,4 @@
 swagger: '2.0'
-info:
-  description: |+
-    一个支持多语言、多框架的云原生服务发现和治理中心
-
-    提供高性能SDK和无侵入Sidecar两种接入方式
-
-  title: Polaris Server
-  contact:
-    name: Polaris Mesh
-    url: https://polarismesh.cn/
-  license:
-    name: BSD 3-Clause
-    url: https://github.com/polarismesh/polaris/blob/main/LICENSE
-  version: v0.1.0
 paths:
   /config/v1/GetConfigFile:
     get:
