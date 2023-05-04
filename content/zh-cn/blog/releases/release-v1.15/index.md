@@ -26,15 +26,15 @@ linkTitle: "PolarisMesh Release v1.15"
 
 - 概览页面
 
-![](../image_1.png)
+![](image_1.png)
 
 - 服务和配置统计
 
-![](../image_3.png)
+![](image_3.png)
 
 - 服务端请求统计
 
-![](../image_3.png)
+![](image_3.png)
 
 
 ## 里程碑规划

@@ -25,12 +25,12 @@ linkTitle: "PolarisMesh Release v1.16"
 
 - 服务调用兼容概览
 
-![](../image_1.png)
+![](image_1.png)
 
 - 服务调用详细
 
-![](../image_2.png)
-![](../image_3.png)
+![](image_2.png)
+![](image_3.png)
 
 ## 里程碑规划
 
