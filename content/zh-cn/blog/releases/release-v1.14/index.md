@@ -35,19 +35,19 @@ linkTitle: "PolarisMesh Release v1.14"
 
 - 服务熔断配置
 
-![](../image_1.png)
+![](image_1.png)
 
 - 节点熔断配置
 
-![](../image_2.png)
+![](image_2.png)
 
 - 主动探测配置
 
-![](../image_3.png)
+![](image_3.png)
 
 - 服务端链接数查看
 
-![](../image_4.png)
+![](image_4.png)
 
 ## 里程碑规划
 
