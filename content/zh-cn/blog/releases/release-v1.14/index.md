@@ -5,6 +5,10 @@ title: "PolarisMesh Release v1.12"
 linkTitle: "PolarisMesh Release v1.14"
 ---
 
+## 下载地址
+
+- [Github Release v1.13.0](https://github.com/polarismesh/polaris/releases/tag/v1.14.2)
+
 ## 特性说明
 
 #### 更完善的熔断治理规则
