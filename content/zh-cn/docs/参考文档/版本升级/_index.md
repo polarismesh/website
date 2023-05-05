@@ -11,6 +11,8 @@ weight: 5
 
 | Polaris-Server Version | Polaris-Console Version |
 |:-----------------------|:------------------------|
+| v1.17.x                | v1.13.x                 |
+| v1.16.x                | v1.13.x                 |
 | v1.15.x                | v1.12.x                 |
 | v1.14.x                | v1.11.x                 |
 | v1.13.x                | v1.10.x                 |
@@ -58,7 +60,7 @@ weight: 5
 
 >  polaris-server 升级
 
-- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.13.0/polaris-server.yaml)
+- 建议将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.13.0/polaris-server.yaml)
 
 >  polaris-console 升级
 
@@ -70,7 +72,7 @@ weight: 5
 
 - 执行数据库增量脚本：[v1_12_0-v1_14_0.sql](https://github.com/polarismesh/polaris/blob/release-v1.14.0/store/mysql/scripts/delta/v1_12_0-v1_14_0.sql)
 - 执行升级工具：[circuitbreaker_rule_transform](https://github.com/polarismesh/polaris/blob/release-v1.14.0/release/upgrade/circuitbreaker_rule_transform/README.md)
-- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.14.0/release/conf/polaris-server.yaml)
+- 建议将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.14.0/release/conf/polaris-server.yaml)
 
 >  polaris-console 升级
 
@@ -80,7 +82,7 @@ weight: 5
 
 >  polaris-server 升级
 
-- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.15.0/release/conf/polaris-server.yaml)
+- 建议将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.15.0/release/conf/polaris-server.yaml)
 
 >  polaris-console 升级
 
@@ -90,7 +92,18 @@ weight: 5
 
 >  polaris-server 升级
 
-- 将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.15.0/release/conf/polaris-server.yaml)
+- 建议将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.16.0/release/conf/polaris-server.yaml)
+
+>  polaris-console 升级
+
+- 覆盖安装 polaris-console
+
+
+## 1.16.x 版本升级至 1.17.x
+
+>  polaris-server 升级
+
+- 建议将原有的 polaris-sever.yaml 更新至最新的 [polaris-server.yaml](https://github.com/polarismesh/polaris/blob/release-v1.17.0/release/conf/polaris-server.yaml)
 
 >  polaris-console 升级
 
