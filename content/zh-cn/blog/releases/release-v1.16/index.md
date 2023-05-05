@@ -7,7 +7,7 @@ linkTitle: "PolarisMesh Release v1.16"
 
 ## 下载地址
 
-- [Github Release v1.13.0](https://github.com/polarismesh/polaris/releases/tag/v1.16.4)
+- [Github Release v1.16.0](https://github.com/polarismesh/polaris/releases/tag/v1.16.4)
 
 
 ## 特性说明
