@@ -1,8 +1,7 @@
 ---
-date: 2022-09-27
-slug: "release-v1.11"
-title: "PolarisMesh Release v1.11"
-linkTitle: "PolarisMesh Release v1.11"
+title: "Release v1.11"
+linkTitle: "Release v1.11"
+weight: 8
 ---
 
 

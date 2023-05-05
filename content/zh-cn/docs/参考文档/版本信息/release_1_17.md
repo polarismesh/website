@@ -1,8 +1,7 @@
 ---
-date: 2023-05-04
-slug: "release-v1.17"
-title: "PolarisMesh Release v1.17"
-linkTitle: "PolarisMesh Release v1.17"
+title: "Release v1.17"
+linkTitle: "Release v1.17"
+weight: 2
 ---
 
 ## 下载地址
