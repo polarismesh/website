@@ -1,8 +1,7 @@
 ---
-date: 2023-02-15
-slug: "release-v1.14"
-title: "PolarisMesh Release v1.12"
-linkTitle: "PolarisMesh Release v1.14"
+title: "Release v1.14"
+linkTitle: "Release v1.14"
+weight: 5
 ---
 
 ## 下载地址
@@ -39,19 +38,19 @@ linkTitle: "PolarisMesh Release v1.14"
 
 - 服务熔断配置
 
-![](image_1.png)
+![](../images/release-v1.14/image_1.png)
 
 - 节点熔断配置
 
-![](image_2.png)
+![](../images/release-v1.14/image_2.png)
 
 - 主动探测配置
 
-![](image_3.png)
+![](../images/release-v1.14/image_3.png)
 
 - 服务端链接数查看
 
-![](image_4.png)
+![](../images/release-v1.14/image_4.png)
 
 ## 里程碑规划
 

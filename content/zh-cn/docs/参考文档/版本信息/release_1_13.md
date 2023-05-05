@@ -1,9 +1,9 @@
 ---
-date: 2022-12-02
-slug: "release-v1.13"
-title: "PolarisMesh Release v1.13"
-linkTitle: "PolarisMesh Release v1.13"
+title: "Release v1.13"
+linkTitle: "Release v1.13"
+weight: 6
 ---
+
 
 ## 下载地址
 

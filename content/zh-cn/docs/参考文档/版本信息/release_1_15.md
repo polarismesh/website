@@ -1,9 +1,9 @@
 ---
-date: 2023-03-04
-slug: "release-v1.15"
-title: "PolarisMesh Release v1.15"
-linkTitle: "PolarisMesh Release v1.15"
+title: "Release v1.15"
+linkTitle: "Release v1.15"
+weight: 4
 ---
+
 
 ## 下载地址
 
@@ -31,15 +31,15 @@ linkTitle: "PolarisMesh Release v1.15"
 
 - 概览页面
 
-![](image_1.png)
+![](../images/release-v1.15/image_1.png)
 
 - 服务和配置统计
 
-![](image_3.png)
+![](../images/release-v1.15/image_3.png)
 
 - 服务端请求统计
 
-![](image_3.png)
+![](../images/release-v1.15/image_3.png)
 
 
 ## 里程碑规划
