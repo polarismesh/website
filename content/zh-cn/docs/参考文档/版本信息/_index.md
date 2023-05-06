@@ -1,5 +1,5 @@
 ---
-title: "版本升级"
-linkTitle: "版本升级"
-weight: 5
+title: "版本信息"
+linkTitle: "版本信息"
+weight: 1
 ---
