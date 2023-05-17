@@ -55,7 +55,7 @@ dynamic_resources:
 
 {{< note >}}
 - 当前推荐 envoy 版本为 **envoyproxy/envoy-contrib:v1.21.4**
-- 必须在北极星创建 envoy gateway 的服务，其服务名为 ${node.metadata.gateway_service}, 所在命名空间为 ${node.metadata.gateway_namespace}
+- 必须在北极星创建 **envoy gateway** 的服务，其服务名为 ${node.metadata.gateway_service}, 所在命名空间为 ${node.metadata.gateway_namespace}
 {{< /note >}}
 
 
@@ -67,6 +67,11 @@ dynamic_resources:
   - 条件 1: http path 为 /api/v1/service-a
 - 路由到 service-b
   - 添加 1: http path 为 /api/v1/service-b
+
+{{< note >}}
+- Envoy Gateway 的路由规则中，请求匹配条件必须包含 **路径**，否则路由规则无法转为 Envoy Gateway 所需的 XDS 进行下发
+{{< /note >}}
+
 
 那么需要按照下列步骤准备
 
@@ -193,11 +198,11 @@ curl http://127.0.0.1:15000/config_dump
 > 请求验证
 
 ```bash
-curl http://127.0.0.1:15000/api/v1/service-a
+curl http://127.0.0.1:15001/api/v1/service-a
 
 # 期望输出：I'm service-a
 
-curl http://127.0.0.1:15000/api/v1/service-b
+curl http://127.0.0.1:15001/api/v1/service-b
 
 # 期望输出：I'm service-b
 ```
