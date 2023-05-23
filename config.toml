@@ -243,3 +243,5 @@ path = "github.com/google/docsy"
 [[module.imports]]
 disable = false
 path = "github.com/google/docsy/dependencies"
+[[module.imports]]
+path = "github.com/martignoni/hugo-notice"

@@ -7,5 +7,7 @@ github.com/google/docsy v0.2.0/go.mod h1:shlabwAQakGX6qpXU6Iv/b/SilpHRd7d+xqtZQd
 github.com/google/docsy/dependencies v0.2.0-pre.0.20220404161753-f7b37a0aca2a h1:fy6IqUmWGMdQngRa7+CP1cRkTseQK7OEsqx6r7dNuSA=
 github.com/google/docsy/dependencies v0.2.0-pre.0.20220404161753-f7b37a0aca2a/go.mod h1:oPdn05sNt61uT6K+LqNRhYq1jeqrsbbQMDXkPdPscmA=
 github.com/google/docsy/dependencies v0.2.0/go.mod h1:2zZxHF+2qvkyXhLZtsbnqMotxMukJXLaf8fAZER48oo=
+github.com/martignoni/hugo-notice v0.0.0-20230418180851-cce7afd430d4 h1:OSXyp1wbpFw+WqGmo1aiTKmMzb9+UBrY3UA7jN9UEUo=
+github.com/martignoni/hugo-notice v0.0.0-20230418180851-cce7afd430d4/go.mod h1:MIQPOMgEcbyRC0gNLzQFSgrS+wIy3RuQ/HbaZYtTOKU=
 github.com/twbs/bootstrap v4.6.1+incompatible h1:75PsBfPU1SS65ag0Z3Cq6JNXVAfUNfB0oCLHh9k9Fu8=
 github.com/twbs/bootstrap v4.6.1+incompatible/go.mod h1:fZTSrkpSf0/HkL0IIJzvVspTt1r9zuf7XlZau8kpcY0=
