@@ -1,12 +1,12 @@
 ---
-title: "Release v1.14"
-linkTitle: "Release v1.14"
+title: "Release v1.14.0"
+linkTitle: "Release v1.14.0"
 weight: 5
 ---
 
 ## 下载地址
 
-- [Github Release v1.14.0](https://github.com/polarismesh/polaris/releases/tag/v1.14.2)
+- [Github Release v1.14.2](https://github.com/polarismesh/polaris/releases/tag/v1.14.2)
 
 ## 特性说明
 
