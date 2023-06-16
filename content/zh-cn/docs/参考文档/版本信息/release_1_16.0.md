@@ -1,16 +1,15 @@
 ---
-title: "Release v1.16"
-linkTitle: "Release v1.16"
+title: "Release v1.16.0"
+linkTitle: "Release v1.16.0"
 weight: 3
 ---
 
 ## 下载地址
 
-- [Github Release v1.16.0](https://github.com/polarismesh/polaris/releases/tag/v1.16.4)
+- [Github Release v1.16.4](https://github.com/polarismesh/polaris/releases/tag/v1.16.4)
 
 
 ## 特性说明
-
 #### 更完善的服务调用监控
 
 在 polaris 1.16.0 版本前，缺乏服务调用之间的流量指标展示分析，因此服务间调用的流量情况对用户来说就是一个黑盒，同时，用户也无法判断在北极星平台配置的流量治理规则，在服务调用时是否执行，以及执行的结果是否符合预期：

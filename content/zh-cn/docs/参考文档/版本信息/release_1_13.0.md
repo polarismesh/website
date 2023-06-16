@@ -1,6 +1,6 @@
 ---
-title: "Release v1.13"
-linkTitle: "Release v1.13"
+title: "Release v1.13.0"
+linkTitle: "Release v1.13.0"
 weight: 6
 ---
 
