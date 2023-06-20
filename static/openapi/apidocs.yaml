@@ -2478,7 +2478,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/traffic_manage.RateLimit'
+              $ref: '#/definitions/traffic_manage.Rule'
       responses:
         '0':
           description: ''
@@ -2501,7 +2501,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/traffic_manage.RateLimit'
+              $ref: '#/definitions/traffic_manage.Rule'
       responses:
         '0':
           description: ''
@@ -2525,7 +2525,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/traffic_manage.RateLimit'
+              $ref: '#/definitions/traffic_manage.Rule'
       responses:
         '0':
           description: ''
@@ -2549,7 +2549,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/traffic_manage.RateLimit'
+              $ref: '#/definitions/traffic_manage.Rule'
       responses:
         '0':
           description: ''
@@ -4838,8 +4838,8 @@ definitions:
         format: string
   struct { docs.BaseResponse; ConfigFileRelease config_manage.ConfigFileRelease "json:\"configFileRelease,omitempty\"" }:
     required:
-      - code
       - info
+      - code
     properties:
       code:
         type: integer
@@ -4851,8 +4851,8 @@ definitions:
         format: string
   struct { docs.BaseResponse; Instance service_manage.Instance "json:\"instance\"" }:
     required:
-      - code
       - info
+      - code
       - instance
     properties:
       code:
@@ -5319,8 +5319,8 @@ definitions:
           $ref: '#/definitions/struct%20%7B%20docs.BatchWriteResponse;%20Responses%20%7C%7Cstruct%20%7B%20docs.BaseResponse;%20Instance%20service_manage.Instance%20%22json:%5C%22instance%5C%22%22%20%7D%20%22json:%5C%22responses%5C%22%22%20%7D.responses'
   struct { docs.BatchWriteResponse; Responses ||struct { docs.BaseResponse; Instance service_manage.Instance "json:\"instance\"" } "json:\"responses\"" }.responses:
     required:
-      - info
       - code
+      - info
       - instance
     properties:
       code:
@@ -5375,8 +5375,8 @@ definitions:
           $ref: '#/definitions/struct%20%7B%20docs.BatchWriteResponse;%20Responses%20%7C%7Cstruct%20%7B%20docs.BaseResponse;%20Service%20service_manage.Service%20%22json:%5C%22service%5C%22%22%20%7D%20%22json:%5C%22responses%5C%22%22%20%7D.responses'
   struct { docs.BatchWriteResponse; Responses ||struct { docs.BaseResponse; Service service_manage.Service "json:\"service\"" } "json:\"responses\"" }.responses:
     required:
-      - info
       - code
+      - info
       - service
     properties:
       code:
