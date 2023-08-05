@@ -1,8 +1,6 @@
 ---
 title: "Open API"
-type: swagger
 weight: 2
-description: 北极星 OpenAPI 文档
 ---
 
-{{< swaggerui src="/openapi/apidocs.yaml" >}}
+<iframe src="https://polarismesh-openapi.apifox.cn/" frameborder="0" scrolling="no" style="width: 100%; height: 1200px; overflow: hidden;"></iframe>
