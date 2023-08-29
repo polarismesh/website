@@ -8,6 +8,24 @@ weight: 1
 
 - [Github Release v1.17.3](https://github.com/polarismesh/polaris/releases/tag/v1.17.3)
 
+## 特性说明
+
+#### 配置中心支持配置回滚、撤回发布
+
+为了让用户有更好的配置中心使用体验，社区在 v1.17.3 版本中支持了配置回滚、撤回某个配置版本发布的能力。当前仅支持通过服务端 OpenAPI 进行操作，前端 UI 支持会在下一个版本中对外放出。
+
+#### 关闭服务端自注册的心跳上报
+
+修改服务端配置
+
+```yaml
+bootstrap:
+  # Register as Arctic Star Service
+  polaris_service:
+    # disable_heartbeat disable polaris_server node run heartbeat action to keep lease polaris_service
+    disable_heartbeat: true
+```
+
 ## 版本变化
 
 ### 特性
