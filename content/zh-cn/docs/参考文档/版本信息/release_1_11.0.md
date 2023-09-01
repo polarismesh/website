@@ -1,7 +1,7 @@
 ---
 title: "Release v1.11.0"
 linkTitle: "Release v1.11.0"
-weight: 8
+weight: 9
 ---
 
 

@@ -10,6 +10,12 @@ weight: 1
 
 ## 特性说明
 
+#### 支持 Mesh Sidecar 场景下的单机限流
+
+在 1.17.3 版本中，我们针对 Mesh Sidecar 的场景，支持将 Polaris 的单机限流规则 Spec 通过 Envoy XDS 的格式进行下发给 Sidecar，使得用户在 Mesh 场景下可以享受 Polaris 的限流能力
+
+- 需要搭配 [polaris-controller v1.6.0](https://github.com/polarismesh/polaris-controller/releases/tag/v1.6.0) 版本一起使用
+
 #### 配置中心支持配置回滚、撤回发布
 
 为了让用户有更好的配置中心使用体验，社区在 v1.17.3 版本中支持了配置回滚、撤回某个配置版本发布的能力。当前仅支持通过服务端 OpenAPI 进行操作，前端 UI 支持会在下一个版本中对外放出。
