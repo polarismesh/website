@@ -18,13 +18,13 @@ k8s controller包含以下组件：
 
 ### 部署包下载
 
-到`polaris-controller`的下载页面，根据您这边的kubernetes版本号（版本号小于等于1.21.x，选择k8s1.21.zip；版本号为1.22.x，选择k8s1.22.zip），下载最新版本polaris-controller安装包。
+到`polaris-controller`的下载页面，根据您这边的 kubernetes 版本号（版本号 <= 1.21.x，选择k8s1.21.zip；版本号 >= 1.22.x，选择k8s1.22.zip），下载最新版本polaris-controller安装包。
 
 - [github下载](https://github.com/polarismesh/polaris-controller/releases)
 
 ### 部署包安装
 
-安装前，需确保kubectl命令已经加入环境变量Path中，并且可以访问kubernetes的APIServer。
+安装前，需确保 kubectl 命令已经加入环境变量Path中，并且可以访问 kubernetes 的 APIServer。
 
 以```polaris-controller-release_${version}.k8s1.21.zip```为例：
 
