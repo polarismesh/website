@@ -6,7 +6,7 @@ weight: 1
 
 ## 下载地址
 
-- [Github Release v1.17.3](https://github.com/polarismesh/polaris/releases/tag/v1.17.3)
+- [Github Release v1.17.5](https://github.com/polarismesh/polaris/releases/tag/v1.17.5)
 
 ## 特性说明
 
@@ -65,7 +65,7 @@ bootstrap:
 * @qnnn made their first contribution in https://github.com/polarismesh/polaris/pull/1184
 * @WTIFS made their first contribution in https://github.com/polarismesh/polaris/pull/1188
 
-**Full Changelog**: https://github.com/polarismesh/polaris/compare/v1.17.2...v1.17.3
+**Full Changelog**: https://github.com/polarismesh/polaris/compare/v1.17.2...v1.17.5
 
 ## 参与 PolarisMesh 社区
 

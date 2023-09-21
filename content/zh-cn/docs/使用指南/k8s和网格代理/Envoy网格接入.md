@@ -172,13 +172,15 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 {{< note >}}
 - polaris-server 需要 >= 1.17.3 版本
 - polaris-controller 需要 >= 1.6.0 版本
+- 
 {{< /note >}}
 
-北极星网格支持单机限流和分布式限流，同时直接细粒度的配额的设置。
+北极星网格支持目前仅支持单机限流，同时直接细粒度的配额的设置。
 
-在envoy接入的场景中，受XDS协议的限制，当前限流粒度只能支持到header以及客户端IP这2个维度。
+在envoy接入的场景中，受XDS协议的限制，当前限流标签仅支持以下两个。
 
-实现原理：polaris-sidecar提供标准的[RLS协议](https://github.com/envoyproxy/envoy/blob/6bc1b71086a7f2df8a1d9e764823b191cc77c9f6/api/envoy/service/ratelimit/v3/rls.proto)的实现，使得envoy可以直接对接北极星的限流引擎。
+- 请求头(HEADER)
+- 请求参数(QUERY)
 
 ![](../images/envoy/分布式限流.png)
 
