@@ -1,7 +1,7 @@
 ---
 title: "Release v1.16.0"
 linkTitle: "Release v1.16.0"
-weight: 4
+weight: 5
 ---
 
 ## 下载地址

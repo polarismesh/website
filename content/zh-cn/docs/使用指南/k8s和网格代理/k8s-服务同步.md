@@ -16,30 +16,13 @@ weight: 2
 - polaris-controller 在北极星服务实例上添加 clusterName 标签，用于区分来自不同 K8s 集群的服务实例
 - 如果存在多个 K8s Service 同步到一个北极星服务的情况，每个 K8s 集群的 polaris-controller 需要配置不同的 clusterName
 
-**运行安装脚本**
-
-在安装 kubectl 的机器上运行安装脚本：
-
-```shell
-bash ./install.sh 
-```
-
-查看 polaris-controller 是否正常运行：
-
-```shell
-kubectl get pod -n polaris-system
-
-NAME                                  READY   STATUS    RESTARTS   AGE
-polaris-controller-545df9775c-48cqt   1/1     Running   0          2d9h
-```
-
 ## 注解
 
-| 注解名称                      | 注解描述                                                            |
-| ----------------------------- | ------------------------------------------------------------------- |
+| 注解名称                      | 注解描述                                                         |
+|-------------------------------|--------------------------------------------------------------|
 | polarismesh.cn/sync           | 是否同步这个服务到 polarismesh。true 同步，false 不同步，默认不同步 |
-| polarismesh.cn/aliasService   | 把 k8s service 同步到 polarismesh 时，同时创建的服务别名的名字      |
-| polarismesh.cn/aliasNamespace | 创建的别名所在的命名空间，配合 polarismesh.cn/aliasService 使用     |
+| polarismesh.cn/aliasService   | 把 k8s service 同步到 polarismesh 时，同时创建的服务别名的名字    |
+| polarismesh.cn/aliasNamespace | 创建的别名所在的命名空间，配合 polarismesh.cn/aliasService 使用   |
 
 ## 使用指南
 
