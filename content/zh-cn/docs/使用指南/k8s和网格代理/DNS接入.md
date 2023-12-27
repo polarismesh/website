@@ -1,7 +1,7 @@
 ---
 title: "DNS 接入"
 linkTitle: "DNS 接入"
-weight: 4
+weight: 5
 ---
 
 ## 技术原理
