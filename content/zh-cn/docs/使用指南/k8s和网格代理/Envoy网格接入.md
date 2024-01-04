@@ -56,6 +56,23 @@ NAME             STATUS   AGE    POLARIS-INJECTION
 bookinfo          Active   3d2h   enabled
 ```
 
+### 启用 Envoy 按需加载机制
+
+{{< note >}}
+需北极星服务端版本 >= 1.18.0
+{{</ note >}}
+
+在 POD 中添加以下 annonations **sidecar.polarismesh.cn/openOnDemand: true** 即可启用 Envoy 的按需加载
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: annotations-demo
+  annotations:
+    sidecar.polarismesh.cn/openOnDemand: "true"
+```
+
 ### 部署样例
 
 - 下载样例部署文件：[bookinfo](https://github.com/polarismesh/examples/blob/main/servicemesh/bookinfo/bookinfo.yaml)
