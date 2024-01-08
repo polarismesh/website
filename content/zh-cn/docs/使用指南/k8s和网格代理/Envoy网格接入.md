@@ -59,7 +59,8 @@ bookinfo          Active   3d2h   enabled
 ### 启用 Envoy 按需加载机制
 
 {{< note >}}
-需北极星服务端版本 >= 1.18.0
+- polaris-server 需要 >= 1.18.0-beta 版本
+- polaris-controller 需要 >= 1.7.0-beta 版本
 {{</ note >}}
 
 在 POD 中添加以下 annonations **sidecar.polarismesh.cn/openOnDemand: true** 即可启用 Envoy 的按需加载
@@ -131,9 +132,9 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 路由规则的标签填写格式要求：
 
-- 对于Path：标签KEY需要填写$path
-- 对于Header：标签KEY需要带上前缀$header，如$header.end-user
-- 对于Query：标签KEY需要带上前缀$query，如$query.end-user
+- 对于Path：标签KEY需要填写 **$path**
+- 对于Header：标签KEY需要带上前缀 **$header**，如 **$header.end-user**
+- 对于Query：标签KEY需要带上前缀 **$query**，如 **$query.end-user**
 
 3. 验证路由是否生效
 
@@ -144,15 +145,10 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 {{< note >}}
 - polaris-server 需要 >= 1.17.3 版本
 - polaris-controller 需要 >= 1.6.0 版本
-- 
+- 在envoy接入的场景中，受XDS协议的限制，当前限流标签仅支持以下两个。
+  - 请求头(HEADER)
+  - 请求参数(QUERY)
 {{< /note >}}
-
-北极星网格支持目前仅支持单机限流，同时直接细粒度的配额的设置。
-
-在envoy接入的场景中，受XDS协议的限制，当前限流标签仅支持以下两个。
-
-- 请求头(HEADER)
-- 请求参数(QUERY)
 
 ![](../images/envoy/分布式限流.png)
 

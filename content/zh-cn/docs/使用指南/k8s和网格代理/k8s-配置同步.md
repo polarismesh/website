@@ -4,9 +4,7 @@ linkTitle: "K8s 配置同步（Beta）"
 weight: 3
 ---
 
-{{< notice tip >}} 
-- 该文章仅适用于北极星服务端版本 >= 1.18.0
-{{< /notice >}} 
+{{< notice tip >}} 该文章仅适用于北极星服务端版本 >= 1.18.0 {{< /notice >}} 
 
 支持两种 K8s ConfigMap 同步模式：
 
