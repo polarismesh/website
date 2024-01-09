@@ -10,7 +10,7 @@ weight: 4
 
 - 服务数据同步：`polaris-controller` 安装在用户的Kubernetes集群中，可以同步集群上的 Namespace，Service，Endpoints 等资源到 `polaris` 中，同时 `polaris-controller` 提供了 `Envoy Sidecar` 注入器功能，可以轻松地将 `Envoy Sidecar` 注入到您的 Kubernetes Pod 中，Envoy Sidecar 会自动去 Polaris 同步服务信息。
 
-- 规则数据下发：```polaris```控制面通过XDS v3标准协议与envoy进行交互，支持官方开源的envoy直接接入，当前支持的envoy版本为1.18
+- 规则数据下发：```polaris```控制面通过XDS v3标准协议与 envoy 进行交互，支持官方开源的 envoy 直接接入，当前支持的 envoy 版本为 1.26.2
 
 ## 环境准备
 
@@ -82,9 +82,9 @@ metadata:
 
 - 查看容器注入是否注入成功
 
-启动自动注入后，`polaris-controller` 会将 `Envoy Sidecar` 容器注入到在此命名空间下创建的 pod 中。
+启动自动注入后，`polaris-controller` 会将 `Envoy Sidecar`、`Polaris Sidecar` 容器注入到在此命名空间下创建的 pod 中。
 
-可以看到运行起来的 pod 均包含两个容器，其中第一个容器是用户的业务容器，第二个容器是由 Polaris Controller 注入器注入的 Envoy Sidecar 容器。您可以通过下面的命令来获取有关 pod 的更多信息：
+可以看到运行起来的 pod 均包含三个容器，其中第一个容器是用户的业务容器，另外两个容器是由 Polaris Controller 注入器注入的 Envoy Sidecar 容器和 Polaris Sidecar 容器。您可以通过下面的命令来获取有关 pod 的更多信息：
 
 ```
 kubectl describe pods -l app=productpage --namespace=bookinfo
