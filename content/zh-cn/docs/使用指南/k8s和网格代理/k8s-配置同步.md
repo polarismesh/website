@@ -4,7 +4,7 @@ linkTitle: "K8s 配置同步（Beta）"
 weight: 3
 ---
 
-{{< notice tip >}} 该文章仅适用于北极星服务端版本 >= 1.18.0 {{< /notice >}} 
+{{< notice tip >}} 该文章仅适用于北极星服务端版本 >= 1.18.0, polaris-controller 版本 >= 1.7.0 {{< /notice >}} 
 
 支持两种 K8s ConfigMap 同步模式：
 
@@ -19,11 +19,31 @@ weight: 3
 
 ## 使用指南
 
+### controller 配置解析
+
+```yaml
+configSync:
+  # 是否开启配置同步
+  enable: true
+  # 北极星服务端地址
+  serverAddress: #POLARIS_HOST#
+  # 北极星开启鉴权时需要配置
+  accessToken: #POLARIS_TOKEN#
+  # 是否开启删除操作，即允许删除 ConfigMap 或者北极星上的配置文件
+  allowDelete: false
+  # 配置同步方向: kubernetesToPolaris|polarisToKubernetes|both
+  # kubernetesToPolaris: 只能将 ConfigMap 同步到北极星中
+  # polarisToKubernetes: 只能将北极星配置文件中带有 internal-sync-to-kubernetes: true 标签的配置文件同步到 ConfigMap
+  # both: 上述两种同时开启
+  syncDirection: both
+  defaultGroup: "#CLUSTER_NAME#"
+```
+
 ### 全量同步服务
 
 以全量同步配置的模式启动 polaris-controller，将 K8s ConfigMap 全部同步到北极星，则 polaris-controller 的启动配置如下：
 
-> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/kubernetes/configmap.yaml)
 
 ```yaml
 apiVersion: v1
@@ -40,7 +60,7 @@ data:
 
 以按需同步配置的模式启动 polaris-controller，默认不会将 K8s ConfigMap 同步到北极星，则 polaris-controller 的启动配置如下：
 
-> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/kubernetes/configmap.yaml)
 
 ```yaml
 apiVersion: v1

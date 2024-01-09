@@ -93,7 +93,9 @@ global:
 
 开发中...
 
-> 
+#### 配置中心和 Kubernetes ConfigMap 无缝打通
+
+当前通过 polaris-controller 组件将 Kubernetes 上的 Service 信息同步至北极星中，用户便可以针对 Kubernetes 上的 POD 进行相应的服务治理。但是对于 ConfigMap 这一配置资源的管理却还是只能停留在 Kubernetes；假如北极星能够接管用户的 ConfigMap 管理，用户只需要在北极星控制台上进行配置文件创建、发布即可将配置同步到 ConfigMap 中那么用户还能够享受到配置审计、发布历史、配置回滚等增强功能。因此在 1.18.0-beta 版本中我们支持了北极星和 Kubernetes ConfigMap 资源的数据打通能力，用户只需要部署 polaris-controller 1.7.0-beta 版本即可，相关使用文档参考 [K8s 配置同步](/docs/使用指南/k8s和网格代理/k8s-配置同步/)
 
 ## 版本变化
 

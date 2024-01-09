@@ -30,7 +30,7 @@ weight: 2
 
 以全量同步服务的模式启动 polaris-controller，将 K8s Service 全部同步到北极星，则 polaris-controller 的启动配置如下：
 
-> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/kubernetes/configmap.yaml)
 
 ```yaml
 apiVersion: v1
@@ -49,7 +49,7 @@ data:
 
 以按需同步服务的模式启动 polaris-controller，默认不会将 K8s Service 同步到北极星，则 polaris-controller 的启动配置如下：
 
-> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/configmap.yaml)
+> polaris-controller 启动配置文件：[configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/kubernetes/configmap.yaml)
 
 ```yaml
 apiVersion: v1
