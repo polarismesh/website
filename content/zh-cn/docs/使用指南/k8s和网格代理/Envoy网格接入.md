@@ -10,7 +10,7 @@ weight: 4
 
 - 服务数据同步：`polaris-controller` 安装在用户的Kubernetes集群中，可以同步集群上的 Namespace，Service，Endpoints 等资源到 `polaris` 中，同时 `polaris-controller` 提供了 `Envoy Sidecar` 注入器功能，可以轻松地将 `Envoy Sidecar` 注入到您的 Kubernetes Pod 中，Envoy Sidecar 会自动去 Polaris 同步服务信息。
 
-- 规则数据下发：```polaris```控制面通过XDS v3标准协议与envoy进行交互，支持官方开源的envoy直接接入，当前支持的envoy版本为1.18
+- 规则数据下发：```polaris```控制面通过XDS v3标准协议与 envoy 进行交互，支持官方开源的 envoy 直接接入，当前支持的 envoy 版本为 1.26.2
 
 ## 环境准备
 
@@ -82,9 +82,9 @@ metadata:
 
 - 查看容器注入是否注入成功
 
-启动自动注入后，`polaris-controller` 会将 `Envoy Sidecar` 容器注入到在此命名空间下创建的 pod 中。
+启动自动注入后，`polaris-controller` 会将 `Envoy Sidecar`、`Polaris Sidecar` 容器注入到在此命名空间下创建的 pod 中。
 
-可以看到运行起来的 pod 均包含两个容器，其中第一个容器是用户的业务容器，第二个容器是由 Polaris Controller 注入器注入的 Envoy Sidecar 容器。您可以通过下面的命令来获取有关 pod 的更多信息：
+可以看到运行起来的 pod 均包含三个容器，其中第一个容器是用户的业务容器，另外两个容器是由 Polaris Controller 注入器注入的 Envoy Sidecar 容器和 Polaris Sidecar 容器。您可以通过下面的命令来获取有关 pod 的更多信息：
 
 ```
 kubectl describe pods -l app=productpage --namespace=bookinfo
@@ -152,7 +152,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 ![](../images/envoy/分布式限流.png)
 
-1. 使用场景: demo项目中，为details服务设置流量限制，对于jason用户的请求，设置访问的频率为5/m，其余请求不做限制。
+1. 使用场景: demo项目中，为 detail 服务设置流量限制，对于jason用户的请求，设置访问的频率为5/m，其余请求不做限制。
 
 2. 设置限流规则: 指定请求中 header 包含字段 end-user=jason 的请求，设置限流规则为5/m，限流类型为分布式限流。
 
@@ -162,7 +162,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
     详细的限流规则匹配及使用指南可参考：[访问限流](/docs/使用指南/控制台使用/服务网格/访问限流/)
     {{< /note >}}
 
-3. 验证限流是否生效: 未登陆时，多次刷新界面，不会出现错误。以jason用户身份登陆，一分钟刷新超过5次，details界面出现限流的错误信息。
+3. 验证限流是否生效: 未登陆时，多次刷新界面，不会出现错误。以jason用户身份登陆，一分钟刷新超过5次，detail 界面出现限流的错误信息。
 
 
 ## mTLS
@@ -203,12 +203,12 @@ mTLS版bookinfo在配置文件中使用`polarismesh.cn/tls-mode`的`label`为不
 由于`Reviews V3`服务使用了None模式，它将向`Ratings`服务发起纯文本请求，而`Ratings`服务使用了Strict模式，仅接受mTLS服务调用，因此`Reviews V3`到`Ratings`之间的服务调用总会失败。  
 因此，使用浏览器访问部署好的`ProductPage`，无论怎么刷新都无法看到红色的星星评级。
 
-2. mTLS验证
-使用Wireshark抓包验证mTLS启用,如下图：
+2. mTLS 验证
+使用 Wireshark 抓包验证 mTLS 启用,如下图：
 
 ![](../images/envoy/wireshark.png)
 
-可以看到Server向Client提供证书后，要求Client提供自身证书，验证通过后方可开始加密数据通信。
+可以看到 Server 向 Client 提供证书后，要求 Client 提供自身证书，验证通过后方可开始加密数据通信。
 
 
 ## 相关链接
