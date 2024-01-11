@@ -152,7 +152,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
 
 ![](../images/envoy/分布式限流.png)
 
-1. 使用场景: demo项目中，为details服务设置流量限制，对于jason用户的请求，设置访问的频率为5/m，其余请求不做限制。
+1. 使用场景: demo项目中，为 detail 服务设置流量限制，对于jason用户的请求，设置访问的频率为5/m，其余请求不做限制。
 
 2. 设置限流规则: 指定请求中 header 包含字段 end-user=jason 的请求，设置限流规则为5/m，限流类型为分布式限流。
 
@@ -162,7 +162,7 @@ demo 项目中，productpage 会访问 reviews 服务，reviews 服务共有三�
     详细的限流规则匹配及使用指南可参考：[访问限流](/docs/使用指南/控制台使用/服务网格/访问限流/)
     {{< /note >}}
 
-3. 验证限流是否生效: 未登陆时，多次刷新界面，不会出现错误。以jason用户身份登陆，一分钟刷新超过5次，details界面出现限流的错误信息。
+3. 验证限流是否生效: 未登陆时，多次刷新界面，不会出现错误。以jason用户身份登陆，一分钟刷新超过5次，detail 界面出现限流的错误信息。
 
 
 ## mTLS
@@ -203,12 +203,12 @@ mTLS版bookinfo在配置文件中使用`polarismesh.cn/tls-mode`的`label`为不
 由于`Reviews V3`服务使用了None模式，它将向`Ratings`服务发起纯文本请求，而`Ratings`服务使用了Strict模式，仅接受mTLS服务调用，因此`Reviews V3`到`Ratings`之间的服务调用总会失败。  
 因此，使用浏览器访问部署好的`ProductPage`，无论怎么刷新都无法看到红色的星星评级。
 
-2. mTLS验证
-使用Wireshark抓包验证mTLS启用,如下图：
+2. mTLS 验证
+使用 Wireshark 抓包验证 mTLS 启用,如下图：
 
 ![](../images/envoy/wireshark.png)
 
-可以看到Server向Client提供证书后，要求Client提供自身证书，验证通过后方可开始加密数据通信。
+可以看到 Server 向 Client 提供证书后，要求 Client 提供自身证书，验证通过后方可开始加密数据通信。
 
 
 ## 相关链接
