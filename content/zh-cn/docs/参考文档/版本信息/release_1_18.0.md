@@ -1,19 +1,19 @@
 ---
-title: "Pre-Release v1.18.0-beta"
-linkTitle: "Pre-Release v1.18.0-beta"
+title: "Pre-Release v1.18.0"
+linkTitle: "Pre-Release v1.18.0"
 weight: 1
 ---
 
 
 ## 下载地址
 
-- [Github Release v1.18.0-beta](https://github.com/polarismesh/polaris/releases/tag/v1.18.0-beta)
+- [Github Release v1.18.0](https://github.com/polarismesh/polaris/releases/tag/v1.18.0)
 
 ## 特性说明
 
 #### Nacos客户端协议全功能版本兼容
 
-在 1.18.0-beta 版本中，社区正式将 **apiserver-nacos** 插件纳入官方默认插件，并完善了 **nacos1.x**/**nacos2.x** 的客户端功能特性兼容。用户无需替换自己的 **nacos-client** 依赖，只需更换接入地址即可接入北极星的注册发现以及配置管理。
+在 1.18.0 版本中，社区正式将 **apiserver-nacos** 插件纳入官方默认插件，并完善了 **nacos1.x**/**nacos2.x** 的客户端功能特性兼容。用户无需替换自己的 **nacos-client** 依赖，只需更换接入地址即可接入北极星的注册发现以及配置管理。
 
 - nacos1.x
   - 注册发现
@@ -57,24 +57,24 @@ Sidecar Mesh 场景下，每个 Sidecar 进程都会收到 xDS Server 推送下�
 
 ![](../images/release-v1.18/envoy-sideacr-xds-memory.png)
 
-为了解决上述问题。社区在 1.18.0-beta 版本中实现了 Envoy xDS 中的 [OCDS 能力](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/on_demand_updates_filter)。默认只推送全量的 VHDS 到 Sidecar 中，Cluster/Endpoint 资源根据实际请求进行按需加载。
+为了解决上述问题。社区在 1.18.0 版本中实现了 Envoy xDS 中的 [OCDS 能力](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/on_demand_updates_filter)。默认只推送全量的 VHDS 到 Sidecar 中，Cluster/Endpoint 资源根据实际请求进行按需加载。
 
 同时我们也优化了服务端关于 xDS 规则生成的内存占用，不再使用 envoy go-control-plane 中的 SnapshotCache 实现，而是选择了 LinearCache，根据每类 xDS 资源的生成特点进行存放在不同的 LinearCache 中，尽可能将公共的 xDS 资源只生成一份，其余的需要按照 mtls、odcds 场景的规则则各自存在对应的 LinearCache 中。
 
-- 需要搭配 [polaris-controller v1.7.0-beta](https://github.com/polarismesh/polaris-controller/releases/tag/v1.7.0-beta) 版本一起使用
+- 需要搭配 [polaris-controller v1.7.0](https://github.com/polarismesh/polaris-controller/releases/tag/v1.7.0) 版本一起使用
 - 由于当前 Envoy 的按需加载能力，当 On-Demand VHDS 和 On-Demand Cluster 同时启用时存在 BUG，因此目前仅实现了 On-Demand Cluster 的能力，待和 Envoy 社区推进解决该 BUG 后用户可享受真正的 Envoy 按需加载能力，[社区 issue](https://github.com/envoyproxy/envoy/issues/24726)
 
 #### 支持 Mesh Sidecar 场景下的分布式限流
 
-在 1.18.0-beta 版本中，我们针对 Mesh Sidecar 的场景，支持将 Polaris 的分布式限流通过由 Polaris-Sidecar 组件实现的 RLS 提供给 Envoy 的限流 Filter，使得用户在 Mesh 场景下可以享受 Polaris 的分布式限流能力
+在 1.18.0 版本中，我们针对 Mesh Sidecar 的场景，支持将 Polaris 的分布式限流通过由 Polaris-Sidecar 组件实现的 RLS 提供给 Envoy 的限流 Filter，使得用户在 Mesh 场景下可以享受 Polaris 的分布式限流能力
 
 ![](../images/release-v1.18/envoy_rls.png)
 
-- 需要搭配 [polaris-controller v1.7.0-beta](https://github.com/polarismesh/polaris-controller/releases/tag/v1.7.0-beta) 版本一起使用
+- 需要搭配 [polaris-controller v1.7.0](https://github.com/polarismesh/polaris-controller/releases/tag/v1.7.0) 版本一起使用
 
 #### 配置中心支持灰度发布
 
-为了让用户有更好的配置中心使用体验，社区在 v1.18.0-beta 版本中支持配置灰度能力，当前灰度能力支持用户自定义客户端标签进行灰度控制下发；针对存量老版本客户端仅支持根据客户端IP进行灰度控制台下发。
+为了让用户有更好的配置中心使用体验，社区在 v1.18.0 版本中支持配置灰度能力，当前灰度能力支持用户自定义客户端标签进行灰度控制下发；针对存量老版本客户端仅支持根据客户端IP进行灰度控制台下发。
 
 ![](../images/release-v1.18/config_beta_publish_op_2.png)
 
@@ -96,7 +96,7 @@ global:
 
 #### 配置中心和 Kubernetes ConfigMap 无缝打通
 
-当前通过 polaris-controller 组件将 Kubernetes 上的 Service 信息同步至北极星中，用户便可以针对 Kubernetes 上的 POD 进行相应的服务治理。但是对于 ConfigMap 这一配置资源的管理却还是只能停留在 Kubernetes；假如北极星能够接管用户的 ConfigMap 管理，用户只需要在北极星控制台上进行配置文件创建、发布即可将配置同步到 ConfigMap 中那么用户还能够享受到配置审计、发布历史、配置回滚等增强功能。因此在 1.18.0-beta 版本中我们支持了北极星和 Kubernetes ConfigMap 资源的数据打通能力，用户只需要部署 polaris-controller 1.7.0-beta 版本即可，相关使用文档参考 [K8s 配置同步](/docs/使用指南/k8s和网格代理/k8s-配置同步/)
+当前通过 polaris-controller 组件将 Kubernetes 上的 Service 信息同步至北极星中，用户便可以针对 Kubernetes 上的 POD 进行相应的服务治理。但是对于 ConfigMap 这一配置资源的管理却还是只能停留在 Kubernetes；假如北极星能够接管用户的 ConfigMap 管理，用户只需要在北极星控制台上进行配置文件创建、发布即可将配置同步到 ConfigMap 中那么用户还能够享受到配置审计、发布历史、配置回滚等增强功能。因此在 1.18.0 版本中我们支持了北极星和 Kubernetes ConfigMap 资源的数据打通能力，用户只需要部署 polaris-controller 1.7.0 版本即可，相关使用文档参考 [K8s 配置同步](/docs/使用指南/k8s和网格代理/k8s-配置同步/)
 
 ## 版本变化
 
@@ -157,7 +157,7 @@ global:
 * @Lin-1997 made their first contribution in https://github.com/polarismesh/polaris/pull/1291
 * @njy17 made their first contribution in https://github.com/polarismesh/polaris/pull/1301
 
-**Full Changelog**: https://github.com/polarismesh/polaris/compare/v1.17.8...v1.18.0-alpha
+**Full Changelog**: https://github.com/polarismesh/polaris/compare/v1.17.8...v1.18.0
 
 ## 参与 PolarisMesh 社区
 
