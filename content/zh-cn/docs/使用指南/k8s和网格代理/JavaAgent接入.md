@@ -18,7 +18,18 @@ weight: 6
 - polaris-controller: 完成 polaris-javaagent 容器的注入以及在业务 POD 中无侵入的开启 Java Agent 的能力。
 - polaris-javaagent-init: 负责将 polaris-javaagent 物料下载到业务 Container 中，同时初始化 Java Agent 所需要的配置信息。
 
-## 环境准备
+## 注入Javaagent所依赖的注解信息
+
+| 注解名称                                   | 注解描述                                                       |
+|-------------------------------------------|--------------------------------------------------------------|
+| polarismesh.cn/javaagentVersion           | 需要注入的Javaagent版本号，对应是polaris-java-agent的release版本号 |
+| polarismesh.cn/javaagentFrameworkName     | 应用所使用的服务框架的名称，比如spring-cloud                       |
+| polarismesh.cn/javaagentFrameworkVersion  | 应用所使用的服务框架的版本，一般写的是大版本，比如hoxton, 2020, 2021  |
+| polarismesh.cn/javaagentConfig            | 用户自定义的JavaAgent配置，不填写的配置则使用默认配置，格式为JSON     |
+
+java-agent的configmap默认配置文件可以参考：[javaagent-configmap.yaml](https://github.com/polarismesh/polaris-controller/blob/main/deploy/kubernetes_v1.22/kubernetes/javaagent-configmap.yaml)
+
+## 环境准备  
 
 ### 部署polaris
 
@@ -97,6 +108,10 @@ kubectl describe pod {目标业务POD名称} -n {javaagent}
 ### 查看服务是否注册到北极星
 
 > 通过日志确定
+
+在应用启动日志中，可以搜索"[Bootstrap] javaagent inject successfully"，出现该日志证明agent注入初始化成功。
+
+然后在启动日志中，搜索"[BootStrap] plugin 插件ID has been loading"，代表插件已经加载完毕。
 
 
 > 查看北极星控制台确认
