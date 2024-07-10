@@ -9,5 +9,7 @@ github.com/google/docsy/dependencies v0.2.0-pre.0.20220404161753-f7b37a0aca2a/go
 github.com/google/docsy/dependencies v0.2.0/go.mod h1:2zZxHF+2qvkyXhLZtsbnqMotxMukJXLaf8fAZER48oo=
 github.com/martignoni/hugo-notice v0.0.0-20230418180851-cce7afd430d4 h1:OSXyp1wbpFw+WqGmo1aiTKmMzb9+UBrY3UA7jN9UEUo=
 github.com/martignoni/hugo-notice v0.0.0-20230418180851-cce7afd430d4/go.mod h1:MIQPOMgEcbyRC0gNLzQFSgrS+wIy3RuQ/HbaZYtTOKU=
+github.com/martignoni/hugo-notice v0.0.0-20240317181534-be025da2580d h1:YmphoiBKQ7svpO338vXw8NH+Qg20Yu4JsmeHV9f2E5s=
+github.com/martignoni/hugo-notice v0.0.0-20240317181534-be025da2580d/go.mod h1:MIQPOMgEcbyRC0gNLzQFSgrS+wIy3RuQ/HbaZYtTOKU=
 github.com/twbs/bootstrap v4.6.1+incompatible h1:75PsBfPU1SS65ag0Z3Cq6JNXVAfUNfB0oCLHh9k9Fu8=
 github.com/twbs/bootstrap v4.6.1+incompatible/go.mod h1:fZTSrkpSf0/HkL0IIJzvVspTt1r9zuf7XlZau8kpcY0=
