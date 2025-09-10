@@ -3,8 +3,9 @@ title: "Envoy 网格接入"
 linkTitle: "Envoy 网格接入"
 weight: 4
 ---
+> 注意：当前此接入方案处于实验阶段，请勿在生产环境使用
 
-在 `Polaris` 的服务网格方案中，`Polaris` 是您的控制平面，`Envoy Sidecar` 代理是您的数据平面。
+在 `Polaris` 的服务网格方案中，`Polaris` 是您的控制平面，`Envoy Sidecar` 代理是您的数据平面。当前
 
 ![](../images/envoy/架构图.png)
 
